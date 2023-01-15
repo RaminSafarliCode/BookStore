@@ -16,5 +16,41 @@ namespace BookStore.Domain.Models.DataContexts
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<BookStoreUser>(e =>
+            {
+                e.ToTable("Users", "Membership");
+            });
+            builder.Entity<BookStoreRole>(e =>
+            {
+                e.ToTable("Roles", "Membership");
+            });
+            builder.Entity<BookStoreUserRole>(e =>
+            {
+                e.ToTable("UserRoles", "Membership");
+
+            });
+            builder.Entity<BookStoreUserClaim>(e =>
+            {
+                e.ToTable("UserClaims", "Membership");
+            });
+            builder.Entity<BookStoreRoleClaim>(e =>
+            {
+                e.ToTable("RoleClaims", "Membership");
+
+            });
+            builder.Entity<BookStoreUserLogin>(e =>
+            {
+                e.ToTable("UserLogins", "Membership");
+            });
+            builder.Entity<BookStoreUserToken>(e =>
+            {
+                e.ToTable("UserTokens", "Membership");
+            });
+        }
     }
 }

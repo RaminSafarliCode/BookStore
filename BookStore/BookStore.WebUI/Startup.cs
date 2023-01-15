@@ -1,9 +1,13 @@
+using BookStore.Application.AppCode.Services;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities.Membership;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +29,14 @@ namespace BookStore.WebUI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(cfg =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+
+                cfg.Filters.Add(new AuthorizeFilter(policy));
+            });
 
             services.AddDbContext<BookStoreDbContext>(cfg =>
             {
@@ -46,6 +57,8 @@ namespace BookStore.WebUI
                 cfg.Password.RequiredUniqueChars = 1;
                 cfg.Password.RequiredLength = 3;
 
+                cfg.User.RequireUniqueEmail = true;
+
                 cfg.Lockout.MaxFailedAccessAttempts = 3;
                 cfg.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 1, 0);
             });
@@ -53,12 +66,30 @@ namespace BookStore.WebUI
             services.ConfigureApplicationCookie(cfg =>
             {
                 cfg.LoginPath = "/signin.html";
-                cfg.AccessDeniedPath = "/accesdenied.html";
+                cfg.AccessDeniedPath = "/accessdenied.html";
 
-                cfg.Cookie.Name = "myresume";
+                cfg.Cookie.Name = "bookstore";
                 cfg.Cookie.HttpOnly = true;
                 cfg.ExpireTimeSpan = new TimeSpan(0, 15, 0);
             });
+
+            services.AddAuthentication();
+            services.AddAuthorization();
+
+            services.AddScoped<UserManager<BookStoreUser>>();
+            services.AddScoped<SignInManager<BookStoreUser>>();
+
+            services.Configure<EmailServiceOptions>(cfg =>
+            {
+                configuration.GetSection("emailAccount").Bind(cfg);
+            });
+
+            services.AddRouting(cfg =>
+            {
+                cfg.LowercaseUrls = true;
+            });
+
+            services.AddSingleton<EmailService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -67,12 +98,12 @@ namespace BookStore.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                // W A R N I N G
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+            //else
+            //{
+            //    // W A R N I N G
+            //    app.UseExceptionHandler("/Home/Error");
+            //    app.UseHsts();
+            //}
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -83,6 +114,47 @@ namespace BookStore.WebUI
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "default-signin",
+                    pattern: "signin.html",
+                    defaults: new
+                    {
+                        area="",
+                        controller="account",
+                        action="signin"
+
+                    });
+
+                endpoints.MapControllerRoute(
+                    name: "default-register",
+                    pattern: "register.html",
+                    defaults: new
+                    {
+                        area = "",
+                        controller = "account",
+                        action = "register"
+                    });
+
+                endpoints.MapControllerRoute(
+                    name: "default-register-confirm",
+                    pattern: "registration-confirm.html",
+                    defaults: new
+                    {
+                        area = "",
+                        controller = "account",
+                        action = "RegisterConfirm"
+                    });
+
+                endpoints.MapControllerRoute(
+                    name: "default-accessdenied",
+                    pattern: "accessdenied.html",
+                    defaults: new
+                    {
+                        area = "",
+                        controller = "account",
+                        action = "accessdenied"
+                    });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

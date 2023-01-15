@@ -1,0 +1,66 @@
+﻿@model LoginFormModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in</title>
+    <link rel="stylesheet" href="~/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/transitions.css" />
+    <link rel="stylesheet" href="~/assets/css/main.css" />
+    <link rel="stylesheet" href="~/assets/css/color.css" />
+    <script src="https://kit.fontawesome.com/d2b183de45.js"
+            crossorigin="anonymous"></script>
+    <script src="~/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+<body>
+    <div class="login">
+        <div class="login-container">
+            <div class="form-wrapper">
+                <form method="post" class="form validate-form">
+                    <span class="form-title"> Welcome </span>
+
+                    @if (!string.IsNullOrWhiteSpace(ViewBag.Message))
+                    {
+                        <div class="form-input">
+                            <div class="alert alert-danger">
+                                @ViewBag.Message
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-input">
+                        <label for="UserName">Username or Email</label>
+                        <input asp-for="UserName" class="user-input" />
+                    </div>
+                    <div class="form-input">
+                        <label for="Password">Password</label>
+                        <input asp-for="Password"
+                               class="user-input"
+                               type="password" />
+                    </div>
+                    <div class="form-btn">
+                        <button type="submit" class="tg-btn btn">Sign in</button>
+                    </div>
+                    <ul class="login-more">
+                        <li>
+                            <span> Forgot </span>
+                            <a href="#"> Username / Password? </a>
+                        </li>
+                        <li>
+                            <span> Don’t have an account? </span>
+                            <a asp-action="register"> Sign up </a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
