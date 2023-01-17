@@ -1,6 +1,8 @@
 using BookStore.Application.AppCode.Services;
+using BookStore.Domain.AppCode.Providers;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities.Membership;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -74,10 +76,22 @@ namespace BookStore.WebUI
             });
 
             services.AddAuthentication();
-            services.AddAuthorization();
+            services.AddAuthorization(cfg =>
+            {
+                cfg.AddPolicy("admin.dashboard.index", p =>
+                {
+                    p.RequireAssertion(handler =>
+                    {
+                        return handler.User.HasClaim("admin.dashboard.index", "1");
+                    });
+                });
+            });
 
             services.AddScoped<UserManager<BookStoreUser>>();
             services.AddScoped<SignInManager<BookStoreUser>>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IClaimsTransformation, AppClaimProvider>();
 
             services.Configure<EmailServiceOptions>(cfg =>
             {
@@ -119,9 +133,9 @@ namespace BookStore.WebUI
                     pattern: "signin.html",
                     defaults: new
                     {
-                        area="",
-                        controller="account",
-                        action="signin"
+                        area = "",
+                        controller = "account",
+                        action = "signin"
 
                     });
 
@@ -146,6 +160,26 @@ namespace BookStore.WebUI
                     });
 
                 endpoints.MapControllerRoute(
+                    name: "default-profile",
+                    pattern: "profile.html",
+                    defaults: new
+                    {
+                        area = "",
+                        controller = "account",
+                        action = "profile"
+                    });
+
+                endpoints.MapControllerRoute(
+                    name: "default-logout",
+                    pattern: "logout.html",
+                    defaults: new
+                    {
+                        area = "",
+                        controller = "account",
+                        action = "logout"
+                    });
+
+                endpoints.MapControllerRoute(
                     name: "default-accessdenied",
                     pattern: "accessdenied.html",
                     defaults: new
@@ -154,6 +188,8 @@ namespace BookStore.WebUI
                         controller = "account",
                         action = "accessdenied"
                     });
+
+                endpoints.MapAreaControllerRoute("defaultAdmin", "admin", "admin/{controller=dashboard}/{action=index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

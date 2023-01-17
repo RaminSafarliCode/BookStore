@@ -26,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="wwwroot\assets\admin\" />
     <Folder Include="wwwroot\libs\" />
   </ItemGroup>
 

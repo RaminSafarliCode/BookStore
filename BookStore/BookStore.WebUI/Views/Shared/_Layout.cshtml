@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/assets/css/main.css" />
     <link rel="stylesheet" href="~/assets/css/color.css" />
     <link rel="stylesheet" href="~/assets/css/responsive.css" />
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.css" />
     <script src="https://kit.fontawesome.com/d2b183de45.js"
             crossorigin="anonymous"></script>
     <script src="~/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -79,28 +80,44 @@
                                 </ul>
                             </div>
                             <div class="tg-userlogin">
-                                <!-- <figure>
-                                  <a href="javascript:void(0);"
-                                    ><img
-                                      src="images/users/img-01.jpg"
-                                      alt="image description"
-                                  /></a>
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <ul class="tg-addnav">
+                                        <li>
+                                            <a asp-controller="account" asp-action="profile">
+                                                <i class="fas fa-thin fa-user"></i>
+                                                <em>@User.GetPrincipalName()</em>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                else
+                                {
+
+                                    <ul class="tg-addnav">
+                                        <li>
+                                            <a asp-controller="account" asp-action="signin">
+                                                <i class="fa-light fa-arrow-right-to-bracket"></i>
+                                                <em>Login</em>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="account" asp-action="register">
+                                                <i class="fas fa-thin fa-registered"></i>
+                                                <em>Register</em>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                }
+                                @*<figure>
+                                <a href="javascript:void(0);"
+                                ><img
+                                src="~/assets/images/users/img-01.jpg"
+                                alt="image description"
+                                /></a>
                                 </figure>
-                                <span>Hi, Melonie</span> -->
-                                <ul class="tg-addnav">
-                                    <li>
-                                        <a asp-controller="account" asp-action="signin">
-                                            <i class="fas fa-thin fa-right-to-bracket"></i>
-                                            <em>Login</em>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="account" asp-action="register">
-                                            <i class="fas fa-thin fa-registered"></i>
-                                            <em>Register</em>
-                                        </a>
-                                    </li>
-                                </ul>
+                                <span>Hi, Melonie</span>*@
                             </div>
                         </div>
                     </div>
@@ -111,7 +128,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <strong class="tg-logo">
-                                <a href="index.html">
+                                <a asp-controller="home" asp-action="index">
                                     <!-- <img src="~/assets/images/logo.png" alt="Book Store" />  -->
                                     <span>Book Store</span>
                                 </a>
@@ -151,7 +168,7 @@
                                         <div class="tg-minicartbody">
                                             <div class="tg-minicarproduct">
                                                 <figure>
-                                                    <img src="~/assets/images/products/img-01.jpg"
+                                                    <img src="~/assets/images/books/img-01.jpg"
                                                          alt="image description" />
                                                 </figure>
                                                 <div class="tg-minicarproductdata">
@@ -163,7 +180,7 @@
                                             </div>
                                             <div class="tg-minicarproduct">
                                                 <figure>
-                                                    <img src="~/assets/images/products/img-02.jpg"
+                                                    <img src="~/assets/images/books/img-02.jpg"
                                                          alt="image description" />
                                                 </figure>
                                                 <div class="tg-minicarproductdata">
@@ -175,7 +192,7 @@
                                             </div>
                                             <div class="tg-minicarproduct">
                                                 <figure>
-                                                    <img src="~/assets/images/products/img-03.jpg"
+                                                    <img src="~/assets/images/books/img-03.jpg"
                                                          alt="image description" />
                                                 </figure>
                                                 <div class="tg-minicarproductdata">
@@ -1307,7 +1324,9 @@
         <!--************************************
                   Header End
           *************************************-->
-        @RenderBody()
+        <main id="tg-main" class="tg-main tg-haslayout">
+            @RenderBody()
+        </main>
         <!--************************************
                   Footer Start
           *************************************-->

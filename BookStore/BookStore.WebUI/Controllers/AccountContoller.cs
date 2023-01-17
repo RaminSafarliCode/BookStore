@@ -152,5 +152,18 @@ namespace BookStore.WebUI.Controllers
         end:
             return RedirectToAction(nameof(Signin));
         }
+
+        [Route("/profile.html")]
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
+        [Route("/logout.html")]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Signin", "Account");
+        }
     }
 }

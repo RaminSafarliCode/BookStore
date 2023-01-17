@@ -98,6 +98,10 @@ iframe {
 button {
   border: none;
 }
+.tg-addnav .fas,
+tg-addnav .fa {
+  font-weight: normal !important;
+}
 textarea,
 select,
 .tg-select select,
@@ -900,7 +904,9 @@ body.tg-comingsoonpage .tg-wrapper {
 }
 .tg-addnav li a {
   color: #666;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .tg-addnav li a i,
 .tg-addnav li a em {
@@ -4748,6 +4754,52 @@ body.tg-comingsoonpage .tg-footerbar {
   position: static;
 }
 
+/* =============================================
+			My Account	
+============================================= */
+
+.border-right {
+  border-right: 1px solid #eae8e4 !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.tab-wrapper .nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+@media (min-width: 992px) {
+  .space-lg-2,
+  .space-bottom-lg-2 {
+    padding-bottom: 4rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .pl-lg-9,
+  .px-lg-9 {
+    padding-left: 4rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .pt-lg-8,
+  .py-lg-8 {
+    padding-top: 3.5rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .mb-lg-4,
+  .my-lg-4 {
+    margin-bottom: 1.5rem !important;
+  }
+}
 /* =============================================
 			Login Style					
 ============================================= */
