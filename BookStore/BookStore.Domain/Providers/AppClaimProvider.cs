@@ -55,28 +55,28 @@ namespace BookStore.Domain.AppCode.Providers
 
                 #region Reload claims for current user
 
-                //var currentClaims = currentIdentity.Claims.Where(c => Extension.policies.Contains(c.Type))
-                //    .ToArray();
+                var currentClaims = currentIdentity.Claims.Where(c => Extension.policies.Contains(c.Type))
+                    .ToArray();
 
-                //foreach (var claim in currentClaims)
-                //{
-                //    currentIdentity.RemoveClaim(claim);
-                //}
+                foreach (var claim in currentClaims)
+                {
+                    currentIdentity.RemoveClaim(claim);
+                }
 
-                //var currentPolicies = await (from uc in db.UserClaims
-                //                             where uc.UserId == userId && uc.ClaimValue == "1"
-                //                             select uc.ClaimType)
-                // .Union(from rc in db.RoleClaims
-                //        join ur in db.UserRoles on rc.RoleId equals ur.RoleId
-                //        where ur.UserId == userId && rc.ClaimValue == "1"
-                //        select rc.ClaimType)
-                // .ToListAsync();
+                var currentPolicies = await (from uc in db.UserClaims
+                                             where uc.UserId == userId && uc.ClaimValue == "1"
+                                             select uc.ClaimType)
+                 .Union(from rc in db.RoleClaims
+                        join ur in db.UserRoles on rc.RoleId equals ur.RoleId
+                        where ur.UserId == userId && rc.ClaimValue == "1"
+                        select rc.ClaimType)
+                 .ToListAsync();
 
 
-                //foreach (var policy in currentPolicies)
-                //{
-                //    currentIdentity.AddClaim(new Claim(policy, "1"));
-                //}
+                foreach (var policy in currentPolicies)
+                {
+                    currentIdentity.AddClaim(new Claim(policy, "1"));
+                }
 
                 #endregion
             }

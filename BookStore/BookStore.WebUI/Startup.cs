@@ -1,3 +1,4 @@
+using BookStore.Application.AppCode.Extenstions;
 using BookStore.Application.AppCode.Services;
 using BookStore.Domain.AppCode.Providers;
 using BookStore.Domain.Models.DataContexts;
@@ -78,13 +79,17 @@ namespace BookStore.WebUI
             services.AddAuthentication();
             services.AddAuthorization(cfg =>
             {
-                cfg.AddPolicy("admin.dashboard.index", p =>
+                foreach (var policyName in Extension.policies)
                 {
-                    p.RequireAssertion(handler =>
+                    cfg.AddPolicy(policyName, p =>
                     {
-                        return handler.User.HasClaim("admin.dashboard.index", "1");
+                        p.RequireAssertion(handler =>
+                        {
+                            return handler.User.IsInRole("SuperAdmin")
+                            || handler.User.HasClaim(policyName, "1");
+                        });
                     });
-                });
+                }
             });
 
             services.AddScoped<UserManager<BookStoreUser>>();
@@ -118,6 +123,9 @@ namespace BookStore.WebUI
             //    app.UseExceptionHandler("/Home/Error");
             //    app.UseHsts();
             //}
+
+            app.SeedMembership();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

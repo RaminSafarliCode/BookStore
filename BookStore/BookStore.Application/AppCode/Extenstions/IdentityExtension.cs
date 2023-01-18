@@ -11,6 +11,7 @@ namespace BookStore.Application.AppCode.Extenstions
 {
     public static partial class Extension
     {
+        public static string[] policies = null;
         public static string GetPrincipalName(this ClaimsPrincipal principal)
         {
             string name = principal.Claims.FirstOrDefault(c => c.Type.Equals("name"))?.Value;
@@ -26,11 +27,8 @@ namespace BookStore.Application.AppCode.Extenstions
 
         public static bool HasAccess(this ClaimsPrincipal principal, string policyName)
         {
-            if (principal.IsInRole("sa"))
-            {
-                return true;
-            }
-            return principal.Claims.Any(c => c.Type.Equals(policyName) && c.Value.Equals("1"));
+            return principal.IsInRole("SuperAdmin")
+            || principal.HasClaim(c => c.Type.Equals(policyName) && c.Value.Equals("1"));
         }
 
         public static int GetCurrentUserId(this ClaimsIdentity identity)
