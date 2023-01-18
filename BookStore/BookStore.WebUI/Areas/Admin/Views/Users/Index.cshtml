@@ -67,12 +67,12 @@
                                 EmailConfirmed
                             </th>
                             <th class="operations">
-                                @if (User.HasAccess("admin.users.create"))
+                                @*@if (User.HasAccess("admin.users.create"))
                                 {
                                     <a asp-action="Create" class="btn btn-sm btn-primary">
                                         <i class="fa fa-plus"></i>
                                     </a>
-                                }
+                                }*@
                             </th>
                         </tr>
                     </thead>
@@ -103,12 +103,12 @@
                                     }
                                 </td>
                                 <td class="operations">
-                                    @if (User.HasAccess("admin.users.edit"))
+                                    @*@if (User.HasAccess("admin.users.edit"))
                                     {
                                         <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                    }
+                                    }*@
                                     @if (User.HasAccess("admin.users.details"))
                                     {
                                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">

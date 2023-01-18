@@ -113,6 +113,19 @@
                     <span class="pcoded-mtext">Contact with Admin</span>
                 </a>
             </li>
+
+            @if (User.HasAccess("admin.users.index"))
+            {
+                <li>
+                    <a asp-controller="users" asp-action="index">
+                        <span class="pcoded-micon">
+                            @*<i class="feather icon-mail"></i>*@
+                            <i class="fa-solid fa-users"></i>
+                        </span>
+                        <span class="pcoded-mtext">Users</span>
+                    </a>
+                </li>
+            }
         </ul>
     </div>
 </nav>

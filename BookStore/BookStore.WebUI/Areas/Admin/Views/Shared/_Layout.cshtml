@@ -29,6 +29,10 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="~/assets/admin/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/assets/admin/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="~/libs/tab-control/tab-control.css">
+    <link rel="stylesheet" type="text/css" href="~/libs/toastr.js/toastr.css">
+
+
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/12b93b4558.js" crossorigin="anonymous"></script>
 
@@ -127,7 +131,7 @@
                                             <div class="media">
                                                 <img class="d-flex align-self-center img-radius"
                                                      src="~/assets/admin/images/avatar-4.jpg"
-                                                     alt="Generic placeholder image">   
+                                                     alt="Generic placeholder image">
                                                 <div class="media-body">
                                                     <h5 class="notification-user">John Doe</h5>
                                                     <p class="notification-msg">
@@ -347,7 +351,7 @@
             <!-- Sidebar inner chat end-->
             <div class="pcoded-main-container">
                 <div class="pcoded-wrapper">
-                    <partial name="_sidebar"/>
+                    <partial name="_sidebar" />
                     <div class="pcoded-content">
                         <div class="pcoded-inner-content">
                             <div class="main-body">
@@ -431,9 +435,47 @@
     <script src="~/assets/admin/js/vartical-layout.min.js"></script>
     <script type="text/javascript" src="~/assets/admin/js/script.min.js"></script>
 
+
+
+
+    <script type="text/javascript" src="~/libs/tab-control/tab-control.js"></script>
+
+    <!-- toastr js -->
+    <script type="text/javascript" src="~/libs/toastr.js/toastr.min.js"></script>
+    <script type="text/javascript" src="~/libs/toastr.js/toastr.customize.js"></script>
+
+    <script>
+        $.ajaxSetup({
+            statusCode: {
+                200: function(response) {
+                    if (response.error == false && response.length > 0) {
+                        toastr.success(response.message, 'Successful operation!');
+                    }
+                },
+                400: function(response) {
+                    toastr.error('Bad request!', "Error!");
+                },
+                401: function(response) {
+                    toastr.warning('You must log in before this operation!', "Warning!");
+                },
+                403: function(response) {
+                    toastr.warning('You are not authorized for this operation!', "Warning!");
+                },
+                404: function(response) {
+                    toastr.warning("Data was not found!", "Warning!");
+                },
+                500: function(response) {
+                    toastr.error('Server error has occured!', "Error!");
+                }
+            }
+        });
+    </script>
+
+
+
     @RenderSection("addjs", required:false)
     <script class="removeable">
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('.removeable').remove();
         });
     </script>
