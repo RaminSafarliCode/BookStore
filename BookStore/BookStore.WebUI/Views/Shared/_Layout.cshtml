@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="~/assets/css/main.css" />
     <link rel="stylesheet" href="~/assets/css/color.css" />
     <link rel="stylesheet" href="~/assets/css/responsive.css" />
-    <link rel="stylesheet" href="~/assets/css/jquery-ui.css" />
+
+    @RenderSection("addcss",required:false)
     <script src="https://kit.fontawesome.com/d2b183de45.js"
             crossorigin="anonymous"></script>
     <script src="~/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
@@ -1312,7 +1313,7 @@
                                                 <li><a href="newsdetail.html">News Detail</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="contactus.html">Contact</a></li>
+                                        <li><a asp-action="contact">Contact</a></li>
                                     </ul>
                                 </div>
                             </nav>
@@ -1590,5 +1591,7 @@
     <script src="~/assets/js/appear.js"></script>
     <script src="~/assets/js/gmap3.js"></script>
     <script src="~/assets/js/main.js"></script>
+
+    @RenderSection("addjs",required:false)
 </body>
 </html>

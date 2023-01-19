@@ -2,7 +2,7 @@
 
 namespace BookStore.Domain.Migrations
 {
-    public partial class MembershipTableCustomization : Migration
+    public partial class MembershipTableCustomizationWithETC : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

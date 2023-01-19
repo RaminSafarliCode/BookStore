@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStore.Domain.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20230115160120_MembershipTableCustomization")]
-    partial class MembershipTableCustomization
+    [Migration("20230119092541_MembershipTableCustomizationWithETC")]
+    partial class MembershipTableCustomizationWithETC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

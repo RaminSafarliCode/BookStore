@@ -4,14 +4,16 @@ using BookStore.Domain.Models.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Domain.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119134659_ContactPosts")]
+    partial class ContactPosts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace BookStore.Domain.Migrations
                     b.Property<int?>("AnswerByUserId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("AnswerDate")
+                    b.Property<DateTime>("AnswerDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Comment")

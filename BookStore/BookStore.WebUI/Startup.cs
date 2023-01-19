@@ -3,6 +3,7 @@ using BookStore.Application.AppCode.Services;
 using BookStore.Domain.AppCode.Providers;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities.Membership;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -109,6 +110,10 @@ namespace BookStore.WebUI
             });
 
             services.AddSingleton<EmailService>();
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("BookStore."))
+                .ToArray();
+            services.AddValidatorsFromAssemblies(assemblies);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

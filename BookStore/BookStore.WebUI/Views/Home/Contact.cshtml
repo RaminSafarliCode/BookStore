@@ -1,0 +1,228 @@
+﻿@model ContactPost
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<!--************************************
+                Inner Banner Start
+        *************************************-->
+<div class="tg-innerbanner tg-haslayout tg-parallax tg-bginnerbanner"
+     data-z-index="-100"
+     data-appear-top-offset="600"
+     data-parallax="scroll"
+     data-image-src="images/parallax/bgparallax-07.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-innerbannercontent">
+                    <h1>Contact Us</h1>
+                    <ol class="tg-breadcrumb">
+                        <li><a asp-action="index">home</a></li>
+                        <li class="tg-active">Contact Us</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+        Inner Banner End
+*************************************-->
+<!--************************************
+            Contact Us Start
+    *************************************-->
+<div class="tg-sectionspace tg-haslayout">
+    <div class="container">
+        <div class="row">
+            <div class="tg-contactus">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="tg-sectionhead">
+                        <h2><span>Say Hello!</span>Get In Touch With Us</h2>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div id="tg-locationmap" class="tg-locationmap tg-map"></div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <form method="post" id="contact-form" class="tg-formtheme tg-formcontactus" novalidate>
+                        <fieldset>
+                            <div class="form-group">
+                                <input asp-for="FirstName"
+                                       class="form-control"
+                                       placeholder="First Name*" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="LastName"
+                                       class="form-control"
+                                       placeholder="Last Name*" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Email"
+                                       class="form-control"
+                                       placeholder="Email*" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Subject"
+                                       class="form-control"
+                                       placeholder="Subject (optional)" />
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                            <div class="form-group tg-hastextarea">
+                                <textarea asp-for="Comment" placeholder="Comment"></textarea>
+                                <span asp-validation-for="Comment" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="tg-btn tg-active">
+                                    Submit
+                                </button>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="tg-contactdetail">
+                        <div class="tg-sectionhead">
+                            <h2>Get In Touch With Us</h2>
+                        </div>
+                        <ul class="tg-contactinfo">
+                            <li>
+                                <i class="icon-apartment"></i>
+                                <address>
+                                    Suit # 07, Rose world Building, Street # 02, AT246T
+                                    Manchester
+                                </address>
+                            </li>
+                            <li>
+                                <i class="icon-phone-handset"></i>
+                                <span>
+                                    <em>0800 12345 - 678 - 89</em>
+                                    <em>+4 1234 - 4567 - 67</em>
+                                </span>
+                            </li>
+                            <li>
+                                <i class="icon-clock"></i>
+                                <span>Serving 7 Days A Week From 9am - 5pm</span>
+                            </li>
+                            <li>
+                                <i class="icon-envelope"></i>
+                                <span>
+                                    <em>
+                                        <a href="mailto:support@domain.com">support@domain.com</a>
+                                    </em>
+                                    <em>
+                                        <a href="mailto:info@domain.com">info@domain.com</a>
+                                    </em>
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="tg-socialicons">
+                            <li class="tg-facebook">
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="tg-twitter">
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="tg-linkedin">
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                            </li>
+                            <li class="tg-googleplus">
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </li>
+                            <li class="tg-rss">
+                                <a href="javascript:void(0);">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************
+            Contact Us End
+    *************************************-->
+
+@section addcss{
+    <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+    <style>
+        input[name].novalidated,
+        textarea[name].novalidated {
+            border: 1px solid rgb(220,53,69)
+        }
+    </style>
+}
+
+@section addjs{
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.customize.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#contact-form').submit(function(ev) {
+                ev.preventDefault();
+
+                let fd = new FormData(ev.currentTarget); // form =>> formData
+
+                $.ajax({
+                    url: '@Url.Action("Contact")',
+                    type: 'POST',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#contact-form span.text-danger').remove();
+                        $('#contact-form input[name],#contact-form textarea[name]').removeClass('novalidated');
+                        console.log(response, 'SUCCESS');
+
+
+                        if (response.error == true) {
+                            toastr.error(response.message, 'Error');
+
+                            showErrors(response.state);
+                            return;
+                        }
+
+
+                        toastr.success(response.message, 'Successful operation!');
+                        ev.currentTarget.reset();
+                    },
+                    error: function(errorResponse) {
+                        console.log(errorResponse, 'ERROR');
+                    }
+                });
+            });
+
+
+        });
+
+        function showErrors(state) {
+
+            let form = $('#contact-form');
+
+            state.forEach(item => {
+
+                let errorInput = $(`#contact-form input[name=${item.fieldName}],#contact-form textarea[name=${item.fieldName}]`);
+                let errorSpan = $('<span/>', {
+                    class: 'text-danger',
+                    html: item.message
+                });
+
+                $(errorInput.parent()).append(errorSpan);
+                $(errorInput).addClass('novalidated');
+            });
+
+        }
+    </script>
+}
