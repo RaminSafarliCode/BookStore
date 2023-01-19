@@ -235,5 +235,32 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
                 }
             }
         }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "admin.users.remove")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var brand = await db.Users.FindAsync(id);
+
+            if (brand == null)
+            {
+                return Json(new
+                {
+                    error = true,
+                    message = "The user was not found!"
+                });
+            }
+
+            db.Users.Remove(brand);
+            await db.SaveChangesAsync();
+
+
+            return Json(new
+            {
+                error = false,
+                message = "The user was deleted!"
+            });
+        }
     }
 }

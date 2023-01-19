@@ -43,7 +43,7 @@ namespace BookStore.WebUI
             });
 
             services.AddDbContext<BookStoreDbContext>(cfg =>
-            {
+                {
                 cfg.UseSqlServer(configuration.GetConnectionString("cString"));
             })
             .AddIdentity<BookStoreUser, BookStoreRole>()

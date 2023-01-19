@@ -1,0 +1,162 @@
+﻿@model ContactPost
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>A message from user</h4>
+                    <span>
+                        Message from @Model.FirstName @Model.LastName
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Dashboard" asp-action="index">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-action="index">Messages from users</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span>Details</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body">
+    <div class="card">
+        <div class="card-block">
+            <h4 class="sub-title">Details</h4>
+            <div>
+                <div class="form-group row">
+                    <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.FirstName
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.LastName
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Email
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Subject" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Subject
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Comment" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Comment
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12 d-flex justify-content-end">
+                        @*@if (User.HasAccess("admin.users.edit"))
+                        {
+                        <a asp-action="Edit" class="btn btn-warning mr-2" asp-route-id="@Model.Id">Edit</a>
+                        }*@
+                        <a asp-action="Index" class="btn btn-info">Back</a>
+                    </div>
+                </div>
+                <form class="reply-con" id="reply-contact" method="post">
+                    <h3 class="reply">Reply</h3>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Subject</label>
+                        <div class="col-sm-10">
+                            <input name="Subject" type="text" placeholder="Enter your Subject" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Body</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Id" hidden />
+                            <input asp-for="Email" hidden />
+                            <textarea asp-for="Answer" class="form-control" id="editor"></textarea>
+                            <span asp-validation-for="Answer" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-2">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button class="btn btn-primary mr-2">Send</button>
+                            <a asp-action="index" class="btn btn-info">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section addjs{
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#reply-contact').submit(function(e) {
+                e.preventDefault();
+
+                let formData = new FormData(e.currentTarget);
+
+                $.ajax({
+                    url: '@Url.Action("Reply", "ContactPosts")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.error == true) {
+                            toastr.error(response.message, "Unsuccess!");
+                        } else {
+                            toastr.success(response.message, "Success!");
+                        }
+                        e.currentTarget.reset();
+                    },
+                    error: function(response) {
+                        toastr.error(response.message, "Unsuccess!")
+                    }
+                })
+            })
+        })
+    </script>
+}
+
+

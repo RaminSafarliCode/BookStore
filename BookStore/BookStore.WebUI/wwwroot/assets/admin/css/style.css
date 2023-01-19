@@ -26257,3 +26257,7 @@ td.table-row-select {
   color: white;
   margin: 0 !important;
 }
+
+.form-group .form-control {
+  height: 100%;
+}

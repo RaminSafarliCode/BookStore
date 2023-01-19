@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookStoreUser>
+﻿@model IEnumerable<ContactPost>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,9 +8,9 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Users</h4>
+                    <h4>Messages from users</h4>
                     <span>
-                        Users on your system
+                        The requests that were sended by users
                     </span>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <span>Users</span>
+                        <span>Messages from users</span>
                     </li>
                 </ul>
             </div>
@@ -40,19 +40,19 @@
                     <thead>
                         <tr>
                             <th>
-                                Name
+                                FirstName
                             </th>
                             <th>
-                                Surname
-                            </th>
-                            <th>
-                                Username
+                                LastName
                             </th>
                             <th>
                                 Email
                             </th>
                             <th>
-                                EmailConfirmed
+                                Subject
+                            </th>
+                            <th>
+                                Answered
                             </th>
                             <th class="operations">
                                 @*@if (User.HasAccess("admin.users.create"))
@@ -69,19 +69,19 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    @Html.DisplayFor(modelItem => item.FirstName)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Surname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
+                                    @Html.DisplayFor(modelItem => item.LastName)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Email)
                                 </td>
                                 <td>
-                                    @if (item.EmailConfirmed)
+                                    @Html.DisplayFor(modelItem => item.Subject)
+                                </td>
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(item.Answer))
                                     {
                                         <span class="badge badge-success">Confirmed!</span>
                                     }
@@ -97,15 +97,15 @@
                                 <i class="fa fa-pencil"></i>
                                 </a>
                                 }*@
-                                    @if (User.HasAccess("admin.users.details"))
+                                    @if (User.HasAccess("admin.contactposts.details"))
                                     {
                                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     }
-                                    @if (User.HasAccess("admin.users.remove"))
+                                    @if (User.HasAccess("admin.contactposts.remove"))
                                     {
-                                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id,'@item.Name')">
+                                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id,'@item.FirstName')">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     }
@@ -120,45 +120,4 @@
     @Html.AntiForgeryToken()
 </div>
 
-@section addjs{
-    <script class="removeable">
-        function removeEntity(id, name) {
-            swal(`Əminsiniz ki '${name}' silinsin?`, {
-                title: "Diqqət!",
-                text: `Əminsiniz ki '${name}' silinsin?`,
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                buttons: ["Xeyr", "Bəli"],
-            })
-                .then((value) => {
 
-                    if (value == true) {
-                        let vToken = $('[name=__RequestVerificationToken]').val();
-                        let formData = new FormData();
-                        formData.set('__RequestVerificationToken', vToken);
-                        formData.set('id', id);
-
-                        $.ajax({
-                            url: `@Url.Action("Delete")`,
-                            type: 'POST',
-                            data: formData,
-                            contentType: false,
-                            processData: false,
-                            success: function(response) {
-                                console.log(response);
-                                if (response.error == true) {
-                                    toastr.error(response.message, 'Xeta');
-                                    return;
-                                }
-                                location.reload();
-                            },
-                            error: function(errorResponse) {
-                                console.error(errorResponse);
-                            }
-                        });
-                    }
-                });
-        }
-    </script>
-}
