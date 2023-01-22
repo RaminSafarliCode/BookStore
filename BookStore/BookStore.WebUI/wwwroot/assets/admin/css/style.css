@@ -26261,3 +26261,17 @@ td.table-row-select {
 .form-group .form-control {
   height: 100%;
 }
+
+.contact-answer {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.contact-answer .show-answer {
+  visibility: visible;
+  opacity: 1;
+}
+
+.operations {
+  text-align: end;
+}

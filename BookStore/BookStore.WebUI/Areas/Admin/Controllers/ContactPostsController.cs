@@ -46,7 +46,7 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
         [HttpPost]
         [Authorize("admin.contactposts.reply")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Reply(int id, [FromForm][Bind("Answer, Email")] ContactPost model,[FromForm] Test emailSubject)
+        public async Task<IActionResult> Reply(int id, [FromForm][Bind("Answer, Email, EmailSubject")] ContactPost model)
         {
             var entity = await db.ContactPosts.FirstOrDefaultAsync(bp => bp.Id == id && bp.AnswerDate == null);
 
@@ -55,7 +55,7 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             entity.AnswerByUserId = User.GetCurrentUserId();
             await db.SaveChangesAsync();
 
-            await emailService.SendMailAsync(model.Email, emailSubject.ToString(), model.Answer);
+            await emailService.SendMailAsync(model.Email, model.EmailSubject, model.Answer);
 
             return Json(new
             {

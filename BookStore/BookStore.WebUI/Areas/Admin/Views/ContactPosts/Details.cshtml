@@ -83,38 +83,67 @@
 
                 <div class="form-group row">
                     <div class="col-12 d-flex justify-content-end">
-                        @*@if (User.HasAccess("admin.users.edit"))
-                        {
-                        <a asp-action="Edit" class="btn btn-warning mr-2" asp-route-id="@Model.Id">Edit</a>
-                        }*@
+                        <a class="btn btn-warning mr-2 contact-answer-button" asp-route-id="@Model.Id">Answer</a>
                         <a asp-action="Index" class="btn btn-info">Back</a>
                     </div>
                 </div>
-                <form class="reply-con" id="reply-contact" method="post">
-                    <h3 class="reply">Reply</h3>
+            </div>
+        </div>
+        <div class="card-block contact-answer">
+            <h4 class="sub-title">
+                Reply
+                @if (@Model.AnswerDate != null)
+                {
+                    <span>(Already answered)</span>
+                }
+            </h4>
+            @if (@Model.AnswerDate != null)
+            {
+                <div>
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label">Subject</label>
                         <div class="col-sm-10">
-                            <input name="Subject" type="text" placeholder="Enter your Subject" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Body</label>
-                        <div class="col-sm-10">
-                            <input asp-for="Id" hidden />
-                            <input asp-for="Email" hidden />
-                            <textarea asp-for="Answer" class="form-control" id="editor"></textarea>
-                            <span asp-validation-for="Answer" class="text-danger"></span>
+                            <div class="form-control">
+                                @Html.Raw(Model.Answer)
+                            </div>  
                         </div>
                     </div>
                     <div class="form-group row mt-2">
                         <div class="col-12 d-flex justify-content-end">
-                            <button class="btn btn-primary mr-2">Send</button>
+                            <button class="btn btn-warning mr-2 contact-hide-button">Hide</button>
                             <a asp-action="index" class="btn btn-info">Cancel</a>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <form class="reply-con" id="reply-contact" method="post">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Subject</label>
+                            <div class="col-sm-10">
+                                <input asp-for="EmailSubject" type="text" placeholder="Enter your Subject" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Body</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Id" hidden />
+                                <input asp-for="Email" hidden />
+                                <textarea asp-for="Answer" class="form-control" id="editor"></textarea>
+                                <span asp-validation-for="Answer" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-2">
+                            <div class="col-12 d-flex justify-content-end">
+                                <button class="btn btn-primary mr-2">Send</button>
+                                <a asp-action="index" class="btn btn-info">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -131,6 +160,9 @@
 
     <script>
         $(document).ready(function() {
+
+            $('.contact-answer').hide();
+
             $('#reply-contact').submit(function(e) {
                 e.preventDefault();
 
@@ -155,8 +187,18 @@
                     }
                 })
             })
+
+            $('.contact-answer-button').click(function(e) {
+                e.preventDefault();
+                $('.contact-answer').toggle();
+            })
+
+            $('.contact-hide-button').click(function(e){
+                e.preventDefault();
+                $('.contact-answer').hide();
+            })
         })
     </script>
-}
+    }
 
 

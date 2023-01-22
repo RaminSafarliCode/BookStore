@@ -1,6 +1,7 @@
 ﻿using BookStore.Application.AppCode.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,9 @@ namespace BookStore.Domain.Models.Entities
         public string Answer { get; set; }
         public DateTime? AnswerDate { get; set; }
         public int? AnswerByUserId { get; set; }
+
+        [NotMapped]
+        public string EmailSubject { get; set; }
 
     }
 }

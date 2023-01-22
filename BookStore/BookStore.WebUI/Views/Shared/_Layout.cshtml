@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/assets/css/main.css" />
     <link rel="stylesheet" href="~/assets/css/color.css" />
     <link rel="stylesheet" href="~/assets/css/responsive.css" />
-
+    <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
     @RenderSection("addcss",required:false)
     <script src="https://kit.fontawesome.com/d2b183de45.js"
             crossorigin="anonymous"></script>
@@ -1314,6 +1314,7 @@
                                             </ul>
                                         </li>
                                         <li><a asp-action="contact">Contact</a></li>
+                                        <li><a asp-action="faq">FAQ</a></li>
                                     </ul>
                                 </div>
                             </nav>
@@ -1531,29 +1532,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tg-newsletter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <h4>Signup Newsletter!</h4>
-                            <h5>
-                                Consectetur adipisicing elit sed do eiusmod tempor incididunt.
-                            </h5>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <form class="tg-formtheme tg-formnewsletter">
-                                <fieldset>
-                                    <input type="email"
-                                           name="email"
-                                           class="form-control"
-                                           placeholder="Enter Your Email ID" />
-                                    <button type="button"><i class="icon-envelope"></i></button>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <partial name="_Newsletter" />
             <div class="tg-footerbar">
                 <a id="tg-btnbacktotop"
                    class="tg-btnbacktotop"
@@ -1591,7 +1570,41 @@
     <script src="~/assets/js/appear.js"></script>
     <script src="~/assets/js/gmap3.js"></script>
     <script src="~/assets/js/main.js"></script>
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.customize.js"></script>
 
     @RenderSection("addjs",required:false)
+
+    <script>
+        $(document).ready(function() {
+
+            $('#newsletter-subscribe').submit(function(ev) {
+                ev.preventDefault();
+
+                let fd = new FormData(ev.currentTarget);
+
+                $.ajax({
+                    url: '@Url.Action("Subscribe","Home")',
+                    type: 'post',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.error == true) {
+                            toastr.error(response.message, 'Problem!');
+                            return;
+                        }
+
+                        toastr.success(response.message, 'Success!');
+                        ev.currentTarget.reset();
+                    },
+                    error: function(errorResponse) {
+                        console.log(errorResponse, 'Error');
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>

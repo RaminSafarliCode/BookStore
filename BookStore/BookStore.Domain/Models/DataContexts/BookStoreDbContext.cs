@@ -19,6 +19,8 @@ namespace BookStore.Domain.Models.DataContexts
         }
 
         public DbSet<ContactPost> ContactPosts { get; set; } 
+        public DbSet<Faq> Faqs { get; set; } 
+        public DbSet<Subscribe> Subscribes { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

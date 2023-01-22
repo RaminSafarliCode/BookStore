@@ -99,17 +99,23 @@ namespace BookStore.WebUI
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IClaimsTransformation, AppClaimProvider>();
 
-            services.Configure<EmailServiceOptions>(cfg =>
-            {
-                configuration.GetSection("emailAccount").Bind(cfg);
-            });
 
             services.AddRouting(cfg =>
             {
                 cfg.LowercaseUrls = true;
             });
 
+            services.Configure<EmailServiceOptions>(cfg =>
+            {
+                configuration.GetSection("emailAccount").Bind(cfg);
+            });
             services.AddSingleton<EmailService>();
+
+            services.Configure<CryptoServiceOptions>(cfg =>
+            {
+                configuration.GetSection("cryptograpy").Bind(cfg);
+            });
+            services.AddSingleton<CryptoService>();
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("BookStore."))
                 .ToArray();
