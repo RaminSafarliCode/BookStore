@@ -4925,3 +4925,7 @@ body.tg-comingsoonpage .tg-footerbar {
   transform: translateY(-50%);
   left: 0;
 }
+
+.confirm-subs {
+  color: #09b83e;
+}

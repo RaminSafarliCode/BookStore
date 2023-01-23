@@ -121,10 +121,9 @@ namespace BookStore.WebUI.Controllers
 
 
 
-                string message = $"Abuneliyinizi <a href='{Request.Scheme}://{Request.Host}/approve-subscribe?token={token}'>link</a> " +
-                    "vasitesile tesdiq edin.";
+                string message = $"Confirm your subscription via the link: <a href='{Request.Scheme}://{Request.Host}/approve-subscribe?token={token}'>link</a> ";
 
-                await emailService.SendMailAsync(model.Email, "Subscribe Approve ticket", message);
+                await emailService.SendMailAsync(model.Email, "Subscription Confirmation Email  ", message);
 
                 return Json(new
                 {
@@ -137,14 +136,14 @@ namespace BookStore.WebUI.Controllers
                 return Json(new
                 {
                     error = true,
-                    message = "An email have to be written!"
+                    message = "An email field have to be filled!"
                 });
             }
         }
 
         [Route("/approve-subscribe")]
         [AllowAnonymous]
-        public string SubscribeApprove(string token)
+        public async Task<IActionResult> SubscribeApprove(string token)
         {
             //token = token.Decrypt(Program.key);
             token = crypto.Decrypt(token);
@@ -153,7 +152,7 @@ namespace BookStore.WebUI.Controllers
 
             if (!match.Success)
             {
-                return "Invalid token!";
+                //return "Invalid token!";
             }
 
             int id = Convert.ToInt32(match.Groups["id"].Value);
@@ -164,20 +163,21 @@ namespace BookStore.WebUI.Controllers
 
             if (entity == null)
             {
-                return "Not found!";
+                //return "Not found!";
             }
 
             if (entity.IsApproved)
             {
-                return "Already approved!";
+                //return "Already approved!";
             }
 
             entity.IsApproved = true;
             entity.ApprovedDate = DateTime.UtcNow.AddHours(4);
             db.SaveChanges();
 
+            return View();
 
-            return $"Id: {id} | Email: {email} | RandomKey: {randomKey}";
+            //return $"Id: {id} | Email: {email} | RandomKey: {randomKey}";
         }
     }
 }

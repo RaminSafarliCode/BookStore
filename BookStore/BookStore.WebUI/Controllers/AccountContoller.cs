@@ -165,5 +165,12 @@ namespace BookStore.WebUI.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Signin", "Account");
         }
+
+        [AllowAnonymous]
+        [Route("/accessdenied.html")]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
