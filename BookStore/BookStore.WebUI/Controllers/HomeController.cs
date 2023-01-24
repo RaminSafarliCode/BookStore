@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly BookStoreDbContext db;
@@ -28,20 +29,18 @@ namespace BookStore.WebUI.Controllers
             this.contactPostValidator = contactPostValidator;
         }
 
-        [AllowAnonymous]
+        
         public IActionResult Index()
         {
             return View();
         }
 
-        [AllowAnonymous]
         public IActionResult Contact()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public IActionResult Contact(ContactPost model)
         {
@@ -69,7 +68,6 @@ namespace BookStore.WebUI.Controllers
             });
         }
 
-        [AllowAnonymous]
         public IActionResult Faq()
         {
             var data = db.Faqs.Where(f => f.DeletedDate == null).ToList();
@@ -77,7 +75,6 @@ namespace BookStore.WebUI.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<IActionResult> Subscribe(Subscribe model)
         {
             if (model.Email != null)
@@ -142,7 +139,6 @@ namespace BookStore.WebUI.Controllers
         }
 
         [Route("/approve-subscribe")]
-        [AllowAnonymous]
         public async Task<IActionResult> SubscribeApprove(string token)
         {
             //token = token.Decrypt(Program.key);

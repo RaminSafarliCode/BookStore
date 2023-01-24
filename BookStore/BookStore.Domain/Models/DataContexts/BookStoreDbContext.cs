@@ -21,6 +21,11 @@ namespace BookStore.Domain.Models.DataContexts
         public DbSet<ContactPost> ContactPosts { get; set; } 
         public DbSet<Faq> Faqs { get; set; } 
         public DbSet<Subscribe> Subscribes { get; set; } 
+        public DbSet<BlogPost> BlogPosts { get; set; } 
+        public DbSet<Tag> Tags { get; set; } 
+        public DbSet<BlogPostCategory> BlogPostCategories { get; set; } 
+        public DbSet<BlogPostTagItem> BlogPostTagCloud { get; set; } 
+        public DbSet<BlogPostComment> BlogPostComments { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

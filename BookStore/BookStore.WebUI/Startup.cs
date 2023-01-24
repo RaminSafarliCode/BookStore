@@ -4,6 +4,7 @@ using BookStore.Domain.AppCode.Providers;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities.Membership;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -119,6 +120,7 @@ namespace BookStore.WebUI
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.FullName.StartsWith("BookStore."))
                 .ToArray();
+            services.AddMediatR(assemblies);
             services.AddValidatorsFromAssemblies(assemblies);
         }
 
