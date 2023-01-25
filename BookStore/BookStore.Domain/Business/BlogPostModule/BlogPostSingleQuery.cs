@@ -29,6 +29,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                 var query = db.BlogPosts
                             .Include(bp => bp.BlogPostCategory)
                             .Include(bp => bp.Comments)
+                            .ThenInclude(c => c.CreatedByUser)
 
                             .Include(bp => bp.TagCloud)
                             .ThenInclude(bp => bp.Tag)

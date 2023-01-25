@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace BookStore.Domain.Business.BlogPostModule
 {
-    public class BlogPostGetAllQuery : PaginateModel, IRequest<PagedViewModel<BlogPost>>
+    public class BlogPostGetPublishedQuery : PaginateModel, IRequest<PagedViewModel<BlogPost>>
     {
-        public class BlogPostGetAllQueryHandler : IRequestHandler<BlogPostGetAllQuery, PagedViewModel<BlogPost>>
+        public class BlogPostGetPublishedQueryHandler : IRequestHandler<BlogPostGetPublishedQuery, PagedViewModel<BlogPost>>
         {
             private readonly BookStoreDbContext db;
 
-            public BlogPostGetAllQueryHandler(BookStoreDbContext db)
+            public BlogPostGetPublishedQueryHandler(BookStoreDbContext db)
             {
                 this.db = db;
             }
-            public async Task<PagedViewModel<BlogPost>> Handle(BlogPostGetAllQuery request, CancellationToken cancellationToken)
+            public async Task<PagedViewModel<BlogPost>> Handle(BlogPostGetPublishedQuery request, CancellationToken cancellationToken)
             {
                 if (request.PageSize < 6)
                 {
@@ -29,7 +29,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                 }
 
                 var query = db.BlogPosts
-                       .Where(bp => bp.DeletedDate == null /*&& bp.PublishedDate != null*/)
+                       .Where(bp => bp.DeletedDate == null && bp.PublishedDate != null)
                        .OrderByDescending(bp => bp.PublishedDate)
                        .AsQueryable();
 

@@ -1,4 +1,5 @@
 ﻿using BookStore.Application.AppCode.Infrastructure;
+using BookStore.Domain.Models.Entities.Infrastructure;
 using System;
 using System.Collections.Generic;
 

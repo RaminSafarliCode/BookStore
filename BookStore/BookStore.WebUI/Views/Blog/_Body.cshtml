@@ -1,0 +1,49 @@
+﻿@model PagedViewModel<BlogPost>
+
+
+<div class="row">
+    @foreach (var item in Model.Items)
+    {
+        <div class="col-xs-6 col-sm-12 col-md-6 col-lg-4">
+            <article class="tg-post">
+                <figure>
+                    <a asp-action="Details" asp-route-slug="@item.Slug">
+                        <img src="~/uploads/images/@item.ImagePath" alt="blog-image">
+                    </a>
+                </figure>
+                <div class="tg-postcontent">
+                    <ul class="tg-bookscategories">
+                        <li>
+                            <a href="javascript:void(0);">@item.BlogPostCategory</a>
+                        </li>
+                        @*<li><a href="javascript:void(0);">Fun</a></li>*@
+                    </ul>
+                    <div class="tg-themetagbox">
+                        <span class="tg-themetag">featured</span>
+                    </div>
+                    <div class="tg-posttitle">
+                        <h3>
+                            <a asp-action="details" asp-route-slug="@item.Slug">Where The Wild Things Are</a>
+                        </h3>
+                    </div>
+                    <span class="tg-bookwriter">
+                        By:
+                        <a href="javascript:void(0);">@item.CreatedByUserId</a>
+                    </span>
+                    <ul class="tg-postmetadata">
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="fa fa-comment-o"></i><i>21,415 Comments</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <i class="fa fa-eye"></i><i>24,565 Views</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        </div>
+    }
+</div>

@@ -1,4 +1,5 @@
 ﻿using BookStore.Application.AppCode.Extenstions;
+using BookStore.Application.AppCode.Infrastructure;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities;
 using MediatR;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Domain.Business.BlogPostModule
 {
-    public class BlogPostEditCommand : IRequest<BlogPost>
+    public class BlogPostEditCommand : IRequest<JsonResponse>
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -26,7 +27,7 @@ namespace BookStore.Domain.Business.BlogPostModule
         public IFormFile Image { get; set; }
         public int[] TagIds { get; set; }
 
-        public class BlogPostEditCommandHandler : IRequestHandler<BlogPostEditCommand, BlogPost>
+        public class BlogPostEditCommandHandler : IRequestHandler<BlogPostEditCommand, JsonResponse>
         {
             private readonly BookStoreDbContext db;
             private readonly IHostEnvironment env;
@@ -38,7 +39,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                 this.env = env;
                 this.ctx = ctx;
             }
-            public async Task<BlogPost> Handle(BlogPostEditCommand request, CancellationToken cancellationToken)
+            public async Task<JsonResponse> Handle(BlogPostEditCommand request, CancellationToken cancellationToken)
             {
                 if (!ctx.IsValid())
                     return null;
@@ -127,7 +128,12 @@ namespace BookStore.Domain.Business.BlogPostModule
 
                 await db.SaveChangesAsync(cancellationToken);
 
-                return entity;
+                //return entity;
+                return new JsonResponse
+                {
+                    Error = false,
+                    Message = "Success"
+                };
             }
         }
     }
