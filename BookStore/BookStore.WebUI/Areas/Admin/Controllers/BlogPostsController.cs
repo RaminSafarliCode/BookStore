@@ -75,13 +75,26 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             }
 
             var blogPost = await db.BlogPosts
+                .Include(bp => bp.TagCloud)
                 .FirstOrDefaultAsync(bp => bp.Id == id);
             if (blogPost == null)
             {
                 return NotFound();
             }
+            ViewBag.CategoryId = new SelectList(db.BlogPostCategories.ToList(), "Id", "Name", blogPost.BlogPostCategoryId);
+            ViewBag.Tags = new SelectList(db.Tags.Where(t => t.DeletedDate == null).ToList(), "Id", "Text");
 
-            return View(blogPost);
+            
+            var editCommand = new BlogPostEditCommand();
+            editCommand.Id = blogPost.Id;
+            editCommand.Title = blogPost.Title;
+            editCommand.Body = blogPost.Body;
+            editCommand.ImagePath = blogPost.ImagePath;
+            editCommand.BlogPostCategoryId = blogPost.BlogPostCategoryId;
+            editCommand.Id = blogPost.Id;
+            editCommand.TagIds = blogPost.TagCloud.Select(tc => tc.TagId).ToArray();
+
+            return View(editCommand);
         }
 
         [HttpPost]

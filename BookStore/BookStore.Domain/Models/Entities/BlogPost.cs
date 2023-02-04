@@ -19,5 +19,7 @@ namespace BookStore.Domain.Models.Entities
         public virtual BlogPostCategory BlogPostCategory { get; set; }
 
         public virtual ICollection<BlogPostTagItem> TagCloud { get; set; }
+
+        public int Views { get; set; }
     }
 }

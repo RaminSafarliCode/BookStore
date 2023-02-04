@@ -31,6 +31,10 @@ namespace BookStore.Domain.Business.BlogPostModule
                             .Include(bp => bp.Comments)
                             .ThenInclude(c => c.CreatedByUser)
 
+                            .Include(bp => bp.Comments.Where(bpc => bpc.DeletedDate == null))
+                            .ThenInclude(c => c.Comments.Where(bpc => bpc.DeletedDate == null))
+                            .AsQueryable()
+
                             .Include(bp => bp.TagCloud)
                             .ThenInclude(bp => bp.Tag)
                             .AsQueryable();

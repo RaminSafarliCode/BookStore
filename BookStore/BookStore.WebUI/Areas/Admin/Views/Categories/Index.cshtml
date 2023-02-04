@@ -1,0 +1,96 @@
+﻿
+@model IEnumerable<BookStore.Domain.Models.Entities.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table tree">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(c => c.ParentId == null))
+        {
+            <tr class="treegrid-@item.Id  @(item.ParentId == null ? "" : $"treegrid-parent-{item.ParentId}")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td class="operations">
+                    @if (User.HasAccess("admin.categories.edit"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    }
+
+                    @if (User.HasAccess("admin.categories.details"))
+                    {
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    }
+
+                    @if (User.HasAccess("admin.categories.remove"))
+                    {
+                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    }
+                </td>
+            </tr>
+
+            @foreach (var child in item.GetAllChildren())
+            {
+                <tr class="treegrid-@child.Id treegrid-parent-@child.ParentId">
+                    <td>
+                        @Html.DisplayFor(modelItem => child.Name)
+                    </td>
+                    <td class="operations">
+                        @if (User.HasAccess("admin.categories.edit"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@child.Id" class="btn btn-sm btn-warning">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                        }
+
+                        @if (User.HasAccess("admin.categories.details"))
+                        {
+                            <a asp-action="Details" asp-route-id="@child.Id" class="btn btn-sm btn-info">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        }
+
+                        @if (User.HasAccess("admin.categories.remove"))
+                        {
+                            <a class="btn btn-sm btn-danger" onclick="removeEntity(@child.Id, '@child.Name')">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section addcss{
+    <link href="~/libs/jquery-treegrid/css/jquery.treegrid.css" rel="stylesheet" />
+}
+
+    @section addjs{
+    <script src="~/libs/jquery-treegrid/js/jquery.treegrid.js"></script>
+
+    <script type="text/javascript">
+        $('.tree').treegrid();
+    </script>
+}

@@ -1,6 +1,18 @@
 ﻿@model BlogPost
 @{
     ViewData["Title"] = "Details";
+
+    IEnumerable<BlogPostComment> GetComments(BlogPostComment parent)
+    {
+        if (parent.ParentId != null)
+            yield return parent;
+
+        foreach (var item in parent.Comments.SelectMany(c => GetComments(c)))
+        {
+            yield return item;
+        }
+
+    }
 }
 
 <!--************************************
@@ -214,111 +226,75 @@
                             </div>
                             <div class="tg-commentsarea">
                                 <div class="tg-sectionhead">
-                                    <h2>03 Comments</h2>
+                                    <h2>@Model.Comments.Count() Comments</h2>
                                 </div>
                                 <ul id="tg-comments" class="tg-comments">
-                                    <li>
-                                        <div class="tg-authorbox">
-                                            <figure class="tg-authorimg">
-                                                <img src="~/assets/images/author/imag-24.jpg"
-                                                     alt="image description" />
-                                            </figure>
-                                            <div class="tg-authorinfo">
-                                                <div class="tg-authorhead">
-                                                    <div class="tg-leftarea">
-                                                        <div class="tg-authorname">
-                                                            <h2>Kathrine Culbertson</h2>
-                                                            <span>Author Since: June 27, 2017</span>
+
+                                    @foreach (var comment in Model.Comments.Where(c => c.ParentId == null))
+                                    {
+
+                                        <li class="comment" id="c-@comment.Id" data-comment-id="@comment.Id">
+                                            <div class="tg-authorbox">
+                                                <div class="tg-authorinfo">
+                                                    <div class="tg-authorhead">
+                                                        <div class="tg-leftarea">
+                                                            <div class="tg-authorname">
+                                                                <h2>@($"{comment.CreatedByUser?.Name} {comment.CreatedByUser?.Surname}")</h2>
+                                                                <span>Author Since: June 27, 2017</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="tg-rightarea">
+                                                            <a class="tg-btnreply  btn-comment-reply"
+                                                           href="javascript:void(0);">
+                                                                Reply<i class="fa fa-mail-reply"></i>
+                                                            </a>
                                                         </div>
                                                     </div>
-                                                    <div class="tg-rightarea">
-                                                        <a class="tg-btnreply"
-                                                           href="javascript:void(0);">
-                                                            Reply<i class="fa fa-mail-reply"></i>
-                                                        </a>
+                                                    <div class="tg-description">
+                                                        <p>
+                                                            @comment.Text
+                                                        </p>
                                                     </div>
                                                 </div>
-                                                <div class="tg-description">
-                                                    <p>
-                                                        Laborum sed ut perspiciatis unde omnis iste
-                                                        natus sit voluptatem accusantium doloremque
-                                                        laudantium totam rem aperiam eaque ipsa quae
-                                                        ab illo inventore veritatis etation.
-                                                    </p>
-                                                </div>
+                                                <div class="tg-bottomarrow"></div>
                                             </div>
-                                            <div class="tg-bottomarrow"></div>
-                                        </div>
-                                        <ul class="tg-childcomment">
-                                            <li>
-                                                <div class="tg-authorbox">
-                                                    <figure class="tg-authorimg">
-                                                        <img src="~/assets/images/author/imag-24.jpg"
-                                                             alt="image description" />
-                                                    </figure>
-                                                    <div class="tg-authorinfo">
-                                                        <div class="tg-authorhead">
-                                                            <div class="tg-leftarea">
-                                                                <div class="tg-authorname">
-                                                                    <h2>Kathrine Culbertson</h2>
-                                                                    <span>Author Since: June 27, 2017</span>
+
+                                            <ul class="tg-childcomment">
+                                                @foreach (var subComment in GetComments(comment))
+                                                {
+                                                    <li class="comment-sub" id="c-@subComment.Id" data-comment-id="@subComment.Id">
+                                                        <div class="tg-authorbox">
+                                                            <div class="tg-authorinfo">
+                                                                <div class="tg-authorhead">
+                                                                    <div class="tg-leftarea">
+                                                                        <div class="tg-authorname">
+                                                                            <h2>@($"{subComment.CreatedByUser?.Name} {subComment.CreatedByUser?.Surname}")</h2>
+                                                                            <span>Author Since: June 27, 2017</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="tg-rightarea">
+                                                                        <a class="tg-btnreply btn-comment-reply"
+                                                                   href="javascript:void(0);">
+                                                                            Reply<i class="fa fa-mail-reply"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tg-description">
+                                                                    <p>
+                                                                        @subComment.Text
+                                                                    </p>
                                                                 </div>
                                                             </div>
-                                                            <div class="tg-rightarea">
-                                                                <a class="tg-btnreply"
-                                                                   href="javascript:void(0);">
-                                                                    Reply<i class="fa fa-mail-reply"></i>
-                                                                </a>
-                                                            </div>
+                                                            <div class="tg-bottomarrow"></div>
                                                         </div>
-                                                        <div class="tg-description">
-                                                            <p>
-                                                                Laborum sed ut perspiciatis unde omnis
-                                                                iste natus sit voluptatem accusantium
-                                                                doloremque laudantium totam rem aperiam
-                                                                eaque ipsa quae ab illo inventore
-                                                                veritatis etation.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tg-bottomarrow"></div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="tg-authorbox">
-                                            <figure class="tg-authorimg">
-                                                <img src="~/assets/images/author/imag-24.jpg"
-                                                     alt="image description" />
-                                            </figure>
-                                            <div class="tg-authorinfo">
-                                                <div class="tg-authorhead">
-                                                    <div class="tg-leftarea">
-                                                        <div class="tg-authorname">
-                                                            <h2>Kathrine Culbertson</h2>
-                                                            <span>Author Since: June 27, 2017</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="tg-rightarea">
-                                                        <a class="tg-btnreply"
-                                                           href="javascript:void(0);">
-                                                            Reply<i class="fa fa-mail-reply"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="tg-description">
-                                                    <p>
-                                                        Laborum sed ut perspiciatis unde omnis iste
-                                                        natus sit voluptatem accusantium doloremque
-                                                        laudantium totam rem aperiam eaque ipsa quae
-                                                        ab illo inventore veritatis etation.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="tg-bottomarrow"></div>
-                                        </div>
-                                    </li>
+                                                    </li>
+                                                }
+
+
+                                            </ul>
+                                        </li>
+                                    }
+
                                     <li class="tg-loadmore">
                                         <a class="tg-btn tg-active"
                                            href="javascript:void(0);">View All</a>
@@ -329,38 +305,46 @@
                                 <div class="tg-sectionhead">
                                     <h2>Leave Your Comment</h2>
                                 </div>
-                                <form class="tg-formtheme tg-formleavecomment">
+                                <form class="tg-formtheme tg-formleavecomment" id="replyForm">
                                     <fieldset>
-                                        <div class="form-group">
-                                            <input type="text"
-                                                   name="full name"
-                                                   class="form-control"
-                                                   placeholder="First Name*" />
+                                        <div id="replyToComment"></div>
+                                        <input type="hidden" name="postId" value="@Model.Id" />
+                                        @*<div class="form-group">
+                                        <input type="text"
+                                        name="full name"
+                                        class="form-control"
+                                        placeholder="First Name*" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"
-                                                   name="last name"
-                                                   class="form-control"
-                                                   placeholder="Last Name*" />
+                                        <input type="text"
+                                        name="last name"
+                                        class="form-control"
+                                        placeholder="Last Name*" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="email"
-                                                   name="email address"
-                                                   class="form-control"
-                                                   placeholder="Email*" />
+                                        <input type="email"
+                                        name="email address"
+                                        class="form-control"
+                                        placeholder="Email*" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text"
-                                                   name="subject"
-                                                   class="form-control"
-                                                   placeholder="Subject (optional)" />
+                                        <input type="text"
+                                        name="subject"
+                                        class="form-control"
+                                        placeholder="Subject (optional)" />
+                                        </div>*@
+                                        <div class="form-group">
+                                            <textarea id="comment-text" name="comment" placeholder="Comment"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <textarea placeholder="Comment"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <a class="tg-btn tg-active"
-                                               href="javascript:void(0);">Submit</a>
+                                            @if (true)
+                                            {
+                                                <button type="submit" class="tg-btn tg-active">Submit</button>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="Signin" asp-controller="account" class="btn btn-dark">Sign in to comment on post</a>
+                                            }
                                         </div>
                                     </fieldset>
                                 </form>
@@ -608,3 +592,65 @@
 <!--************************************
             News Grid End
     *************************************-->
+@section addjs{
+    <script>
+        $(document).ready(function() {
+            $(".btn-comment-reply").click(function(e) {
+                e.preventDefault();
+
+                $("#replyToComment").html("<a href='javascript:removeSelectedReply()' class='remove-selected-comment' >&times</a>").append($(e.currentTarget).closest(".comment").clone());
+              
+            })
+
+            $("#replyForm").submit(function(e) {
+                e.preventDefault();
+
+                let formData = new FormData(e.currentTarget);
+                let toCommentId = $(`#replyToComment li.comment`).data("comment-id");
+                console.log("commentId",toCommentId);
+
+                //console.log("commentId",toCommentId);
+
+                if (toCommentId != undefined) {
+                    formData.set("commentId", toCommentId);
+                }
+
+                $.ajax({
+                    url: `@Url.Action("PostComment", "Blog")`,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(res) {
+                        //console.log(res);
+                    },
+                    error: function(response) {
+                        
+                    console.log("error var");
+                        if (response.statusText == "parsererror") {
+                            if (toCommentId != undefined) {
+                                $(response.responseText).insertAfter($(`#c-${toCommentId}`));
+
+                                $("#replyToComment").html("")
+                                e.currentTarget.reset();
+                                $("#comment-text").val("");
+                            }
+                            else {
+                                $("div.comments ul").append($(response.responseText))
+                                $("#comment-text").val("");
+                            }
+                        }
+
+                        console.warn(response);
+                    }
+                });
+            })
+        })
+
+        function removeSelectedReply(el) {
+            $("#replyToComment").html("");
+        }
+    </script>
+}
+

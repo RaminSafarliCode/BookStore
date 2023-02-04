@@ -1296,25 +1296,31 @@
                                         <li class="current-menu-item">
                                             <a href="javascript:void(0);">Home</a>
                                         </li>
-                                        <li class="menu-item-has-children">
-                                            <a href="javascript:void(0);">Authors</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="authors.html">Authors</a></li>
-                                                <li><a href="authordetail.html">Author Detail</a></li>
-                                            </ul>
+                                        @*<li class="menu-item-has-children">
+                                        <a asp-controller="author" asp-action="index">Authors</a>
+                                        <ul class="sub-menu">
+                                        <li><a href="authors.html">Authors</a></li>
+                                        <li><a href="authordetail.html">Author Detail</a></li>
+                                        </ul>
+                                        </li>*@
+                                        <li>
+                                            <a asp-controller="author" asp-action="index">Authors</a>
                                         </li>
                                         <li><a href="products.html">Best Selling</a></li>
                                         <li><a href="products.html">Weekly Sale</a></li>
-                                        <li class="menu-item-has-children">
+                                        @*<li class="menu-item-has-children">
+                                        <a asp-controller="blog" asp-action="index">Latest News</a>
+                                        <ul class="sub-menu">
+                                        <li><a href="newslist.html">News List</a></li>
+                                        <li><a href="newsgrid.html">News Grid</a></li>
+                                        <li><a href="newsdetail.html">News Detail</a></li>
+                                        </ul>
+                                        </li>*@
+                                        <li>
                                             <a asp-controller="blog" asp-action="index">Latest News</a>
-                                            <ul class="sub-menu">
-                                                <li><a href="newslist.html">News List</a></li>
-                                                <li><a href="newsgrid.html">News Grid</a></li>
-                                                <li><a href="newsdetail.html">News Detail</a></li>
-                                            </ul>
                                         </li>
-                                        <li><a asp-action="contact">Contact</a></li>
-                                        <li><a asp-action="faq">FAQ</a></li>
+                                        <li><a asp-controller="home" asp-action="contact">Contact</a></li>
+                                        <li><a asp-controller="home" asp-action="faq">FAQ</a></li>
                                     </ul>
                                 </div>
                             </nav>

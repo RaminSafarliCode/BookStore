@@ -1,0 +1,33 @@
+﻿@model BlogPostComment
+
+@if (Model.ParentId != null)
+{
+    <ul class="tg-childcomment">
+        <li class="comment-sub" id="c-@Model.Id" data-comment-id="@Model.Id">
+            <div class="tg-authorbox">
+                <div class="tg-authorinfo">
+                    <div class="tg-authorhead">
+                        <div class="tg-leftarea">
+                            <div class="tg-authorname">
+                                <h2>@($"{Model.CreatedByUser?.Name} {Model.CreatedByUser?.Surname}")</h2>
+                                <span>Author Since: June 27, 2017</span>
+                            </div>
+                        </div>
+                        <div class="tg-rightarea">
+                            <a class="tg-btnreply btn-comment-reply"
+                           href="javascript:void(0);">
+                                Reply<i class="fa fa-mail-reply"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="tg-description">
+                        <p>
+                            @Model.Text
+                        </p>
+                    </div>
+                </div>
+                <div class="tg-bottomarrow"></div>
+            </div>
+        </li>
+    </ul>
+}

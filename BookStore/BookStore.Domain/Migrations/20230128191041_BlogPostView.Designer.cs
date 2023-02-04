@@ -4,14 +4,16 @@ using BookStore.Domain.Models.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Domain.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230128191041_BlogPostView")]
+    partial class BlogPostView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,48 +210,6 @@ namespace BookStore.Domain.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("BlogPostTagCloud");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.ContactPost", b =>
@@ -734,27 +694,6 @@ namespace BookStore.Domain.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
-                {
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId");
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Category", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("DeletedByUser");
-
-                    b.Navigation("Parent");
-                });
-
             modelBuilder.Entity("BookStore.Domain.Models.Entities.ContactPost", b =>
                 {
                     b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
@@ -881,11 +820,6 @@ namespace BookStore.Domain.Migrations
             modelBuilder.Entity("BookStore.Domain.Models.Entities.BlogPostComment", b =>
                 {
                     b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
-                {
-                    b.Navigation("Children");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Tag", b =>
