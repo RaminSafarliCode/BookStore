@@ -4,14 +4,16 @@ using BookStore.Domain.Models.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Domain.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230207111231_AuthorImage")]
+    partial class AuthorImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -253,70 +255,6 @@ namespace BookStore.Domain.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("BlogPostTagCloud");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Language")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Page")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Summary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.HasIndex("PublisherId");
-
-                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
@@ -668,43 +606,6 @@ namespace BookStore.Domain.Migrations
                     b.ToTable("UserTokens", "Membership");
                 });
 
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Publisher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("CreatedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeletedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("DeletedByUserId");
-
-                    b.ToTable("Publishers");
-                });
-
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Subscribe", b =>
                 {
                     b.Property<int>("Id")
@@ -895,45 +796,6 @@ namespace BookStore.Domain.Migrations
                     b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Book", b =>
-                {
-                    b.HasOne("BookStore.Domain.Models.Entities.Author", "Author")
-                        .WithMany("Books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId");
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("DeletedByUser");
-
-                    b.Navigation("Publisher");
-                });
-
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
                 {
                     b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
@@ -1036,21 +898,6 @@ namespace BookStore.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Publisher", b =>
-                {
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId");
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedByUserId");
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("DeletedByUser");
-                });
-
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Subscribe", b =>
                 {
                     b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
@@ -1081,11 +928,6 @@ namespace BookStore.Domain.Migrations
                     b.Navigation("DeletedByUser");
                 });
 
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Author", b =>
-                {
-                    b.Navigation("Books");
-                });
-
             modelBuilder.Entity("BookStore.Domain.Models.Entities.BlogPost", b =>
                 {
                     b.Navigation("Comments");
@@ -1106,11 +948,6 @@ namespace BookStore.Domain.Migrations
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
                 {
                     b.Navigation("Children");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Publisher", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Tag", b =>

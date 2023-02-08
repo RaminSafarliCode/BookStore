@@ -19,14 +19,38 @@
             </a>
             </li>*@
 
-            @if (User.HasAccess("admin.faqs.index"))
+            @if (User.HasAccess("admin.categories.index"))
             {
-                 <li>
+                <li>
                     <a asp-controller="categories" asp-action="index">
                         <span class="pcoded-micon">
                             <i class="feather icon-mail"></i>
                         </span>
                         <span class="pcoded-mtext">Categories</span>
+                    </a>
+                </li>
+            }
+
+            @if (User.HasAccess("admin.authors.index"))
+            {
+                <li>
+                    <a asp-controller="authors" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-mail"></i>
+                        </span>
+                        <span class="pcoded-mtext">Authors</span>
+                    </a>
+                </li>
+            }
+
+            @if (User.HasAccess("admin.authors.index"))
+            {
+                <li>
+                    <a asp-controller="publishers" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-mail"></i>
+                        </span>
+                        <span class="pcoded-mtext">Publishers</span>
                     </a>
                 </li>
             }

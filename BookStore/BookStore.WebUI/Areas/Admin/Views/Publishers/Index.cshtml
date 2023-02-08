@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<Publisher>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +11,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Categories</h4>
+                    <h4>Publishers</h4>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                         <a asp-controller="Dashboard" asp-action="index"> <i class="feather icon-home"></i> </a>
                     </li>
                     <li class="breadcrumb-item" style="float: left;">
-                        <span>All categories</span>
+                        <span>All publishers</span>
                     </li>
                 </ul>
             </div>
@@ -55,9 +55,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Where(c => c.ParentId == null))
+                        @foreach (var item in Model)
                         {
-                            <tr class="treegrid-@item.Id  @(item.ParentId == null ? "" : $"treegrid-parent-{item.ParentId}")">
+                            <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
@@ -65,62 +65,19 @@
                                     @Html.DisplayFor(modelItem => item.CreatedDate)
                                 </td>
                                 <td class="operations">
-                                    @if (User.HasAccess("admin.categories.edit"))
-                                    {
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </a>
-                                    }
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
 
-                                    @if (User.HasAccess("admin.categories.details"))
-                                    {
-                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    }
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
 
-                                    @if (User.HasAccess("admin.categories.remove"))
-                                    {
-                                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    }
+                                    <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
-
-                            @foreach (var child in item.GetAllChildren())
-                            {
-                                <tr class="treegrid-@child.Id treegrid-parent-@child.ParentId">
-                                    <td>
-                                        @Html.DisplayFor(modelItem => child.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => child.CreatedDate)
-                                    </td>
-                                    <td class="operations">
-                                        @if (User.HasAccess("admin.categories.edit"))
-                                        {
-                                            <a asp-action="Edit" asp-route-id="@child.Id" class="btn btn-sm btn-warning">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </a>
-                                        }
-
-                                        @if (User.HasAccess("admin.categories.details"))
-                                        {
-                                            <a asp-action="Details" asp-route-id="@child.Id" class="btn btn-sm btn-info">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                        }
-
-                                        @if (User.HasAccess("admin.categories.remove"))
-                                        {
-                                            <a class="btn btn-sm btn-danger" onclick="removeEntity(@child.Id, '@child.Name')">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        }
-                                    </td>
-                                </tr>
-                            }
                         }
                     </tbody>
                 </table>

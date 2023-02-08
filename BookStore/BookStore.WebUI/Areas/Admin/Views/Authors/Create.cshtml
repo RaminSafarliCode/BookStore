@@ -1,0 +1,168 @@
+﻿@model CreateAuthorCommand
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Page-header start -->
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Add an author</h4>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-controller="Dashboard" asp-action="index"> <i class="feather icon-home"></i> </a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-action="index">Authors</a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <span>Create</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page-header end -->
+<!-- Page-body start -->
+<div class="page-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-block">
+
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <label class="image-viewer" for="image"></label>
+                        <input id="image" name="image" type="file" hidden />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Biography" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <textarea asp-for="Biography" class="form-control" id="body"></textarea>
+                        <span asp-validation-for="Biography" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary mr-2">Save</button>
+                        <a asp-action="index" class="btn btn-info">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Page-body end -->
+@section addjs{
+
+    <script>
+        let reader = new FileReader();
+        reader.addEventListener("load", function() {
+            let imageViewer = document.querySelector(".image-viewer");
+
+            imageViewer.setAttribute("style", `background-image:url(${reader.result})`);
+        });
+
+
+        document.getElementById("image").addEventListener("change", function(e) {
+            console.log(e);
+            const selectedFile = e.currentTarget.files[0];
+            reader.readAsDataURL(selectedFile);
+        });
+
+        ClassicEditor
+            .create(document.querySelector('#body'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        $(".select2").select2();
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+    @*@model BookStore.Domain.Models.Entities.Author
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Author</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Biography" class="control-label"></label>
+                <input asp-for="Biography" class="form-control" />
+                <span asp-validation-for="Biography" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedByUserId" class="control-label"></label>
+                <select asp-for="CreatedByUserId" class ="form-control" asp-items="ViewBag.CreatedByUserId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeletedUserId" class="control-label"></label>
+                <input asp-for="DeletedUserId" class="form-control" />
+                <span asp-validation-for="DeletedUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeletedDate" class="control-label"></label>
+                <input asp-for="DeletedDate" class="form-control" />
+                <span asp-validation-for="DeletedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+*@

@@ -8,169 +8,167 @@ using Microsoft.EntityFrameworkCore;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
+using MediatR;
+using BookStore.Domain.Business.CategoryModule;
 
 namespace BookStore.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class CategoriesController : Controller
     {
-        private readonly BookStoreDbContext _context;
+        private readonly BookStoreDbContext db;
+        private readonly IMediator mediator;
 
-        public CategoriesController(BookStoreDbContext context)
+        public CategoriesController(BookStoreDbContext db, IMediator mediator)
         {
-            _context = context;
+            this.db = db;
+            this.mediator = mediator;
         }
 
-        // GET: Admin/Categories
-        [Authorize("admin.categories.index")]
-        public async Task<IActionResult> Index()
+        [Authorize(Policy = "admin.categories.index")]
+        public async Task<IActionResult> Index(CategoryGetAllQuery query)
         {
-            var bookStoreDbContext = _context.Categories.Include(c => c.CreatedByUser);
-            return View(await bookStoreDbContext.ToListAsync());
-        }
+            var response = await mediator.Send(query);
 
-        // GET: Admin/Categories/Details/5
-        [Authorize("admin.categories.details")]
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            if (response == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .Include(c => c.CreatedByUser)
-                .Include(c => c.Parent)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            return View(response);
+        }
+
+        [Authorize(Policy = "admin.categories.details")]
+        public async Task<IActionResult> Details(CategoryGetSingleQuery query)
+        {
+            var response = await mediator.Send(query);
+
+            if (response == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(response);
         }
 
-        // GET: Admin/Categories/Create
-        [Authorize("admin.categories.create")]
+        [Authorize(Policy = "admin.categories.create")]
         public IActionResult Create()
         {
-            ViewData["CreatedByUserId"] = new SelectList(_context.Users, "Id", "Name");
-            ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["ParentId"] = new SelectList(db.Categories.ToList().Where(c => c.DeletedDate == null), "Id", "Name");
             return View();
         }
 
-        // POST: Admin/Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize("admin.categories.create")]
-        public async Task<IActionResult> Create([Bind("ParentId,Name,Id,CreatedByUserId,CreatedDate,DeletedUserId,DeletedDate")] Category category)
+        [Authorize(Policy = "admin.categories.create")]
+        public async Task<IActionResult> Create(CategoryCreateCommand command)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                var response = await mediator.Send(command);
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+
+                ViewData["ParentId"] = new SelectList(db.Categories.Where(c => c.DeletedDate == null).ToList(), "Id", "Name");
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatedByUserId"] = new SelectList(_context.Users, "Id", "Name", category.CreatedByUserId);
-            ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name", category.ParentId);
-            return View(category);
+
+            ViewData["ParentId"] = new SelectList(db.Categories.Where(c => c.DeletedDate == null).ToList(), "Id", "Name");
+            return View(command);
         }
 
-        // GET: Admin/Categories/Edit/5
-        [Authorize("admin.categories.edit")]
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize(Policy = "admin.categories.edit")]
+        public async Task<IActionResult> Edit(int? id, CategoryEditCommand command)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            ViewData["CreatedByUserId"] = new SelectList(_context.Users, "Id", "Name", category.CreatedByUserId);
-            ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name", category.ParentId);
-            return View(category);
-        }
-
-        // POST: Admin/Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize("admin.categories.edit")]
-        public async Task<IActionResult> Edit(int id, [Bind("ParentId,Name,Id,CreatedByUserId,CreatedDate,DeletedUserId,DeletedDate")] Category category)
-        {
-            if (id != category.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CreatedByUserId"] = new SelectList(_context.Users, "Id", "Name", category.CreatedByUserId);
-            ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name", category.ParentId);
-            return View(category);
-        }
-
-        // GET: Admin/Categories/Delete/5
-        [Authorize("admin.categories.remove")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categories
-                .Include(c => c.CreatedByUser)
+            var entity = await db.Categories
                 .Include(c => c.Parent)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            ViewData["ParentId"] = new SelectList(db.Categories.Where(c => c.Id != entity.Id && c.DeletedDate == null), "Id", "Name", entity.ParentId);
+
+            command.Id = entity.Id;
+            command.Name = entity.Name;
+            command.ParentId = entity.ParentId;
+
+            return View(command);
         }
 
-        // POST: Admin/Categories/Delete/5
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "admin.categories.edit")]
+        public async Task<IActionResult> Edit(CategoryEditCommand command)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await mediator.Send(command);
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+
+                ViewData["ParentId"] = new SelectList(db.Categories.Where(c => c.Id != command.Id && c.DeletedDate == null), "Id", "Name", command.ParentId);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["ParentId"] = new SelectList(db.Categories.Where(c => c.Id != command.Id && c.DeletedDate == null), "Id", "Name", command.ParentId);
+            return View(command);
+
+        }
+
+
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize("admin.categories.remove")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize(Policy = "admin.categories.delete")]
+        public async Task<IActionResult> DeleteConfirmed(CategoryRemoveCommand command)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            var response = await mediator.Send(command);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveParent(int parentId, int id)
+        {
+            var category = await db.Categories.FirstOrDefaultAsync(c => c.Id == id && c.ParentId == parentId);
+
+            category.ParentId = null;
+
+            await db.SaveChangesAsync();
+
+            return Json(new
+            {
+                error = false,
+                message = "Seçilmiş kateqoriya artıq valideyn kateqoriyasına sahib deyil"
+            });
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return db.Categories.Any(e => e.Id == id);
         }
     }
 }
