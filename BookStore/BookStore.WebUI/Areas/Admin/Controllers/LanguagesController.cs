@@ -1,4 +1,4 @@
-﻿using BookStore.Domain.Business.AuthorModule;
+﻿using BookStore.Domain.Business.LanguageModule;
 using BookStore.Domain.Models.DataContexts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 namespace BookStore.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AuthorsController : Controller
+    public class LanguagesController : Controller
     {
         private readonly BookStoreDbContext db;
         private readonly IMediator mediator;
 
-        public AuthorsController(BookStoreDbContext db, IMediator mediator)
+        public LanguagesController(BookStoreDbContext db, IMediator mediator)
         {
             this.db = db;
             this.mediator = mediator;
         }
 
-        [Authorize(Policy = "admin.authors.index")]
-        public async Task<IActionResult> Index(GetAllAuthorQuery query)
+        [Authorize(Policy = "admin.languages.index")]
+        public async Task<IActionResult> Index(GetAllLanguageQuery query)
         {
             var response = await mediator.Send(query);
 
@@ -34,8 +34,8 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             return View(response);
         }
 
-        [Authorize(Policy = "admin.authors.details")]
-        public async Task<IActionResult> Details(GetSingleAuthorQuery query)
+        [Authorize(Policy = "admin.languages.details")]
+        public async Task<IActionResult> Details(GetSingleLanguageQuery query)
         {
             var response = await mediator.Send(query);
 
@@ -47,7 +47,7 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             return View(response);
         }
 
-        [Authorize(Policy = "admin.authors.create")]
+        [Authorize(Policy = "admin.languages.create")]
         public IActionResult Create()
         {
             return View();
@@ -55,8 +55,8 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "admin.authors.create")]
-        public async Task<IActionResult> Create(CreateAuthorCommand command)
+        [Authorize(Policy = "admin.languages.create")]
+        public async Task<IActionResult> Create(CreateLanguageCommand command)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             return View(command);
         }
 
-        [Authorize(Policy = "admin.authors.edit")]
+        [Authorize(Policy = "admin.languages.edit")]
         public async Task<IActionResult> Edit(int? id)
         {
 
@@ -82,19 +82,18 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var author = await db.Authors
+            var publisher = await db.Languages
                 .FirstOrDefaultAsync(bp => bp.Id == id);
-            if (author == null)
+            if (publisher == null)
             {
                 return NotFound();
             }
 
 
-            var editCommand = new EditAuthorCommand();
-            editCommand.Id = author.Id;
-            editCommand.Name = author.Name;
-            editCommand.Biography = author.Biography;
-            editCommand.ImagePath = author.ImagePath;
+            var editCommand = new EditLanguageCommand();
+            editCommand.Id = publisher.Id;
+            editCommand.Name = publisher.Name;
+            editCommand.ShortName = publisher.ShortName;
 
             return View(editCommand);
         }
@@ -102,8 +101,8 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "admin.authors.edit")]
-        public async Task<IActionResult> Edit(int id, EditAuthorCommand command)
+        [Authorize(Policy = "admin.languages.edit")]
+        public async Task<IActionResult> Edit(int id, EditLanguageCommand command)
         {
             if (id != command.Id)
             {
@@ -127,8 +126,8 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "admin.authors.delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id, RemoveAuthorCommand command)
+        [Authorize(Policy = "admin.languages.delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id, RemoveLanguageCommand command)
         {
             if (id != command.Id)
             {
@@ -139,9 +138,9 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AuthorExists(int id)
+        private bool LanguageExists(int id)
         {
-            return db.Authors.Any(e => e.Id == id);
+            return db.Languages.Any(e => e.Id == id);
         }
     }
 }

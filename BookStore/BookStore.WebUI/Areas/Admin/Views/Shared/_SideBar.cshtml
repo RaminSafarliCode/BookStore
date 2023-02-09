@@ -19,6 +19,18 @@
             </a>
             </li>*@
 
+            @if (User.HasAccess("admin.books.index"))
+            {
+                <li>
+                    <a asp-controller="books" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="fa-solid fa-book"></i>
+                        </span>
+                        <span class="pcoded-mtext">Books</span>
+                    </a>
+                </li>
+            }
+
             @if (User.HasAccess("admin.categories.index"))
             {
                 <li>
@@ -43,7 +55,7 @@
                 </li>
             }
 
-            @if (User.HasAccess("admin.authors.index"))
+            @if (User.HasAccess("admin.publishers.index"))
             {
                 <li>
                     <a asp-controller="publishers" asp-action="index">
@@ -51,6 +63,18 @@
                             <i class="feather icon-mail"></i>
                         </span>
                         <span class="pcoded-mtext">Publishers</span>
+                    </a>
+                </li>
+            }
+
+            @if (User.HasAccess("admin.languages.index"))
+            {
+                <li>
+                    <a asp-controller="languages" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="fa-solid fa-language"></i>
+                        </span>
+                        <span class="pcoded-mtext">Languages</span>
                     </a>
                 </li>
             }

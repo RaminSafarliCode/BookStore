@@ -44,7 +44,7 @@ namespace BookStore.Domain.Business.AuthorModule
 
                 string extension = Path.GetExtension(request.Image.FileName);//.jpg
 
-                request.ImagePath = $"blogpost-{Guid.NewGuid().ToString().ToLower()}{extension}";
+                request.ImagePath = $"author-{Guid.NewGuid().ToString().ToLower()}{extension}";
 
                 var folder = configuration["uploads:folder"];
 

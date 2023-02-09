@@ -1,0 +1,152 @@
+﻿@model BookCreateCommand
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Page-header start -->
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Add a book</h4>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-controller="Dashboard" asp-action="index"> <i class="feather icon-home"></i> </a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-action="index">Books</a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <span>Create</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page-header end -->
+<!-- Page-body start -->
+<div class="page-body">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <div class="card-block">
+
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="StockKeepingUnit" class="form-label"></label>
+                            <input asp-for="StockKeepingUnit" class="form-control" />
+                            <span asp-validation-for="StockKeepingUnit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="form-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="AuthorId" class="form-label"></label>
+                            <select class="form-control select2" asp-for="AuthorId" asp-items="@ViewBag.AuthorId"></select>
+                            <span asp-validation-for="AuthorId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Page" class="form-label"></label>
+                            <input asp-for="Page" class="form-control" />
+                            <span asp-validation-for="Page" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LanguageId" class="form-label"></label>
+                            <select class="form-control select2" asp-for="LanguageId" asp-items="@ViewBag.LanguageId"></select>
+                            <span asp-validation-for="LanguageId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="form-label"></label>
+                            <select class="form-control select2" asp-for="CategoryId" asp-items="@ViewBag.CategoryId"></select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PublisherId" class="form-label"></label>
+                            <select class="form-control select2" asp-for="PublisherId" asp-items="@ViewBag.PublisherId"></select>
+                            <span asp-validation-for="PublisherId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Summary" class="form-label"></label>
+                            <textarea asp-for="Summary" class="form-control" id="editor"></textarea>
+                            <span asp-validation-for="Summary" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <label class="image-viewer" for="image"></label>
+                        <input id="image" name="image" type="file" hidden />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary mr-2">Save</button>
+                        <a asp-action="index" class="btn btn-info">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Page-body end -->
+@section addjs{
+
+    <script>
+        let reader = new FileReader();
+        reader.addEventListener("load", function() {
+            let imageViewer = document.querySelector(".image-viewer");
+
+            imageViewer.setAttribute("style", `background-image:url(${reader.result})`);
+        });
+
+
+        document.getElementById("image").addEventListener("change", function(e) {
+            console.log(e);
+            const selectedFile = e.currentTarget.files[0];
+            reader.readAsDataURL(selectedFile);
+        });
+    </script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        $('#viewer1').imgadd({
+            tnWidth: '60px',
+            tnHeight: '60px',
+            fontSize: '55px',
+            plusInnerHtml: '',
+            plusBtnClass: undefined
+        });
+    </script>
+}
+
+
+
+
+
+
+
