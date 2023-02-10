@@ -4,93 +4,184 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Bootstrap Border Sizes</h4>
+                    <span>
+                        lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-controller="Dashboard" asp-action="index"> <i class="feather icon-home"></i> </a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-action="index">BlogPosts</a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <span>Create</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="sub-title">Basic Inputs</h4>
 
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                    <form method="post" autocomplete="off" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Price" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="StockKeepingUnit" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="StockKeepingUnit" class="form-control" />
+                                <span asp-validation-for="StockKeepingUnit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Summary" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <textarea asp-for="Summary" class="form-control" id="body"></textarea>
+                                <span asp-validation-for="Summary" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Page" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <input asp-for="Page" class="form-control" />
+                                <span asp-validation-for="Page" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="LanguageId" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <select asp-for="LanguageId" class="form-control select2" asp-items="ViewBag.LanguageId">
+                                    <option selected disabled>---Seçin---</option>
+                                </select>
+                                <span asp-validation-for="LanguageId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="PublisherId" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <select asp-for="PublisherId" class="form-control select2" asp-items="ViewBag.PublisherId">
+                                    <option selected disabled>---Seçin---</option>
+                                </select>
+                                <span asp-validation-for="PublisherId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="AuthorId" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <select asp-for="AuthorId" class="form-control select2" asp-items="ViewBag.AuthorId">
+                                    <option selected disabled>---Seçin---</option>
+                                </select>
+                                <span asp-validation-for="AuthorId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="CategoryId" class="col-sm-2 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <select asp-for="CategoryId" class="form-control select2" asp-items="ViewBag.CategoryId">
+                                    <option selected disabled>---Seçin---</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-10">
+                                <label class="image-viewer" for="image" style="background-image:url(/uploads/images/@Model.ImagePath)"></label>
+                                <input id="image" name="image" type="file" hidden />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12 d-flex justify-content-end">
+                                <input asp-for="Id" hidden />
+                                <button class="btn btn-primary mr-2">Save</button>
+                                <a asp-action="index" class="btn btn-info">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StockKeepingUnit" class="control-label"></label>
-                <input asp-for="StockKeepingUnit" class="form-control" />
-                <span asp-validation-for="StockKeepingUnit" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
-                <span asp-validation-for="Rate" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="Summary" class="control-label"></label>
-                <input asp-for="Summary" class="form-control" />
-                <span asp-validation-for="Summary" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Page" class="control-label"></label>
-                <input asp-for="Page" class="form-control" />
-                <span asp-validation-for="Page" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LanguageId" class="control-label"></label>
-                <input asp-for="LanguageId" class="form-control" />
-                <span asp-validation-for="LanguageId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublisherId" class="control-label"></label>
-                <select asp-for="PublisherId" class="form-control" asp-items="ViewBag.PublisherId"></select>
-                <span asp-validation-for="PublisherId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AuthorId" class="control-label"></label>
-                <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
-                <span asp-validation-for="AuthorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            @*<div class="form-group">
-                <label asp-for="CreatedByUserId" class="control-label"></label>
-                <select asp-for="CreatedByUserId" class="form-control" asp-items="ViewBag.CreatedByUserId"></select>
-                <span asp-validation-for="CreatedByUserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeletedUserId" class="control-label"></label>
-                <input asp-for="DeletedUserId" class="form-control" />
-                <span asp-validation-for="DeletedUserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeletedDate" class="control-label"></label>
-                <input asp-for="DeletedDate" class="form-control" />
-                <span asp-validation-for="DeletedDate" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section addjs {
+    <script class="removeable" src="~/libs/ckeditor5/ckeditor.min.js"></script>
+    <script class="removeable" src="~/libs/select2/dist/js/select2.full.min.js"></script>
+
+    <script>
+
+        let reader = new FileReader();
+        reader.addEventListener('load', function() {
+            let imageViewer = document.querySelector('.image-viewer');
+            imageViewer.setAttribute('style', `background-image:url(${reader.result})`);
+            //url(data;.....)
+
+            console.log(reader.result);
+        });
+        document.getElementById('image').addEventListener('change', function(e) {
+
+            console.log(e);
+            const selectedFile = e.currentTarget.files[0];
+            reader.readAsDataURL(selectedFile);
+
+        });
+
+
+        ClassicEditor
+            .create(document.querySelector('#body'))
+            .catch(error => {
+                console.error(error);
+            });
+        $('.select2').select2();
+        $('select[selected-value]').each((index, item) => {
+            let values = $(item).attr('selected-value');
+            console.log(values);
+            if (values.length == 0) return;
+
+            $(item).val(JSON.parse(values));
+            $(item).trigger('change');
+        });
+    </script>
+}
+    @section addcss{
+    <link rel="stylesheet" href="~/libs/select2/dist/css/select2.min.css" />
+    <style>
+        .select2-selection__rendered{
+            height: 100%;
+            display: flex!important;
+            align-items: center!important;
+        }
+    </style>
+
+}
 

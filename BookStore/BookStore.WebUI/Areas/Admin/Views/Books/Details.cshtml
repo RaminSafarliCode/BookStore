@@ -1,102 +1,119 @@
-﻿@model BookStore.Domain.Models.Entities.Book
+﻿@model Book
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Book</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.StockKeepingUnit)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.StockKeepingUnit)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Rate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Rate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Summary)
-        </dt>
-        <dd>
-            @Html.Raw(Model.Summary)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Page)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Page)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Language)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Language)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Publisher)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Publisher.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Author.Biography)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedByUser)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedByUser.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletedUserId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DeletedUserId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DeletedDate)
-        </dd>
-    </dl>
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Details</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="index">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a asp-action="index">Books</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <span>@Model.Name</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="page-body">
+    <div class="card">
+        <div class="card-block">
+            <div>
+                <div class="form-group row">
+                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Name
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Author" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Author.Name
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-10">
+                        <label class="image-viewer" style="background-image:url(/uploads/images/@Model.ImagePath)"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Summary" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <div>
+                            @Html.Raw(Model.Summary)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="StockKeepingUnit" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.StockKeepingUnit
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Price" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Price
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Language" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Language.Name
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Publisher" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Publisher.Name
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Category" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <p class="form-control">
+                            @Model.Category.Name
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <a asp-action="edit" asp-route-id="@Model.Id" class="btn btn-warning mr-2">Edit</a>
+                        <a asp-action="index" class="btn btn-info">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

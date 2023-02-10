@@ -9,11 +9,7 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Bootstrap Border Sizes</h4>
-                    <span>
-                        lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit
-                    </span>
+                    <h4>Books</h4>
                 </div>
             </div>
         </div>
@@ -36,18 +32,6 @@
 
 <div class="page-body">
     <div class="card">
-        <div class="card-header">
-            <h5>Horizontal Borders</h5>
-            <span>
-                Example of <code>horizontal</code> table borders. This is a
-                default table border style attached to <code>.table</code> class.
-                All borders have the same grey color and style, table itself doesn't
-                have a border, but you can add this border using
-                <code>.table-framed</code> class added to the table with
-                <code>.table</code> class.
-            </span>
-
-        </div>
         <div class="card-block table-border-style">
             <div class="table-responsive">
                 <table class="table table-imaged">
@@ -66,7 +50,7 @@
                                 Price
                             </th>
                             <th class="operations">
-                                @if (User.HasAccess("admin.products.create"))
+                                @if (User.HasAccess("admin.books.create"))
                                 {
                                     <a asp-action="Create" class="btn btn-sm btn-primary">
                                         <i class="fa fa-plus"></i>
@@ -93,44 +77,42 @@
 }
 
     @section addjs{
-    <script class="removeable" src="~/libs/sweetalert/sweetalert.min.js"></script>
-    <script class="removeable" src="~/libs/toastr.js/toastr.min.js"></script>
-    <script class="removeable" src="~/libs/toastr.js/toastr.customize.js"></script>
-
-
-    <script class="removeable">
+    <script>
         function removeEntity(id, name) {
-            swal(`Əminsiniz ki '${name}' silinsin?`, {
+            swal(`Əminsiniz ki, '${name}' silinsin?`, {
                 title: "Diqqət!",
-                text: `Əminsiniz ki '${name}' silinsin?`,
+                text: `Əminsiniz ki, '${name}' silinsin?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-                buttons: ["Xeyr", "Bəli"],
+                buttons: ["Xeyr", "Bəli"]
             })
                 .then((value) => {
 
                     if (value == true) {
-                        let vToken = $('[name=__RequestVerificationToken]').val();
+
+                        let vToken = $("[name=__RequestVerificationToken]").val();
+
                         let formData = new FormData();
-                        formData.set('__RequestVerificationToken', vToken);
-                        formData.set('id', id);
+
+                        formData.set("__RequestVerificationToken", vToken);
+                        formData.set("id", id);
 
                         $.ajax({
                             url: `@Url.Action("Delete")`,
-                            type: 'POST',
+                            type: "POST",
                             data: formData,
                             contentType: false,
                             processData: false,
-                            success: function(response, status, xhr) {
+                            success: function(response) {
+                                console.log(response);
 
-                                if (xhr.responseText.isHtml()==true) {
-                                    $('#dynamic-content').html(xhr.responseText);
+                                if (response.error == true) {
+                                    toastr.error(response.message, "Xeta!");
+                                    return;
                                 }
-                                else if (response.error == true) {
-                                        toastr.error(response.message, 'Xeta');
-                                        return;
-                                    }
+
+                                location.reload();
                             },
                             error: function(errorResponse) {
                                 console.error(errorResponse);
@@ -141,3 +123,4 @@
         }
     </script>
 }
+

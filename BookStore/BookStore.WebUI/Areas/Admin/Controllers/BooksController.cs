@@ -109,6 +109,7 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             command.PublisherId = book.PublisherId;
             command.AuthorId = book.AuthorId;
             command.CategoryId = book.CategoryId;
+            command.ImagePath = book.ImagePath;
 
 
 
@@ -143,36 +144,17 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Admin/Books/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var book = await db.Books
-                .Include(b => b.Author)
-                .Include(b => b.Category)
-                .Include(b => b.CreatedByUser)
-                .Include(b => b.Publisher)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            return View(book);
-        }
-
-        // POST: Admin/Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize(Policy = "admin.books.delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id, BookRemoveCommand command)
         {
-            var book = await db.Books.FindAsync(id);
-            db.Books.Remove(book);
-            await db.SaveChangesAsync();
+            if (id != command.Id)
+            {
+                return NotFound();
+            }
+
+            var response = await mediator.Send(command);
             return RedirectToAction(nameof(Index));
         }
 

@@ -13,25 +13,25 @@
             @item.Name
         </td>
         <td class="ellipse">
-            @item.Author
+            @item.Author.Name
         </td>
         <td>
             @item.Price
         </td>
         <td class="operations">
-            @if (User.HasAccess("admin.products.edit"))
+            @if (User.HasAccess("admin.books.edit"))
             {
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
                     <i class="fa fa-pencil"></i>
                 </a>
             }
-            @if (User.HasAccess("admin.products.details"))
+            @if (User.HasAccess("admin.books.details"))
             {
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
                     <i class="fa fa-eye"></i>
                 </a>
             }
-            @if (User.HasAccess("admin.products.remove"))
+            @if (User.HasAccess("admin.books.remove"))
             {
                 <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id,'@item.Name')">
                     <i class="fa fa-trash"></i>
