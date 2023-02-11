@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Book>
+
+@foreach (var item in Model)
+{
+    @*string imagePath = item.Images.FirstOrDefault(i => i.IsMain == true)?.Name;*@
+
+    <tr>
+        <td class="product-remove">
+            <a onclick="removeFromFav(@item.Id,event)">
+                <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+        </td>
+        <td class="product-thumbnail">
+            <a href="#">
+                <img src="~/uploads/images/@item.ImagePath" alt="cart-image" />
+            </a>
+        </td>
+        <td class="product-name">
+            <a asp-controller="book"
+           asp-action="details"
+           asp-route-id="@item.Id">
+                @item.Name
+            </a>
+        </td>
+        <td class="product-price"><span class="amount">@item.Price</span></td>
+        <td class="product-stock-status"><span>in stock</span></td>
+        <td class="product-add-to-cart">
+            <a onclick="addToBasket(event)" data-book-id="@item.Id">Add to basket</a>
+        </td>
+    </tr>
+}

@@ -135,8 +135,8 @@
                                 </a>
                             </strong>
                             <div class="tg-wishlistandcart">
-                                <div class="dropdown tg-themedropdown tg-wishlistdropdown">
-                                    <a href="javascript:void(0);"
+                                <div id="wish" class="dropdown tg-themedropdown tg-wishlistdropdown">
+                                    <a asp-controller="book" asp-action="wishlist"
                                        id="tg-wishlisst"
                                        class="tg-btnthemedropdown"
                                        data-toggle="dropdown"
@@ -153,7 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dropdown tg-themedropdown tg-minicartdropdown">
+                                <div id="basket" class="dropdown tg-themedropdown tg-minicartdropdown">
                                     <a href="javascript:void(0);"
                                        id="tg-minicart"
                                        class="tg-btnthemedropdown"
@@ -1575,9 +1575,12 @@
     <script src="~/assets/js/countTo.js"></script>
     <script src="~/assets/js/appear.js"></script>
     <script src="~/assets/js/gmap3.js"></script>
+    <script src="~/libs/jquery.cookie/jquery.cookie.js"></script>
     <script src="~/assets/js/main.js"></script>
     <script src="~/libs/toastr.js/toastr.min.js"></script>
     <script src="~/libs/toastr.js/toastr.customize.js"></script>
+
+    <partial name="_BasketScriptsPartial" />
 
     @RenderSection("addjs",required:false)
 
@@ -1609,7 +1612,17 @@
                     }
                 });
             });
+
+
+            $('#wish').click(function(ev){
+                window.location.href = "/Book/Wishlist";
+            })
+
+            $('#basket').click(function(ev){
+                window.location.href = "/Book/Basket";
+            })
         });
+
     </script>
 
 </body>

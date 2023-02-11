@@ -133,7 +133,7 @@
                                                         </div>
                                                     </div>
                                                     <a class="tg-btnaddtowishlist"
-                                                   href="javascript:void(0);">
+                                                   href="javascript:addToFavorites(@item.Id);">
                                                         <i class="icon-heart"></i>
                                                         <span>add to wishlist</span>
                                                     </a>
@@ -507,3 +507,20 @@
                 News Grid End
         *************************************-->
 </main>
+
+@section addjs{
+    <script>
+        function addToFavorites(bookId) {
+            const favorites = ($.cookie('favorites') || '').split(',').filter(item => item.length > 0);
+
+
+            if (favorites.filter(item => item == bookId).length == 0) {
+                favorites.push(bookId);
+
+                $.cookie('favorites', favorites.toString(), { path: '/', expires: 7 })
+            }
+
+            console.log($.cookie('favorites'));
+        }
+    </script>
+}

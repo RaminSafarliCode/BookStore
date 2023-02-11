@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<div class="breadcrumb-area ptb-50">
+    <div class="container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="wishlist.html">Wishlist</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="cart-main-area wish-list pb-50">
+    <div class="container">
+        <h2 class="text-capitalize sub-heading">wishlist</h2>
+        <div class="row">
+            <div class="col-md-12 col-12 col-12">
+                <form method="post">
+                    <div class="table-content table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="product-remove">Remove</th>
+                                    <th class="product-thumbnail">Image</th>
+                                    <th class="product-name">Product</th>
+                                    <th class="product-price">Unit Price</th>
+                                    <th class="product-quantity">Stock Status</th>
+                                    <th class="product-subtotal">add to cart</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dynamic-content">
+                                <partial name="_WishlistBody" model="Model" />
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section addcss{
+    <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+
+}
+    @section addjs{
+    <script class="removeable" src="~/libs/toastr.js/toastr.min.js"></script>
+    <script class="removeable" src="~/libs/toastr.js/toastr.customize.js"></script>
+    <script>
+        function removeFromFav(productId, e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '',
+                type: 'post',
+                beforeSend: function(xhr) {
+                    const favorites = ($.cookie('favorites') || '').split(',').filter(item => item.length > 0);
+                    const refreshFavorites = favorites.filter(item => item != productId);
+                    $.cookie('favorites', refreshFavorites.toString(), { path: '/', expires: 7 });
+                },
+                success: function(response) {
+                    $('#dynamic-content').html(response);
+                },
+                error: function(response) {
+                }
+            });
+        }
+
+        function addToBasket(e) {
+            e.preventDefault();
+
+            const elementData = $(e.currentTarget).data();
+
+            $.ajax({
+                url: `@Url.Action("Basket","Book")`,
+                type: 'POST',
+                data: elementData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(response) {
+                    if (response.error == false) {
+                        $(e.target).closest('tr').remove();
+                        toastr.success(response.message, 'Success');
+                        return;
+                    }
+
+
+                    toastr.error(response.message, 'Error');
+                },
+                error: function(response, status, xhr) {
+                    console.log(response, status, xhr);
+                }
+            });
+        }
+    </script>
+}
