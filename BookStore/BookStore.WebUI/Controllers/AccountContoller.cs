@@ -60,6 +60,16 @@ namespace BookStore.WebUI.Controllers
                     goto end;
                 }
 
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        error = false,
+                        message = "login is completed"
+                    });
+                }
+
+
                 var callbackUrl = Request.Query["ReturnUrl"];
 
                 if (!string.IsNullOrWhiteSpace(callbackUrl))

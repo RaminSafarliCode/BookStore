@@ -22,6 +22,8 @@ namespace BookStore.Domain.Business.AuthorModule
             public async Task<Author> Handle(GetSingleAuthorQuery request, CancellationToken cancellationToken)
             {
                 var author = await db.Authors
+                    .Include(data => data.Books)
+                    .ThenInclude(data=>data.Category)
                     .FirstOrDefaultAsync(p => p.Id == request.Id);
 
                 return author;

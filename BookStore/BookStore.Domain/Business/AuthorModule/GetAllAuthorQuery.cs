@@ -24,6 +24,7 @@ namespace BookStore.Domain.Business.AuthorModule
             public async Task<List<Author>> Handle(GetAllAuthorQuery request, CancellationToken cancellationToken)
             {
                 var data = await db.Authors
+                    .Include(data => data.Books)
                 .Where(bp => bp.DeletedDate == null)
                 .ToListAsync(cancellationToken);
 

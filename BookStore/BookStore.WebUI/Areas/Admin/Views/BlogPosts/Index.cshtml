@@ -166,13 +166,13 @@
     <script src="~/libs/toastr.js/toastr.customize.js"></script>
     <script>
         function removeEntity(id, name) {
-            swal(`Əminsiniz ki, '${name}' silinsin?`, {
-                title: "Diqqət!",
-                text: `Əminsiniz ki, '${name}' silinsin?`,
+            swal(`Are you sure to delete '${name}'?`, {
+                title: "Warning!",
+                text: `Are you sure to delete '${name}'?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-                buttons: ["Xeyr", "Bəli"]
+                buttons: ["No", "Yes"]
             })
                 .then((value) => {
 
@@ -195,7 +195,7 @@
                                 console.log(response);
 
                                 if (response.error == true) {
-                                    toastr.error(response.message, "Xeta!");
+                                    toastr.error(response.message, "Error!");
                                     return;
                                 }
 
@@ -210,9 +210,9 @@
         }
 
         function publishDate(id, name) {
-            swal(`${name} adlı məqaləni dərc etmək istəyirsiniz mi?`, {
-                title: "Diqqet!",
-                text: `${name} adlı məqaləni dərc etmək istəyirsiniz mi?`,
+            swal(`Do you want to publish ${name}?`, {
+                title: "Warning!",
+                text: `Do you want to publish ${name}?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

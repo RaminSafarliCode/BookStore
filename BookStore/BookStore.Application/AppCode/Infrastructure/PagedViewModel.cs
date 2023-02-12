@@ -100,7 +100,7 @@ namespace BookStore.Application.AppCode.Infrastructure
             {
                 if (i == this.PageIndex)
                 {
-                    builder.Append($"<li class='active'><a>{i}</a></li>");
+                    builder.Append($"<li class='pag-num active'><a>{i}</a></li>");
                     continue;
                 }
 
@@ -113,7 +113,7 @@ namespace BookStore.Application.AppCode.Infrastructure
                         area
                     });
 
-                builder.Append($"<li><a href='{link}'>{i}</a></li>");
+                builder.Append($"<li class='pag-num'><a href='{link}'>{i}</a></li>");
 
             }
 

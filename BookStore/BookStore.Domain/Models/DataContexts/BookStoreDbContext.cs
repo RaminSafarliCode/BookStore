@@ -32,6 +32,7 @@ namespace BookStore.Domain.Models.DataContexts
         public DbSet<Language> Languages { get; set; } 
         public DbSet<Book> Books{ get; set; }
         public DbSet<Basket> Basket { get; set; }
+        public DbSet<BookRate> BookRates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

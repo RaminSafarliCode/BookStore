@@ -27,6 +27,15 @@ namespace BookStore.Domain.Business.BookModule
             public async Task<Book> Handle(BookSingleQuery request, CancellationToken cancellationToken)
             {
                 var book = await db.Books
+                    .Include(b => b.Category)
+                    .ThenInclude(bc=>bc.Parent)
+
+                    .Include(a => a.Author)
+
+                    .Include(p => p.Publisher)
+
+                    .Include(l=>l.Language)
+
                     .FirstOrDefaultAsync(p => p.Id == request.Id);
 
                 return book;

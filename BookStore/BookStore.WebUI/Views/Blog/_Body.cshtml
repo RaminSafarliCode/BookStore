@@ -30,10 +30,10 @@
                         By:
                         <a href="javascript:void(0);">@item.CreatedByUser?.Name @item.CreatedByUser?.Surname</a>
                     </span>
-                    <ul class="tg-postmetadata"> 
+                    <ul class="tg-postmetadata">
                         <li>
                             <a href="javascript:void(0);">
-                                <i class="fa fa-comment-o"></i><i>"WARNING" Comments</i>
+                                <i class="fa fa-comment-o"></i><i>@item.Comments.Count() Comments</i>
                             </a>
                         </li>
                         <li>
@@ -46,4 +46,8 @@
             </article>
         </div>
     }
+</div>
+<!-- Pagination -->
+<div class="paginate-wrp">
+    @Model.GetPager(Url, "Index", "")
 </div>

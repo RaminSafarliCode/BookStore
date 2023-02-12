@@ -23,6 +23,18 @@ namespace BookStore.WebUI.Controllers
             return View(book);
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(BookSingleQuery query)
+        {
+            var book = await mediator.Send(query);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+
 
         public async Task<IActionResult> Wishlist(WishlistQuery query)
         {
@@ -70,7 +82,13 @@ namespace BookStore.WebUI.Controllers
 
             return Json(response);
         }
-    }
 
-    
+        [HttpPost]
+        public async Task<IActionResult> SetBookRate(SetRateCommand command)
+        {
+            var response = await mediator.Send(command);
+
+            return Json(response);
+        }
+    }
 }

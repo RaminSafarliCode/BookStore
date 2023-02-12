@@ -57,6 +57,7 @@ namespace BookStore.WebUI.Controllers
         }
 
         [HttpPost]
+        [Route("/blog/postcomment")]
         public async Task<IActionResult> PostComment(BlogPostCommentCommand command)
         {
 

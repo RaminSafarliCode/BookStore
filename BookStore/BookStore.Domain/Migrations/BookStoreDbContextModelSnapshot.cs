@@ -319,8 +319,8 @@ namespace BookStore.Domain.Migrations
                     b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
 
                     b.Property<string>("StockKeepingUnit")
                         .HasColumnType("nvarchar(max)");
@@ -343,6 +343,38 @@ namespace BookStore.Domain.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookStore.Domain.Models.Entities.BookRate", b =>
+                {
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CreatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeletedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Rate")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("BookId", "CreatedByUserId");
+
+                    b.HasIndex("CreatedByUserId");
+
+                    b.HasIndex("DeletedByUserId");
+
+                    b.ToTable("BookRates");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>
@@ -1026,6 +1058,31 @@ namespace BookStore.Domain.Migrations
                     b.Navigation("Language");
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("BookStore.Domain.Models.Entities.BookRate", b =>
+                {
+                    b.HasOne("BookStore.Domain.Models.Entities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedByUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "DeletedByUser")
+                        .WithMany()
+                        .HasForeignKey("DeletedByUserId");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("DeletedByUser");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Category", b =>

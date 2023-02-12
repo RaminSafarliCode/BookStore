@@ -29,8 +29,8 @@
                 <div class="tg-innerbannercontent">
                     <h1>News &amp; Articles</h1>
                     <ol class="tg-breadcrumb">
-                        <li><a href="javascript:void(0);">home</a></li>
-                        <li><a href="javascript:void(0);">news</a></li>
+                        <li><a asp-controller="home" asp-action="index">home</a></li>
+                        <li><a asp-controller="blog" asp-action="index">news</a></li>
                         <li class="tg-active">@Model.Title.Substring(0, (Model.Title.Length < 20 ? Model.Title.Length : 20))...</li>
                     </ol>
                 </div>
@@ -97,134 +97,10 @@
                                         {
                                             <a class="tg-tag" href="javascript:void(0);">@item.Tag.Text</a>
                                         }
-                                        @*<a class="tg-tag" href="javascript:void(0);">Wealth</a>
-                                        <a class="tg-tag" href="javascript:void(0);">Profit Making</a>
-                                        <a class="tg-tag" href="javascript:void(0);">Cash</a>
-                                        <a class="tg-tag" href="javascript:void(0);">Planning</a>*@
                                     </div>
                                 </div>
-                                <div class="tg-socialshare">
-                                    <span>Share:</span>
-                                    <ul class="tg-socialicons">
-                                        <li class="tg-facebook">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-twitter">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-linkedin">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-googleplus">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-rss">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-rss"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-twitter">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-linkedin">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
-                            <div class="tg-authorbox">
-                                <figure class="tg-authorimg">
-                                    <img src="~/assets/images/author/imag-24.jpg"
-                                         alt="image description" />
-                                </figure>
-                                <div class="tg-authorinfo">
-                                    <div class="tg-authorhead">
-                                        <div class="tg-leftarea">
-                                            <div class="tg-authorname">
-                                                <h2>Kathrine Culbertson</h2>
-                                                <span>Author Since: June 27, 2017</span>
-                                            </div>
-                                        </div>
-                                        <div class="tg-rightarea">
-                                            <ul class="tg-socialicons">
-                                                <li class="tg-facebook">
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa fa-facebook"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="tg-twitter">
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="tg-linkedin">
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa fa-linkedin"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="tg-googleplus">
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa fa-google-plus"></i>
-                                                    </a>
-                                                </li>
-                                                <li class="tg-rss">
-                                                    <a href="javascript:void(0);">
-                                                        <i class="fa fa-rss"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="tg-description">
-                                        <p>
-                                            Laborum sed ut perspiciatis unde omnis iste natus
-                                            sit voluptatem accusantium doloremque laudantium
-                                            totam rem aperiam eaque ipsa quae ab illo
-                                            inventore veritatis etation.
-                                        </p>
-                                    </div>
-                                    <a class="tg-btn tg-active" href="javascript:void(0);">View All Books</a>
-                                </div>
-                            </div>
-                            <div class="tg-nextprevpost">
-                                <div class="tg-prevpost">
-                                    <a href="javascript:void(0);">
-                                        <figure>
-                                            <img src="~/assets/images/img-04.jpg"
-                                                 alt="image description" />
-                                        </figure>
-                                        <div class="tg-posttitle">
-                                            <h3>Where The Wild Things Are</h3>
-                                            <span>Previouse Post</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="tg-nextpost">
-                                    <a href="javascript:void(0);">
-                                        <figure>
-                                            <img src="~/assets/images/img-05.jpg"
-                                                 alt="image description" />
-                                        </figure>
-                                        <div class="tg-posttitle">
-                                            <h3>All She Wants To Dance</h3>
-                                            <span>Previouse Post</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="tg-commentsarea">
+                            <div class="tg-commentsarea comments">
                                 <div class="tg-sectionhead">
                                     <h2>@Model.Comments.Count() Comments</h2>
                                 </div>
@@ -258,54 +134,45 @@
                                                 </div>
                                                 <div class="tg-bottomarrow"></div>
                                             </div>
+                                        </li>
 
-                                            <ul class="tg-childcomment">
-                                                @foreach (var subComment in GetComments(comment))
-                                                {
-                                                    <li class="comment-sub" id="c-@subComment.Id" data-comment-id="@subComment.Id">
-                                                        <div class="tg-authorbox">
-                                                            <div class="tg-authorinfo">
-                                                                <div class="tg-authorhead">
-                                                                    <div class="tg-leftarea">
-                                                                        <div class="tg-authorname">
-                                                                            <h2>@($"{subComment.CreatedByUser?.Name} {subComment.CreatedByUser?.Surname}")</h2>
-                                                                            <span>Author Since: June 27, 2017</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="tg-rightarea">
-                                                                        <a class="tg-btnreply btn-comment-reply"
-                                                                   href="javascript:void(0);">
-                                                                            Reply<i class="fa fa-mail-reply"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="tg-description">
-                                                                    <p>
-                                                                        @subComment.Text
-                                                                    </p>
+                                        @foreach (var subComment in GetComments(comment))
+                                        {
+                                            <li class="comment comment-sub" id="c-@subComment.Id" data-comment-id="@subComment.Id">
+                                                <div class="tg-authorbox">
+                                                    <div class="tg-authorinfo">
+                                                        <div class="tg-authorhead">
+                                                            <div class="tg-leftarea">
+                                                                <div class="tg-authorname">
+                                                                    <h2>@($"{subComment.CreatedByUser?.Name} {subComment.CreatedByUser?.Surname}")</h2>
+                                                                    <span>Author Since: June 27, 2017</span>
                                                                 </div>
                                                             </div>
-                                                            <div class="tg-bottomarrow"></div>
+                                                            <div class="tg-rightarea">
+                                                                <a class="tg-btnreply btn-comment-reply"
+                                                           href="javascript:void(0);">
+                                                                    Reply<i class="fa fa-mail-reply"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
-                                                    </li>
-                                                }
-
-
-                                            </ul>
-                                        </li>
+                                                        <div class="tg-description">
+                                                            <p>
+                                                                @subComment.Text
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tg-bottomarrow"></div>
+                                                </div>
+                                            </li>
+                                        }
                                     }
-
-                                    <li class="tg-loadmore">
-                                        <a class="tg-btn tg-active"
-                                           href="javascript:void(0);">View All</a>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="tg-leaveyourcomment">
                                 <div class="tg-sectionhead">
                                     <h2>Leave Your Comment</h2>
                                 </div>
-                                <form class="tg-formtheme tg-formleavecomment" id="replyForm">
+                                <form method="post" class="tg-formtheme tg-formleavecomment" id="replyForm">
                                     <fieldset>
                                         <div id="replyToComment"></div>
                                         <input type="hidden" name="postId" value="@Model.Id" />
@@ -592,14 +459,25 @@
 <!--************************************
             News Grid End
     *************************************-->
-@section addjs{
+@section addcss{
+    <style>
+        .comment-sub {
+            margin: 0;
+            width: 100%;
+            float: left;
+            padding: 0 0 0 100px;
+        }
+    </style>
+}
+
+    @section addjs{
     <script>
         $(document).ready(function() {
             $(".btn-comment-reply").click(function(e) {
                 e.preventDefault();
 
                 $("#replyToComment").html("<a href='javascript:removeSelectedReply()' class='remove-selected-comment' >&times</a>").append($(e.currentTarget).closest(".comment").clone());
-              
+
             })
 
             $("#replyForm").submit(function(e) {
@@ -607,9 +485,7 @@
 
                 let formData = new FormData(e.currentTarget);
                 let toCommentId = $(`#replyToComment li.comment`).data("comment-id");
-                console.log("commentId",toCommentId);
-
-                //console.log("commentId",toCommentId);
+                console.log("commentId", toCommentId);
 
                 if (toCommentId != undefined) {
                     formData.set("commentId", toCommentId);
@@ -626,9 +502,9 @@
                         //console.log(res);
                     },
                     error: function(response) {
-                        
-                    console.log("error var");
-                        if (response.statusText == "parsererror") {
+
+                        console.log("error var");
+                        if (response.statusText == "OK") {
                             if (toCommentId != undefined) {
                                 $(response.responseText).insertAfter($(`#c-${toCommentId}`));
 

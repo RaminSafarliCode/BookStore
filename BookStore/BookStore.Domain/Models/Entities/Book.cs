@@ -14,7 +14,7 @@ namespace BookStore.Domain.Models.Entities
         public decimal Price { get; set; }
         public string ImagePath { get; set; }
         public string StockKeepingUnit { get; set; }
-        public decimal Rate { get; set; }
+        public double Rate { get; set; }
         public string Summary { get; set; }
         public int Page { get; set; }
 

@@ -26302,6 +26302,7 @@ td.table-row-select {
 
 .image-cell > img {
   max-height: 50px;
+  width: 100%;
 }
 
 .image-viewer {

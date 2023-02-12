@@ -52,6 +52,8 @@ namespace BookStore.Domain.Business.BlogPostModule
                 entity.Body = request.Body;
                 entity.BlogPostCategoryId = request.BlogPostCategoryId;
 
+                entity.CreatedByUserId = ctx.GetCurrentUserId();
+
                 string extension = Path.GetExtension(request.Image.FileName);//.jpg
 
                 request.ImagePath = $"blogpost-{Guid.NewGuid().ToString().ToLower()}{extension}";
