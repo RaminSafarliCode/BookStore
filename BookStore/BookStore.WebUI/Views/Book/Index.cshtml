@@ -11,7 +11,7 @@
          data-z-index="-100"
          data-appear-top-offset="600"
          data-parallax="scroll"
-         data-image-src="~/assets/images/parallax/bgparallax-07.jpg">
+         data-image-src=@Url.Content("~/assets/images/parallax/bgparallax-07.jpg")>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -88,90 +88,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tg-productgrid">
-                                    <div class="tg-refinesearch">
-                                        <span>showing 1 to 8 of 20 total</span>
-                                        <form class="tg-formtheme tg-formsortshoitems">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <label>sort by:</label>
-                                                    <span class="tg-select">
-                                                        <select>
-                                                            <option>name</option>
-                                                            <option>name</option>
-                                                            <option>name</option>
-                                                        </select>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>show:</label>
-                                                    <span class="tg-select">
-                                                        <select>
-                                                            <option>8</option>
-                                                            <option>16</option>
-                                                            <option>20</option>
-                                                        </select>
-                                                    </span>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-
-                                    @foreach (var item in Model.Items)
-                                    {
-                                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                                            <div class="tg-postbook">
-                                                <figure class="tg-featureimg">
-                                                    <div class="tg-bookimg">
-                                                        <div class="tg-frontcover">
-                                                            <img src="~/uploads/images/@item.ImagePath"
-                                                             alt="@item.Name" />
-                                                        </div>
-                                                        <div class="tg-backcover">
-                                                            <img src="~/uploads/images/@item.ImagePath"
-                                                             alt="@item.Name" />
-                                                        </div>
-                                                    </div>
-                                                    <a class="tg-btnaddtowishlist"
-                                                   href="javascript:addToFavorites(@item.Id);">
-                                                        <i class="icon-heart"></i>
-                                                        <span>add to wishlist</span>
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-postbookcontent">
-                                                    <ul class="tg-bookscategories">
-                                                        <li>
-                                                            <a href="javascript:void(0);">@item.Category.Name</a>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="tg-themetagbox">
-                                                        <span class="tg-themetag">sale</span>
-                                                    </div>
-                                                    <div class="tg-booktitle">
-                                                        <h3>
-                                                            <a asp-action="details" asp-route-id="@item.Id">@item.Name</a>
-                                                        </h3>
-                                                    </div>
-                                                    <span class="tg-bookwriter">
-                                                        By:
-                                                        <a href="javascript:void(0);">@item.Author.Name</a>
-                                                    </span>
-                                                    <span class="tg-stars"><span></span></span>
-                                                    <span class="tg-bookprice">
-                                                        @*<ins>@(item.Price * Convert.ToDecimal(0.75);)₼</ins>*@
-                                                        <ins>@(item.Price) ₼</ins>
-                                                        <del>@item.Price ₼</del>
-                                                    </span>
-                                                    <a class="tg-btn tg-btnstyletwo"
-                                                   onclick="addToBasket(event)" data-book-id="@item.Id">
-                                                        <i class="fa fa-shopping-basket"></i>
-                                                        <em>Add To Basket</em>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-
+                                <div id="products">
+                                    <partial name="_Books" model="@Model" />
                                 </div>
                             </div>
                         </div>
@@ -190,6 +108,9 @@
                                                placeholder="Search by title, author, key..." />
                                     </div>
                                 </form>
+                            </div>
+                            <div class="tg-widget">
+                                @await Component.InvokeAsync("SearchPanel")
                             </div>
                             <div class="tg-widget tg-catagories">
                                 <div class="tg-widgettitle">
@@ -334,96 +255,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="tg-widget tg-widgetinstagram">
-                                <div class="tg-widgettitle">
-                                    <h3>Instagram</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <ul>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-01.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-02.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-03.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-04.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-05.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-06.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-07.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-08.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                        <li>
-                                            <figure>
-                                                <img src="~/assets/images/instagram/img-09.jpg"
-                                                     alt="image description" />
-                                                <figcaption>
-                                                    <a href="javascript:void(0);"><i class="icon-heart"></i><em>50,134</em></a>
-                                                </figcaption>
-                                            </figure>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="tg-widget tg-widgetblogers">
                                 <div class="tg-widgettitle">
                                     <h3>Top Bloogers</h3>
@@ -508,8 +339,164 @@
         *************************************-->
 </main>
 
-@section addjs{
+@section addcss{
+    <style>
+                [data-entity-type] {
+          position: relative;
+          padding-left: 30px;
+          display: block;
+          cursor: pointer;
+        }
+
+        [data-entity-type]:not(.filled)::before {
+          content: "";
+          font-size: 0.7em;
+          font-weight: 900;
+          font-family: "Font Awesome 5 Free";
+          position: absolute;
+          border: 1px solid #cccccc85;
+          width: 18px;
+          height: 18px;
+          border-radius: 2px;
+          top: 50%;
+          left: 0px;
+          transform: translateY(-50%);
+          text-align: center;
+          text-indent: 1px;
+          line-height: 1.7em;
+        }
+
+        [data-entity-type].active:not(.filled)::before {
+          content: "\f00c";
+          color: #ffffff;
+          background-color: #cccccc85;
+          border-color: #cccccc85;
+        }
+
+        [data-entity-type].filled {
+          width: 30px;
+          height: 25px;
+          border-radius: 2px;
+          border: 1px solid #cccccc85;
+        }
+
+        [data-entity-type].filled::before {
+          content: "";
+          display: inline-block;
+          padding-left: 1px;
+          line-height: 7pt;
+          font-size: 5pt;
+          font-weight: 900;
+          font-family: "Font Awesome 5 Free";
+          position: absolute;
+          top: 1px;
+          right: 1px;
+        }
+
+        [data-entity-type].filled.active::before {
+          content: "\f00c";
+          color: #000000c4;
+          background-color: #ffffff;
+          border: 1px solid #000000c4;
+          width: 12px;
+          height: 12px;
+          border-radius: 100%;
+        }
+
+        #price-range[range]::before {
+          content: attr(range);
+          display: flex;
+          justify-content: center;
+          padding-top: 5px;
+        }
+
+
+
+    </style>
+}
+
+    @section addjs{
     <script>
+        const priceRangeData = $("#price-range").data();
+
+        const searchModel = {
+            authors: [],
+            publishers: [],
+            languages: [],
+            categories: [],
+            min: priceRangeData.priceMin,
+            max: priceRangeData.priceMax
+        };
+
+        $(document).ready(function() {
+            $('.blog-pagination.ptb-20')
+                .removeClass('blog-pagination')
+                .removeClass('ptb-20')
+                .addClass('list-inline');
+
+            $("#price-range")
+                .attr('range', `${searchModel.min}₼ - ${searchModel.max}₼`)
+                .slider({
+                    range: true,
+                    min: searchModel.min,
+                    max: searchModel.max,
+                    values: [searchModel.min, searchModel.max],
+                    slide: function(e, ui) {
+                        $(e.target).attr('range', `${ui.values[0]}₼ - ${ui.values[1]}₼`);
+                        searchModel.min = ui.values[0];
+                        searchModel.max = ui.values[1];
+
+                        filterProducts();
+                    }
+                });
+
+
+            $('[data-entity-type]').click(function(e) {
+
+                e.preventDefault();
+
+                let model = $(e.currentTarget).data();  //entityType  id
+
+                if ($(e.currentTarget).hasClass('active') == true) {
+                    $(e.currentTarget).removeClass('active');
+                    searchModel[`${model.entityType}`] = searchModel[`${model.entityType}`].filter(item => item != model.id);
+                }
+                else {
+                    $(e.currentTarget).addClass('active');
+
+                    if (searchModel[`${model.entityType}`].filter(item => item == model.id).length == 0) {
+                        searchModel[`${model.entityType}`].push(model.id);
+                    }
+                }
+
+                filterProducts();
+            });
+        });
+
+        function filterProducts() {
+            if ($.pid != undefined) {
+                clearTimeout($.pid);
+            }
+
+            $.pid = setTimeout(function() {
+                console.log(searchModel);
+
+                $.ajax({
+                    type: 'POST',
+                    data: searchModel,
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function(response) {
+
+                        $('#products').html(response);
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                });
+            }, 1500);
+        }
+
         function addToFavorites(bookId) {
             const favorites = ($.cookie('favorites') || '').split(',').filter(item => item.length > 0);
 

@@ -17,11 +17,29 @@ namespace BookStore.WebUI.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index(BooksPagedQuery query)
+        public async Task<IActionResult> Index(BookFilterQuery query)
         {
-            var book = await mediator.Send(query);
-            return View(book);
+            var response = await mediator.Send(query);
+
+            if (Request.IsAjaxRequest())
+            {
+                //return Json(response);
+                return PartialView("_Books", response);
+            }
+
+            return View(response);
         }
+
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Index(BooksPagedQuery query)
+        //{
+        //    var book = await mediator.Send(query);
+        //    if (book == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(book);
+        //}
 
         [AllowAnonymous]
         public async Task<IActionResult> Details(BookSingleQuery query)

@@ -1,0 +1,86 @@
+﻿@using BookStore.Domain.AppCode.Extensions
+@model SearchPanelViewModel
+
+<div class="sidebar white-bg">
+    <div class="border-default universal-padding sidebar-widget">
+        <div class="group-title">
+            <h2>Availability</h2>
+        </div>
+        <ul class="manufactures-list">
+            <li>
+                <input type="checkbox" name="filter.v.availability" value="1" id="Filter-availability-1">
+                <label for="Filter-availability-1">In stock (42)</label>
+            </li>
+            <li>
+                <input type="checkbox" name="filter.v.availability" value="0" id="Filter-availability-2">
+                <label for="Filter-availability-2">Out of stock (4)</label>
+            </li>
+        </ul>
+    </div>
+    <div class="border-default universal-padding">
+        <div class="group-title">
+            <h2>price</h2>
+        </div>
+        <div id="price-range" data-price-min="@Model.Min" data-price-max="@Model.Max"></div>
+    </div>
+    <div class="border-default universal-padding mtb-40 sidebar-widget">
+        <div class="group-title">
+            <h2>Authors</h2>
+        </div>
+        <ul class="manufactures-list">
+            @foreach (var item in Model.Authors)
+            {
+                <li>
+                    <a data-id="@item.Id" data-entity-type="authors">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="border-default universal-padding mtb-40 sidebar-widget">
+        <div class="group-title">
+            <h2>Publishers</h2>
+        </div>
+        <ul class="manufactures-list">
+            @foreach (var item in Model.Publishers)
+            {
+                <li>
+                    <a data-id="@item.Id" data-entity-type="publishers">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="border-default universal-padding mtb-40 sidebar-widget">
+        <div class="group-title">
+            <h2>Categories</h2>
+        </div>
+        <ul class="manufactures-list">
+            @foreach (var item in Model.Categories)
+            {
+                <li>
+                    <a data-id="@item.Id" data-entity-type="categories">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="border-default universal-padding mb-40 sidebar-widget">
+        <div class="group-title">
+            <h2>Languages</h2>
+        </div>
+        <ul class="manufactures-list">
+            @foreach (var item in Model.Languages)
+            {
+                <li>
+                    <a data-id="@item.Id" data-entity-type="languages">
+                        @item.ShortName
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

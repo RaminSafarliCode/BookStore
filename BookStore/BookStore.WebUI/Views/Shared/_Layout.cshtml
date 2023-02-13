@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="~/assets/css/normalize.css" />
     <link rel="stylesheet" href="~/assets/css/icomoon.css" />
     <link rel="stylesheet" href="~/assets/css/owl.carousel.css" />
+    <link rel="stylesheet" href="~/assets/css/color.css" />
     <link rel="stylesheet" href="~/assets/css/transitions.css" />
     <link rel="stylesheet" href="~/assets/css/main.css" />
-    <link rel="stylesheet" href="~/assets/css/color.css" />
     <link rel="stylesheet" href="~/assets/css/responsive.css" />
     <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
     @RenderSection("addcss",required:false)
@@ -1589,11 +1589,11 @@
 
             $.ajaxSetup({
                 statusCode: {
-                    200: function(response) {
-                        if (response.error == false && response.length > 0) {
-                            toastr.success(response.message, 'Successful operation!');
-                        }
-                    },
+                    //200: function(response) {
+                    //    if (response.error == false && response.length > 0) {
+                    //        toastr.success(response.message, 'Successful operation!');
+                    //    }
+                    //},
                     400: function(response) {
                         toastr.error('Bad request!', "Error!");
                     },
