@@ -26,6 +26,7 @@ namespace BookStore.Domain.Models.DataContexts
         public DbSet<BlogPostCategory> BlogPostCategories { get; set; } 
         public DbSet<BlogPostTagItem> BlogPostTagCloud { get; set; } 
         public DbSet<BlogPostComment> BlogPostComments { get; set; } 
+        public DbSet<BlogPostReact> BlogPostReacts { get; set; }
         public DbSet<Category> Categories { get; set; } 
         public DbSet<Author> Authors { get; set; } 
         public DbSet<Publisher> Publishers { get; set; } 

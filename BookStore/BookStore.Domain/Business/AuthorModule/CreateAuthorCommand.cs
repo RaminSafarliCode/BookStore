@@ -3,6 +3,7 @@ using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -27,18 +28,24 @@ namespace BookStore.Domain.Business.AuthorModule
             private readonly BookStoreDbContext db;
             private readonly IConfiguration configuration;
             private readonly IHostEnvironment env;
+            private readonly IActionContextAccessor ctx;
 
-            public CreateAuthorCommandHandler(BookStoreDbContext db, IConfiguration configuration, IHostEnvironment env)
+            public CreateAuthorCommandHandler(BookStoreDbContext db, IConfiguration configuration, IHostEnvironment env, IActionContextAccessor ctx)
             {
                 this.db = db;
                 this.configuration = configuration;
                 this.env = env;
+                this.ctx = ctx;
             }
 
             public async Task<Author> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
             {
+                if (!ctx.IsValid())
+                    return null;
+
                 var author = new Author();
 
+                author.CreatedByUserId = ctx.GetCurrentUserId();
                 author.Name = request.Name;
                 author.Biography = request.Biography;
 

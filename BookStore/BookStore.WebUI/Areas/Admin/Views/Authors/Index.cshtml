@@ -23,9 +23,12 @@
                                 Biography
                             </th>
                             <th class="operations">
-                                <a asp-action="Create" class="btn btn-sm btn-primary">
-                                    <i class="fa fa-pen-to-square"></i>
-                                </a>
+                                @if (User.HasAccess("admin.authors.create"))
+                                {
+                                    <a asp-action="Create" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-pen-to-square"></i>
+                                    </a>
+                                }
                             </th>
                         </tr>
                     </thead>
@@ -36,7 +39,7 @@
                                 <td class="image-cell">
                                     @if (!string.IsNullOrWhiteSpace(item.ImagePath))
                                     {
-                                        <img src="~/uploads/images/@item.ImagePath" />
+                                        <img style="object-fit: contain" src="~/uploads/images/@item.ImagePath" alt="@item.Name" />
                                     }
                                 </td>
                                 <td>
@@ -46,17 +49,26 @@
                                     @item.Biography.ToPlainText()
                                 </td>
                                 <td class="operations">
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.authors.edit"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                    }
 
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.authors.details"))
+                                    {
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    }
 
-                                    <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.authors.delete"))
+                                    {
+                                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -65,7 +77,7 @@
             </div>
         </div>
     </div>
-     @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 </div>
 
 

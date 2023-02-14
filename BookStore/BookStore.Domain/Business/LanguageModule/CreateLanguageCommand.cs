@@ -1,6 +1,8 @@
-﻿using BookStore.Domain.Models.DataContexts;
+﻿using BookStore.Application.AppCode.Extenstions;
+using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,16 +16,22 @@ namespace BookStore.Domain.Business.LanguageModule
         public class CreateLanguageCommandHandler : IRequestHandler<CreateLanguageCommand, Language>
         {
             private readonly BookStoreDbContext db;
+            private readonly IActionContextAccessor ctx;
 
-            public CreateLanguageCommandHandler(BookStoreDbContext db)
+            public CreateLanguageCommandHandler(BookStoreDbContext db, IActionContextAccessor ctx)
             {
                 this.db = db;
+                this.ctx = ctx;
             }
 
             public async Task<Language> Handle(CreateLanguageCommand request, CancellationToken cancellationToken)
             {
+                if (!ctx.IsValid())
+                    return null;
+
                 var publisher = new Language();
 
+                publisher.CreatedByUserId = ctx.GetCurrentUserId();
                 publisher.Name = request.Name;
                 publisher.ShortName = request.ShortName;
 

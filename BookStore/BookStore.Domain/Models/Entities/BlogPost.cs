@@ -15,6 +15,8 @@ namespace BookStore.Domain.Models.Entities
 
         public virtual ICollection<BlogPostComment> Comments { get; set; }
 
+        public virtual ICollection<BlogPostReact> Reacts { get; set; }
+
         public int BlogPostCategoryId { get; set; }
         public virtual BlogPostCategory BlogPostCategory { get; set; }
 

@@ -44,7 +44,7 @@
                                 @Html.DisplayNameFor(model => model.CreatedDate)
                             </th>
                             <th class="operations">
-                                @if (User.HasAccess("admin.categories.create"))
+                                @if (User.HasAccess("admin.publishers.create"))
                                 {
                                     <a asp-action="Create" class="btn btn-sm btn-primary">
                                         <i class="fa fa-pen-to-square"></i>
@@ -65,17 +65,26 @@
                                     @Html.DisplayFor(modelItem => item.CreatedDate)
                                 </td>
                                 <td class="operations">
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.publishers.create"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                    }
 
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.publishers.details"))
+                                    {
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    }
 
-                                    <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.publishers.delete"))
+                                    {
+                                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Name')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }

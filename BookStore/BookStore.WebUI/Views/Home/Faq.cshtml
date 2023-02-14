@@ -65,33 +65,35 @@
 
 @section addcss{
     <style>
-                .cus-panel:not(:first-child){
-                    margin-top: 20px!important;
-                }
+        .cus-panel:not(:first-child) {
+            margin-top: 20px !important;
+        }
 
-                .cus-panel__heading{
-                    background-color: #857c9c!important;
-                    transition: 0.3s all;
-                    border-radius: 3px!important;
-                }
-                .cus-panel__heading:hover{
-        -webkit-box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
-        -moz-box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
-        box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
-        background-color: #675c84!important;
-                }
+        .cus-panel__heading {
+            background-color: #857c9c !important;
+            transition: 0.3s all;
+            border-radius: 3px !important;
+        }
+
+            .cus-panel__heading:hover {
+                -webkit-box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
+                -moz-box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
+                box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
+                background-color: #675c84 !important;
+            }
 
 
-                .cus-title__link{
-                    color: white!important;
-                }
-                .cus-title__link:hover{
-                    color: white!important;
-                }
+        .cus-title__link {
+            color: white !important;
+        }
 
-                .active{
-                    background-color: #675c84!important;
-                }
+            .cus-title__link:hover {
+                color: white !important;
+            }
+
+        .cus-active {
+            background-color: #675c84 !important;
+        }
     </style>
 }
 
@@ -99,7 +101,7 @@
     <script>
         $(document).ready(function() {
             $('.cus-panel__heading').click((e) => {
-                e.currentTarget.classList.toggle('active');
+                e.currentTarget.classList.toggle('cus-active');
             });
         })
     </script>

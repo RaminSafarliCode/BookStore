@@ -50,9 +50,12 @@
                                 @Html.DisplayNameFor(model => model.CreatedDate)
                             </th>
                             <th class="operations">
-                                <a asp-action="Create" class="btn btn-sm btn-primary">
-                                    <i class="fa fa-plus"></i>
-                                </a>
+                                @if (User.HasAccess("admin.faqs.create"))
+                                {
+                                    <a asp-action="Create" class="btn btn-sm btn-primary">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                }
                             </th>
                         </tr>
                     </thead>
@@ -70,15 +73,26 @@
                                     @Html.DisplayFor(modelItem => item.CreatedDate)
                                 </td>
                                 <td class="operations">
-                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id,'@item.Question')">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
+                                    @if (User.HasAccess("admin.faqs.edit"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    }
+
+                                    @if (User.HasAccess("admin.faqs.details"))
+                                    {
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    }
+
+                                    @if (User.HasAccess("admin.faqs.delete"))
+                                    {
+                                        <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id,'@item.Question')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }

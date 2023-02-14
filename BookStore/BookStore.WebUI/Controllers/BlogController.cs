@@ -37,15 +37,6 @@ namespace BookStore.WebUI.Controllers
         [Route("/blog/{slug}")]
         public async Task<IActionResult> Details(BlogPostSingleQuery query, int id)
         {
-            //var post = await db.BlogPosts.FirstOrDefaultAsync(entity => entity.Id == id);
-
-            //if (post == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //db.BlogPosts.
-
 
             var blogPost = await mediator.Send(query);
             if (blogPost == null)
@@ -79,6 +70,20 @@ namespace BookStore.WebUI.Controllers
                     message = ex.Message
                 });
             }
+        }
+
+        [HttpPost]
+        [Route("/react-post")]
+        public async Task<IActionResult> ReactPost(BlogPostReactCommand command)
+        {
+            var response = await mediator.Send(command);
+
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Json(response);
         }
     }
 }

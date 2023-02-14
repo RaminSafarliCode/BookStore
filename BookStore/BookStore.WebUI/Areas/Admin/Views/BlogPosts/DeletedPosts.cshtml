@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "DeletedPosts";
 }
-
-<h1>Index</h1>
-
 @section addcss{
     <link rel="stylesheet" href="~/libs/toastr.js/toastr.css">
 }
@@ -17,11 +14,7 @@
                 <div class="col-lg-8">
                     <div class="page-header-title">
                         <div class="d-inline">
-                            <h4>Bootstrap Border Sizes</h4>
-                            <span>
-                                lorem ipsum dolor sit amet, consectetur adipisicing
-                                elit
-                            </span>
+                            <h4>Deleted Posts</h4>
                         </div>
                     </div>
                 </div>
@@ -33,7 +26,10 @@
                             </li>
 
                             <li class="breadcrumb-item" style="float: left;">
-                                <span>BlogPosts</span>
+                                <a asp-controller="blogposts" asp-action="index">BlogPosts</a>
+                            </li>
+                            <li class="breadcrumb-item" style="float: left;">
+                                <span>Deleted posts</span>
                             </li>
                         </ul>
                     </div>
@@ -42,18 +38,6 @@
         </div>
         <div class="page-body">
             <div class="card">
-                <div class="card-header">
-                    <h5>Horizontal Borders</h5>
-                    <span>
-                        Example of <code>horizontal</code> table borders. This is a
-                        default table border style attached to <code>.table</code> class.
-                        All borders have the same grey color and style, table itself doesn't
-                        have a border, but you can add this border using
-                        <code>.table-framed</code> class added to the table with
-                        <code>.table</code> class.
-                    </span>
-
-                </div>
                 <div class="card-block table-border-style">
                     <div class="table-responsive">
                         <table class="table">
@@ -69,13 +53,13 @@
                                         @Html.DisplayNameFor(model => model.Body)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.PublishedDate)
+                                        @Html.DisplayNameFor(model => model.DeletedDate)
                                     </th>
 
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach (var item in Model)
+                                @foreach (var item in Model)
                             {
                                 <tr>
                                     <td class="image-cell">
@@ -91,11 +75,14 @@
                                         @item.Body.ToPlainText();
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.PublishedDate)
+                                        @Html.DisplayFor(modelItem => item.DeletedDate)
                                     </td>
 
                                     <td class="operations table-imaged">
-                                        <a class="btn btn-sm btn-success" onclick="removeEntityBack(@item.Id, '@item.Title')"><i class="fa-solid fa-rotate-left mr-0"></i></a>
+                                        @if (User.HasAccess("admin.blogposts.removeback"))
+                                        {
+                                            <a class="btn btn-sm btn-success" onclick="removeEntityBack(@item.Id, '@item.Title')"><i class="fa-solid fa-rotate-left mr-0"></i></a>
+                                        }
                                         <a asp-action="DeletedPostDetails" asp-route-id="@item.Id" class="btn btn-sm btn-info"><i class="fa-solid fa-eye mr-0"></i></a>
                                         <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Title')"><i class="fa-solid fa-trash-can mr-0"></i></a>
                                     </td>
@@ -141,7 +128,7 @@
                             data: formData,
                             contentType: false,
                             processData: false,
-                            success: function (response) {
+                            success: function(response) {
                                 console.log(response)
                                 if (response.error == true) {
                                     toaster.error(response.message, "Xeta");
@@ -149,7 +136,7 @@
                                 }
                                 location.reload();
                             },
-                            error: function (errorResponse) {
+                            error: function(errorResponse) {
                                 console.error(errorResponse);
                             }
                         });
@@ -184,7 +171,7 @@
                             data: formData,
                             contentType: false,
                             processData: false,
-                            success: function (response) {
+                            success: function(response) {
                                 console.log(response)
                                 if (response.error == true) {
                                     toaster.error(response.message, "Xeta");
@@ -192,7 +179,7 @@
                                 }
                                 location.reload();
                             },
-                            error: function (errorResponse) {
+                            error: function(errorResponse) {
                                 console.error(errorResponse);
                             }
                         });

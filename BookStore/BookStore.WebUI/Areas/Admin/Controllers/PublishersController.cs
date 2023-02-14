@@ -76,25 +76,6 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
         [Authorize(Policy = "admin.publishers.edit")]
         public async Task<IActionResult> Edit(int? id)
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var entity = await db.Categories
-            //    .FirstOrDefaultAsync(c => c.Id == id);
-
-
-            //if (entity == null)
-            //{
-            //    return NotFound();
-            //}
-
-
-            //command.Id = entity.Id;
-            //command.Name = entity.Name;
-
-            //return View(command);
 
             if (id == null)
             {

@@ -54,6 +54,7 @@ namespace BookStore.Domain.Business.BookModule
                     return null;
 
                 var book = new Book();
+                book.CreatedByUserId = ctx.GetCurrentUserId();
                 book.Name = request.Name;
                 book.StockKeepingUnit = request.StockKeepingUnit;
                 book.Price = request.Price;
