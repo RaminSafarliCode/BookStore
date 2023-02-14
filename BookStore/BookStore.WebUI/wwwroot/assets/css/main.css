@@ -560,13 +560,10 @@ li.tg-rss a {
 }
 .tg-stars span,
 .tg-stars {
-  width: 80px;
-  height: 13px;
   float: left;
   line-height: 13px;
-  position: relative;
 }
-.tg-stars span:after,
+/* .tg-stars span:after,
 .tg-stars:before {
   top: 0;
   left: 0;
@@ -588,7 +585,7 @@ li.tg-rss a {
 }
 .tg-stars span:after {
   color: #000;
-}
+} */
 .row.no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -1986,11 +1983,11 @@ li.menu-item-has-mega-menu {
   width: 100%;
   float: left;
   margin: 15px 0;
+  text-align: center;
 }
 .tg-featureimg {
   margin: 0;
   width: 100%;
-  float: left;
   overflow: hidden;
   position: relative;
 }
@@ -2992,6 +2989,29 @@ li.menu-item-has-mega-menu {
   width: 100%;
   float: left;
 }
+
+.tg-custom-widget ul {
+  font-size: 13px;
+  line-height: 17px;
+  list-style: none;
+  font-family: "Work Sans", Arial, Helvetica, sans-serif;
+}
+
+.tg-custom-widget ul li {
+  padding: 11px 0;
+  position: relative;
+  line-height: inherit;
+  list-style-type: none;
+}
+
+.tg-custom-widget h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 40px;
+}
+
 .tg-widget ul {
   width: 100%;
   float: left;
@@ -4047,7 +4067,7 @@ blockquote .tg-bookwriter {
   background: #f7f7f7;
 }
 .tg-productdetail .tg-postbook .tg-bookprice {
-  padding: 0 0 14px 20px;
+  padding: 0 0 14px 0px;
 }
 .tg-productdetail .tg-postbook .tg-bookprice ins {
   color: #484848;
@@ -4077,7 +4097,6 @@ blockquote .tg-bookwriter {
   font-size: 14px;
   list-style: none;
   line-height: 25px;
-  padding: 0 0 10px 20px;
 }
 .tg-delevrystock li {
   width: 100%;
@@ -4099,7 +4118,6 @@ blockquote .tg-bookwriter {
   vertical-align: middle;
 }
 .tg-delevrystock li span {
-  width: 78%;
   overflow: hidden;
 }
 .tg-delevrystock li span em {
@@ -4148,6 +4166,7 @@ blockquote .tg-bookwriter {
 .tg-productdetail .tg-postbook .tg-postbookcontent .tg-btn {
   padding: 0;
   margin: 10px 0 0;
+  cursor: pointer;
 }
 .tg-productdetail .tg-postbook .tg-postbookcontent .tg-btnaddtowishlist {
   padding: 0;
@@ -5022,4 +5041,12 @@ body.tg-comingsoonpage .tg-footerbar {
 .rate.rate-5 li:nth-child(5)::before {
   content: "\f005";
   font-weight: 900;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-25 {
+  margin-bottom: 25px;
 }

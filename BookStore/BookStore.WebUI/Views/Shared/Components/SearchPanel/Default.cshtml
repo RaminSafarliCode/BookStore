@@ -1,10 +1,99 @@
 ﻿@using BookStore.Domain.AppCode.Extensions
 @model SearchPanelViewModel
 
+
 <div class="sidebar white-bg">
+    <div class="border-default universal-padding mb-40">
+        <div class="group-title mb-25">
+            <h3 class="def-cap">Price</h3>
+        </div>
+        <div id="price-range" data-price-min="@Model.Min" data-price-max="@Model.Max"></div>
+    </div>
+    <div class="border-default universal-padding mb-40 sidebar-widget">
+        <div class="group-title mb-25">
+            <h3 class="def-cap">Categories</h3>
+        </div>
+        <ul class="manufactures-list def-list">
+            @foreach (var item in Model.Categories)
+            {
+                <li class="def-item">
+                    <a data-id="@item.Id" data-entity-type="categories">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    @* <div class="border-default universal-padding mb-40 sidebar-widget">
+    <div class="group-title">
+    <h3>Availability</h3>
+    </div>
+    <ul class="manufactures-list">
+    <li>
+    <input type="checkbox" name="filter.v.availability" value="1" id="Filter-availability-1">
+    <label for="Filter-availability-1">In stock (42)</label>
+    </li>
+    <li>
+    <input type="checkbox" name="filter.v.availability" value="0" id="Filter-availability-2">
+    <label for="Filter-availability-2">Out of stock (4)</label>
+    </li>
+    </ul>
+    </div>*@
+    <div class="border-default universal-padding mb-40 sidebar-widget">
+        <div class="group-title mb-25">
+            <h3 class="def-cap">Author</h3>
+        </div>
+        <ul class="manufactures-list def-list">
+            @foreach (var item in Model.Authors)
+            {
+                <li class="def-item">
+                    <a data-id="@item.Id" data-entity-type="authors">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="border-default universal-padding mb-40 sidebar-widget">
+        <div class="group-title mb-25">
+            <h3 class="def-cap">Publishers</h3>
+        </div>
+        <ul class="manufactures-list def-list">
+            @foreach (var item in Model.Publishers)
+            {
+                <li class="def-item">
+                    <a data-id="@item.Id" data-entity-type="publishers">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="border-default universal-padding mb-40 sidebar-widget">
+        <div class="group-title mb-25">
+            <h3 class="def-cap">Languages</h3>
+        </div>
+        <ul class="manufactures-list def-list">
+            @foreach (var item in Model.Languages)
+            {
+                <li class="def-item">
+                    <a data-id="@item.Id" data-entity-type="languages">
+                        @item.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+
+
+@*<div class="sidebar white-bg">
     <div class="border-default universal-padding sidebar-widget">
-        <div class="group-title">
-            <h2>Availability</h2>
+        <div class="tg-widgettitle">
+            <h3>Availability</h3>
         </div>
         <ul class="manufactures-list">
             <li>
@@ -16,16 +105,16 @@
                 <label for="Filter-availability-2">Out of stock (4)</label>
             </li>
         </ul>
-    </div>
-    <div class="border-default universal-padding">
-        <div class="group-title">
-            <h2>price</h2>
+    </div> 
+    <div class="border-default universal-padding sidebar-widget">
+        <div>
+            <h3 class="tg-widgettitle-custom">price</h3>
         </div>
         <div id="price-range" data-price-min="@Model.Min" data-price-max="@Model.Max"></div>
     </div>
     <div class="border-default universal-padding mtb-40 sidebar-widget">
-        <div class="group-title">
-            <h2>Authors</h2>
+        <div class="tg-widgettitle">
+            <h3>Authors</h3>
         </div>
         <ul class="manufactures-list">
             @foreach (var item in Model.Authors)
@@ -39,8 +128,8 @@
         </ul>
     </div>
     <div class="border-default universal-padding mtb-40 sidebar-widget">
-        <div class="group-title">
-            <h2>Publishers</h2>
+        <div class="tg-widgettitle">
+            <h3>Publishers</h3>
         </div>
         <ul class="manufactures-list">
             @foreach (var item in Model.Publishers)
@@ -54,8 +143,8 @@
         </ul>
     </div>
     <div class="border-default universal-padding mtb-40 sidebar-widget">
-        <div class="group-title">
-            <h2>Categories</h2>
+        <div class="tg-widgettitle">
+            <h3>Categories</h3>
         </div>
         <ul class="manufactures-list">
             @foreach (var item in Model.Categories)
@@ -69,8 +158,8 @@
         </ul>
     </div>
     <div class="border-default universal-padding mb-40 sidebar-widget">
-        <div class="group-title">
-            <h2>Languages</h2>
+        <div class="tg-widgettitle">
+            <h3>Languages</h3>
         </div>
         <ul class="manufactures-list">
             @foreach (var item in Model.Languages)
@@ -83,4 +172,4 @@
             }
         </ul>
     </div>
-</div>
+</div>*@

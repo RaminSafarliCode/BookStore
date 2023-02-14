@@ -16,10 +16,10 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="tg-innerbannercontent">
-                        <h1>All Products</h1>
+                        <h1>All Books</h1>
                         <ol class="tg-breadcrumb">
                             <li><a href="javascript:void(0);">home</a></li>
-                            <li class="tg-active">Products</li>
+                            <li class="tg-active">Books</li>
                         </ol>
                     </div>
                 </div>
@@ -42,52 +42,6 @@
                                 <div class="tg-sectionhead">
                                     <h2><span>People’s Choice</span>Bestselling Books</h2>
                                 </div>
-                                <div class="tg-featurebook alert" role="alert">
-                                    <button type="button"
-                                            class="close"
-                                            data-dismiss="alert"
-                                            aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <div class="tg-featureditm">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-sm hidden-xs">
-                                                <figure>
-                                                    <img src="~/assets/images/img-04.png"
-                                                         alt="image description" />
-                                                </figure>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                                                <div class="tg-featureditmcontent">
-                                                    <div class="tg-themetagbox">
-                                                        <span class="tg-themetag">featured</span>
-                                                    </div>
-                                                    <div class="tg-booktitle">
-                                                        <h3>
-                                                            <a href="javascript:void(0);">Things To Know About Green Flat Design</a>
-                                                        </h3>
-                                                    </div>
-                                                    <span class="tg-bookwriter">
-                                                        By:
-                                                        <a href="javascript:void(0);">Farrah Whisenhunt</a>
-                                                    </span>
-                                                    <span class="tg-stars"><span></span></span>
-                                                    <div class="tg-priceandbtn">
-                                                        <span class="tg-bookprice">
-                                                            <ins>$23.18</ins>
-                                                            <del>$30.20</del>
-                                                        </span>
-                                                        <a class="tg-btn tg-btnstyletwo tg-active"
-                                                           href="javascript:void(0);">
-                                                            <i class="fa fa-shopping-basket"></i>
-                                                            <em>Add To Basket</em>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div id="products">
                                     <partial name="_Books" model="@Model" />
                                 </div>
@@ -96,237 +50,8 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left">
                         <aside id="tg-sidebar" class="tg-sidebar">
-                            <div class="tg-widget tg-widgetsearch">
-                                <form class="tg-formtheme tg-formsearch">
-                                    <div class="form-group">
-                                        <button type="submit">
-                                            <i class="icon-magnifier"></i>
-                                        </button>
-                                        <input type="search"
-                                               name="search"
-                                               class="form-group"
-                                               placeholder="Search by title, author, key..." />
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tg-widget">
+                            <div class="tg-custom-widget">
                                 @await Component.InvokeAsync("SearchPanel")
-                            </div>
-                            <div class="tg-widget tg-catagories">
-                                <div class="tg-widgettitle">
-                                    <h3>Categories</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0);">
-                                                <span>Art &amp; Photography</span><em>28245</em>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>Biography</span><em>4856</em></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>Children’s Book</span><em>8654</em></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>Craft &amp; Hobbies</span><em>6247</em></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">
-                                                <span>Crime &amp; Thriller</span><em>888654</em>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">
-                                                <span>Fantasy &amp; Horror</span><em>873144</em>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>Fiction</span><em>18465</em></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>Fod &amp; Drink</span><em>3148</em></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);">
-                                                <span>Graphic, Anime &amp; Manga</span><em>77531</em>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>Science Fiction</span><em>9247</em></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><span>View All</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="tg-widget tg-widgettrending">
-                                <div class="tg-widgettitle">
-                                    <h3>Trending Products</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <ul>
-                                        <li>
-                                            <article class="tg-post">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/products/img-04.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-postcontent">
-                                                    <div class="tg-posttitle">
-                                                        <h3>
-                                                            <a href="javascript:void(0);">Where The Wild Things Are</a>
-                                                        </h3>
-                                                    </div>
-                                                    <span class="tg-bookwriter">
-                                                        By:
-                                                        <a href="javascript:void(0);">Kathrine Culbertson</a>
-                                                    </span>
-                                                </div>
-                                            </article>
-                                        </li>
-                                        <li>
-                                            <article class="tg-post">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/products/img-05.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-postcontent">
-                                                    <div class="tg-posttitle">
-                                                        <h3>
-                                                            <a href="javascript:void(0);">Where The Wild Things Are</a>
-                                                        </h3>
-                                                    </div>
-                                                    <span class="tg-bookwriter">
-                                                        By:
-                                                        <a href="javascript:void(0);">Kathrine Culbertson</a>
-                                                    </span>
-                                                </div>
-                                            </article>
-                                        </li>
-                                        <li>
-                                            <article class="tg-post">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/products/img-06.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-postcontent">
-                                                    <div class="tg-posttitle">
-                                                        <h3>
-                                                            <a href="javascript:void(0);">Where The Wild Things Are</a>
-                                                        </h3>
-                                                    </div>
-                                                    <span class="tg-bookwriter">
-                                                        By:
-                                                        <a href="javascript:void(0);">Kathrine Culbertson</a>
-                                                    </span>
-                                                </div>
-                                            </article>
-                                        </li>
-                                        <li>
-                                            <article class="tg-post">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/products/img-07.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-postcontent">
-                                                    <div class="tg-posttitle">
-                                                        <h3>
-                                                            <a href="javascript:void(0);">Where The Wild Things Are</a>
-                                                        </h3>
-                                                    </div>
-                                                    <span class="tg-bookwriter">
-                                                        By:
-                                                        <a href="javascript:void(0);">Kathrine Culbertson</a>
-                                                    </span>
-                                                </div>
-                                            </article>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="tg-widget tg-widgetblogers">
-                                <div class="tg-widgettitle">
-                                    <h3>Top Bloogers</h3>
-                                </div>
-                                <div class="tg-widgetcontent">
-                                    <ul>
-                                        <li>
-                                            <div class="tg-author">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/author/imag-03.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-authorcontent">
-                                                    <h2>
-                                                        <a href="javascript:void(0);">Jude Morphew</a>
-                                                    </h2>
-                                                    <span>21,658 Published Books</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="tg-author">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/author/imag-04.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-authorcontent">
-                                                    <h2>
-                                                        <a href="javascript:void(0);">Jude Morphew</a>
-                                                    </h2>
-                                                    <span>21,658 Published Books</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="tg-author">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/author/imag-05.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-authorcontent">
-                                                    <h2>
-                                                        <a href="javascript:void(0);">Jude Morphew</a>
-                                                    </h2>
-                                                    <span>21,658 Published Books</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="tg-author">
-                                                <figure>
-                                                    <a href="javascript:void(0);">
-                                                        <img src="~/assets/images/author/imag-06.jpg"
-                                                             alt="image description" />
-                                                    </a>
-                                                </figure>
-                                                <div class="tg-authorcontent">
-                                                    <h2>
-                                                        <a href="javascript:void(0);">Jude Morphew</a>
-                                                    </h2>
-                                                    <span>21,658 Published Books</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </aside>
                     </div>
@@ -341,76 +66,114 @@
 
 @section addcss{
     <style>
-                [data-entity-type] {
-          position: relative;
-          padding-left: 30px;
-          display: block;
-          cursor: pointer;
+        [data-entity-type] {
+            position: relative;
+            padding-left: 30px;
+            display: block;
+            cursor: pointer;
         }
 
-        [data-entity-type]:not(.filled)::before {
-          content: "";
-          font-size: 0.7em;
-          font-weight: 900;
-          font-family: "Font Awesome 5 Free";
-          position: absolute;
-          border: 1px solid #cccccc85;
-          width: 18px;
-          height: 18px;
-          border-radius: 2px;
-          top: 50%;
-          left: 0px;
-          transform: translateY(-50%);
-          text-align: center;
-          text-indent: 1px;
-          line-height: 1.7em;
-        }
+            [data-entity-type]:not(.filled)::before {
+                content: "";
+                font-size: 0.7em;
+                font-weight: 900;
+                font-family: "Font Awesome 5 Free";
+                position: absolute;
+                border: 1px solid #cccccc85;
+                width: 18px;
+                height: 18px;
+                border-radius: 2px;
+                top: 50%;
+                left: 0px;
+                transform: translateY(-50%);
+                text-align: center;
+                text-indent: 1px;
+                line-height: 1.7em;
+            }
 
-        [data-entity-type].active:not(.filled)::before {
-          content: "\f00c";
-          color: #ffffff;
-          background-color: #cccccc85;
-          border-color: #cccccc85;
-        }
+            [data-entity-type].active:not(.filled)::before {
+                content: "\f00c";
+                color: #ffffff;
+                background-color: #cccccc85;
+                border-color: #cccccc85;
+            }
 
-        [data-entity-type].filled {
-          width: 30px;
-          height: 25px;
-          border-radius: 2px;
-          border: 1px solid #cccccc85;
-        }
+            [data-entity-type].filled {
+                width: 30px;
+                height: 25px;
+                border-radius: 2px;
+                border: 1px solid #cccccc85;
+            }
 
-        [data-entity-type].filled::before {
-          content: "";
-          display: inline-block;
-          padding-left: 1px;
-          line-height: 7pt;
-          font-size: 5pt;
-          font-weight: 900;
-          font-family: "Font Awesome 5 Free";
-          position: absolute;
-          top: 1px;
-          right: 1px;
-        }
+                [data-entity-type].filled::before {
+                    content: "";
+                    display: inline-block;
+                    padding-left: 1px;
+                    line-height: 7pt;
+                    font-size: 5pt;
+                    font-weight: 900;
+                    font-family: "Font Awesome 5 Free";
+                    position: absolute;
+                    top: 1px;
+                    right: 1px;
+                }
 
-        [data-entity-type].filled.active::before {
-          content: "\f00c";
-          color: #000000c4;
-          background-color: #ffffff;
-          border: 1px solid #000000c4;
-          width: 12px;
-          height: 12px;
-          border-radius: 100%;
-        }
+                [data-entity-type].filled.active::before {
+                    content: "\f00c";
+                    color: #000000c4;
+                    background-color: #ffffff;
+                    border: 1px solid #000000c4;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 100%;
+                }
 
         #price-range[range]::before {
-          content: attr(range);
-          display: flex;
-          justify-content: center;
-          padding-top: 5px;
+            content: attr(range);
+            display: flex;
+            justify-content: center;
+            padding-top: 5px;
         }
 
+        .def-cap {
+            font-size: 22px;
+            font-weight: 500;
+            color: #fff;
+            width: 100%;
+            padding: 0 20px;
+            border-radius: 5px;
+            background: #484848;
+            border-bottom: 1px solid #dbdbdb;
+        }
 
+        .def-item {
+            padding-bottom: 16px;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .border-default .def-list {
+            overflow-y: scroll;
+            max-height: 206px;
+        }
+
+        .ui-slider-horizontal .ui-slider-handle {
+            top: -10px !important;
+            border-radius: 50px;
+            transition: all .3s ease-out;
+        }
+
+        .ui-widget.ui-widget-content {
+            height: 3px;
+        }
+
+        .ui-widget-content .ui-state-default {
+            border: 6px solid #000;
+            background: #fff;
+            font-weight: normal;
+            color: #454545;
+            margin-top: 1px;
+        }
 
     </style>
 }

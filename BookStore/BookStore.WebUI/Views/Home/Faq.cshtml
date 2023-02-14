@@ -10,7 +10,7 @@
      data-z-index="-100"
      data-appear-top-offset="600"
      data-parallax="scroll"
-     data-image-src=@Url.Content("assets/images/parallax/bgparallax-07.jpg")>
+     data-image-src=@Url.Content("~/assets/images/parallax/bgparallax-07.jpg")>
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -35,16 +35,23 @@
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     @foreach (var item in Model)
                     {
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="heading-@item.Id">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-@item.Id" aria-expanded="true" aria-controls="collapse-@item.Id">
+                        <div class="cus-panel panel panel-default">
+                            <div class="cus-panel__heading panel-heading" role="tab" id="heading-@item.Id">
+                                <h4 class="cus-panel__heading__title panel-title">
+                                    <a role="button"
+                                   class="cus-title__link"
+                                   style="display: inline-block; width: 100%"
+                                   data-toggle="collapse"
+                                   data-parent="#accordion"
+                                   href="#collapse-@item.Id"
+                                   aria-expanded="true"
+                                   aria-controls="collapse-@item.Id">
                                         @item.Question
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse-@item.Id" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@item.Id">
-                                <div class="panel-body">
+                            <div id="collapse-@item.Id" class="cus-panel__body-wrp panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@item.Id">
+                                <div class="body-wrp__body panel-body">
                                     @Html.Raw(item.Answer)
                                 </div>
                             </div>
@@ -55,5 +62,47 @@
         </div>
     </div>
 </div>
+
+@section addcss{
+    <style>
+                .cus-panel:not(:first-child){
+                    margin-top: 20px!important;
+                }
+
+                .cus-panel__heading{
+                    background-color: #857c9c!important;
+                    transition: 0.3s all;
+                    border-radius: 3px!important;
+                }
+                .cus-panel__heading:hover{
+        -webkit-box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
+        -moz-box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
+        box-shadow: 1px 1px 5px 10px rgba(0,0,0,0.09);
+        background-color: #675c84!important;
+                }
+
+
+                .cus-title__link{
+                    color: white!important;
+                }
+                .cus-title__link:hover{
+                    color: white!important;
+                }
+
+                .active{
+                    background-color: #675c84!important;
+                }
+    </style>
+}
+
+    @section addjs{
+    <script>
+        $(document).ready(function() {
+            $('.cus-panel__heading').click((e) => {
+                e.currentTarget.classList.toggle('active');
+            });
+        })
+    </script>
+}
 
 

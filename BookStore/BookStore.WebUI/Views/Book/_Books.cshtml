@@ -1,4 +1,5 @@
-﻿@model PagedViewModel<Book>
+﻿@addTagHelper *, BookStore.WebUI
+@model PagedViewModel<Book>
 <div class="tg-productgrid">
     @foreach (var item in Model.Items)
     {
@@ -39,7 +40,9 @@
                         By:
                         <a href="javascript:void(0);">@item.Author.Name</a>
                     </span>
-                    <span class="tg-stars"><span></span></span>
+                    <div class="tg-stars">
+                        <rate rate-value="@item.Rate" rate-book-id="@item.Id"></rate>
+                    </div>
                     <span class="tg-bookprice">
                         @*<ins>@(item.Price * Convert.ToDecimal(0.75);)₼</ins>*@
                         <ins>@(item.Price) ₼</ins>
