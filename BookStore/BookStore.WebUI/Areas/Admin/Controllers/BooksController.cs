@@ -62,10 +62,10 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
         [Authorize(Policy = "admin.books.create")]
         public IActionResult Create()
         {
-            ViewData["AuthorId"] = new SelectList(db.Authors, "Id", "Name");
-            ViewData["CategoryId"] = new SelectList(db.Categories, "Id", "Name");
-            ViewData["PublisherId"] = new SelectList(db.Publishers, "Id", "Name");
-            ViewData["LanguageId"] = new SelectList(db.Languages, "Id", "ShortName");
+            ViewData["AuthorId"] = new SelectList(db.Authors.Where(a => a.DeletedDate == null), "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(db.Categories.Where(a => a.DeletedDate == null), "Id", "Name");
+            ViewData["PublisherId"] = new SelectList(db.Publishers.Where(a => a.DeletedDate == null), "Id", "Name");
+            ViewData["LanguageId"] = new SelectList(db.Languages.Where(a => a.DeletedDate == null), "Id", "ShortName");
             return View();
         }
 

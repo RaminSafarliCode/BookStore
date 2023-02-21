@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Basket";
+    ViewBag.TotalPrice = @Model.Sum(m => m.Quantity * m.Book.Price);
 }
 
 <div class="tg-innerbanner tg-haslayout tg-parallax tg-bginnerbanner"
@@ -101,7 +102,7 @@
                                         </tbody>
                                     </table>
                                     <div class="wc-proceed-to-checkout">
-                                        <a asp-controller="Book" asp-action="Checkout">Payment</a>
+                                        <a asp-controller="Book" asp-action="Checkout" asp-route-id="@Model.">Payment</a>
                                     </div>
                                 </div>
                             </div>

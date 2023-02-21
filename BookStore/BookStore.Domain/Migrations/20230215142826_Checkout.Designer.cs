@@ -4,14 +4,16 @@ using BookStore.Domain.Models.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Domain.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230215142826_Checkout")]
+    partial class Checkout
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -827,17 +829,6 @@ namespace BookStore.Domain.Migrations
                     b.Property<int?>("DeletedUserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Firstname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDelivered")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
@@ -1395,7 +1386,7 @@ namespace BookStore.Domain.Migrations
                         .HasForeignKey("DeletedByUserId");
 
                     b.HasOne("BookStore.Domain.Models.Entities.Order", "Order")
-                        .WithMany("OrderBooks")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1486,11 +1477,6 @@ namespace BookStore.Domain.Migrations
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Language", b =>
                 {
                     b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Order", b =>
-                {
-                    b.Navigation("OrderBooks");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.Publisher", b =>

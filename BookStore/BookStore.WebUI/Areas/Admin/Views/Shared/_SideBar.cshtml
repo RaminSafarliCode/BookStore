@@ -31,6 +31,18 @@
                 </li>
             }
 
+            @if (User.HasAccess("admin.books.index"))
+            {
+                <li>
+                    <a asp-controller="orders" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="fa-solid fa-book"></i>
+                        </span>
+                        <span class="pcoded-mtext">Books</span>
+                    </a>
+                </li>
+            }
+
             @if (User.HasAccess("admin.categories.index"))
             {
                 <li>

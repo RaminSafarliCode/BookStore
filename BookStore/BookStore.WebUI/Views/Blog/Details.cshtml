@@ -1,4 +1,4 @@
-﻿@model BlogPost
+﻿@model BlogPostItemsViewModel
 @{
     ViewData["Title"] = "Details";
 
@@ -31,7 +31,7 @@
                     <ol class="tg-breadcrumb">
                         <li><a asp-controller="home" asp-action="index">home</a></li>
                         <li><a asp-controller="blog" asp-action="index">news</a></li>
-                        <li class="tg-active">@Model.Title.Substring(0, (Model.Title.Length < 20 ? Model.Title.Length : 20))...</li>
+                        <li class="tg-active">@Model.BlogPost.Title.Substring(0, (Model.BlogPost.Title.Length < 20 ? Model.BlogPost.Title.Length : 20))...</li>
                     </ol>
                 </div>
             </div>
@@ -50,21 +50,21 @@
             <div id="tg-twocolumns" class="tg-twocolumns">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <figure class="tg-newsdetailimg">
-                        <img src="~/uploads/images/@Model.ImagePath" alt="blog-image">
+                        <img src="~/uploads/images/@Model.BlogPost.ImagePath" alt="blog-image">
                         <figcaption class="tg-author">
                             <div class="tg-authorinfo">
                                 <span class="tg-bookwriter">
                                     By:
-                                    <a href="javascript:void(0);">@Model.CreatedByUser?.Name @Model.CreatedByUser?.Surname</a>
+                                    <a href="javascript:void(0);">@Model.BlogPost.CreatedByUser?.Name @Model.BlogPost.CreatedByUser?.Surname</a>
                                 </span>
                                 <ul class="tg-postmetadata">
                                     <li>
                                         <a href="javascript:void(0);">
-                                            <i class="fa fa-comment-o"></i><i>@Model.Comments.Count() Comments</i>
+                                            <i class="fa fa-comment-o"></i><i>@Model.BlogPost.Comments.Count() Comments</i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-eye"></i><i>24,565 Views</i></a>
+                                        <span class="post-view"><i class="far fa-regular fa-heart" style="padding-right:5px"></i>@Model.BlogPost.Reacts.Count Likes</span>
                                     </li>
                                 </ul>
                             </div>
@@ -75,29 +75,34 @@
                     <div id="tg-content" class="tg-content">
                         <div class="tg-newsdetail">
                             <div class="tg-blogpost-top">
-                                <a href="javascript:void(0);">@Model.BlogPostCategory.Name</a>
-                                <a href="#" class="like-button">
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M320 1344q0-26-19-45t-45-19q-27 0-45.5 19t-18.5 45q0 27 18.5 45.5t45.5 18.5q26 0 45-18.5t19-45.5zm160-512v640q0 26-19 45t-45 19h-288q-26 0-45-19t-19-45v-640q0-26 19-45t45-19h288q26 0 45 19t19 45zm1184 0q0 86-55 149 15 44 15 76 3 76-43 137 17 56 0 117-15 57-54 94 9 112-49 181-64 76-197 78h-129q-66 0-144-15.5t-121.5-29-120.5-39.5q-123-43-158-44-26-1-45-19.5t-19-44.5v-641q0-25 18-43.5t43-20.5q24-2 76-59t101-121q68-87 101-120 18-18 31-48t17.5-48.5 13.5-60.5q7-39 12.5-61t19.5-52 34-50q19-19 45-19 46 0 82.5 10.5t60 26 40 40.5 24 45 12 50 5 45 .5 39q0 38-9.5 76t-19 60-27.5 56q-3 6-10 18t-11 22-8 24h277q78 0 135 57t57 135z"/></svg>
-</a>
-                                @*<li><a href="javascript:void(0);">Fun</a></li>*@
+                                <a href="javascript:void(0);">@Model.BlogPost.BlogPostCategory.Name</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <input type="hidden" data-user-id="@User.GetCurrentUserId()" data-blogpost-id="@Model.BlogPost.Id" />
+                                    <button class="like-button
+                                                    @(Model.BlogPostReacts.Any(bpr => bpr.BlogPostId == Model.BlogPost.Id && bpr.CreatedByUserId == User.GetCurrentUserId()) ? "liked" : " ")">
+
+                                        <span>Like<span>d</span></span>
+                                    </button>
+                                }
+
                             </div>
                             <div class="tg-themetagbox">
                                 <span class="tg-themetag">featured</span>
                             </div>
                             <div class="tg-posttitle">
                                 <h3>
-                                    <a href="javascript:void(0);">@Model.Title</a>
+                                    <a href="javascript:void(0);">@Model.BlogPost.Title</a>
                                 </h3>
                             </div>
                             <div class="tg-description">
-                                <p>@Html.Raw(Model.Body)</p>
+                                <p>@Html.Raw(Model.BlogPost.Body)</p>
                             </div>
                             <div class="tg-tagsshare">
                                 <div class="tg-tags">
                                     <span>Tags:</span>
                                     <div class="tg-tagholder">
-                                        @foreach (var item in Model.TagCloud)
+                                        @foreach (var item in Model.BlogPost.TagCloud)
                                         {
                                             <a class="tg-tag" href="javascript:void(0);">@item.Tag.Text</a>
                                         }
@@ -106,11 +111,11 @@
                             </div>
                             <div class="tg-commentsarea comments">
                                 <div class="tg-sectionhead">
-                                    <h2>@Model.Comments.Count() Comments</h2>
+                                    <h2>@Model.BlogPost.Comments.Count() Comments</h2>
                                 </div>
                                 <ul id="tg-comments" class="tg-comments">
 
-                                    @foreach (var comment in Model.Comments.Where(c => c.ParentId == null))
+                                    @foreach (var comment in Model.BlogPost.Comments.Where(c => c.ParentId == null))
                                     {
 
                                         <li class="comment" id="c-@comment.Id" data-comment-id="@comment.Id">
@@ -179,7 +184,7 @@
                                 <form method="post" class="tg-formtheme tg-formleavecomment" id="replyForm">
                                     <fieldset>
                                         <div id="replyToComment"></div>
-                                        <input type="hidden" name="postId" value="@Model.Id" />
+                                        <input type="hidden" name="postId" value="@Model.BlogPost.Id" />
                                         @*<div class="form-group">
                                         <input type="text"
                                         name="full name"
@@ -471,11 +476,102 @@
             float: left;
             padding: 0 0 0 100px;
         }
+
+        .like-button {
+            --color: #1E2235;
+            --color-hover: #1E2235;
+            --color-active: #fff;
+            --background: #fff;
+            --background-hover: #c2bdcd;
+            --background-active: #675c84;
+            --border: #c2bdcd;
+            --border-active: #675c84;
+            --shadow: rgba(0, 17, 119, 0.025);
+            display: block;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            border: 0;
+            background: none;
+            padding: 5px 23px 5px 26px;
+            border-radius: 25px;
+            line-height: 27px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--color);
+            -webkit-appearance: none;
+            margin: 0 14px;
+            -webkit-tap-highlight-color: transparent;
+            transition: color .2s linear;
+        }
+
+            .like-button:hover {
+                --icon: var(--icon-hover);
+                --color: var(--color-hover);
+                --background: var(--background-hover);
+                --border-width: 2px;
+            }
+
+            .like-button:active {
+                --scale: .95;
+            }
+
+            .like-button:not(.liked):hover {
+                --hand-rotate: 8;
+                --hand-thumb-1: -12deg;
+                --hand-thumb-2: 36deg;
+            }
+
+            .like-button.liked {
+                --span-x: 2px;
+                --span-d-o: 1;
+                --span-d-x: 0;
+                --icon: var(--icon-active);
+                --color: var(--color-active);
+                --border: var(--border-active);
+                --background: var(--background-active);
+            }
+
+            .like-button:before {
+                content: '';
+                min-width: 103px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: inherit;
+                transition: background .2s linear, transform .2s, box-shadow .2s linear;
+                transform: scale(var(--scale, 1)) translateZ(0);
+                background: var(--background);
+                box-shadow: inset 0 0 0 var(--border-width, 1px) var(--border), 0 4px 8px var(--shadow), 0 8px 20px var(--shadow);
+            }
+
+            .like-button span {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            .like-button span span {
+                    opacity: var(--span-d-o, 0);
+                    transition: transform .25s, opacity .2s linear;
+                    transform: translateX(var(--span-d-x, 4px)) translateZ(0);
+            }
+
+            .like-button > span {
+                transition: transform .25s;
+                transform: translateX(var(--span-x, 4px)) translateZ(0);
+            }
     </style>
 }
 
+
+
+
     @section addjs{
     <script>
+
 
         $(document).ready(function() {
             $(".btn-comment-reply").click(function(e) {
@@ -532,6 +628,52 @@
         function removeSelectedReply(el) {
             $("#replyToComment").html("");
         }
+
+
+        document.querySelectorAll('.like-button').forEach(button => {
+
+            button.addEventListener('click', e => {
+                button.classList.toggle('liked');
+            })
+        })
+
+        $(document).ready(function() {
+
+            $(".like-button").click(function(e) {
+                e.preventDefault();
+
+                let obj = $("input[data-blogpost-id][data-user-id]").data();
+
+                obj.isLiked = $(".like-button").hasClass("liked");
+
+
+                $.ajax({
+                    url: `@Url.Action("ReactPost", "Blog")`,
+                    type: "POST",
+                    data: obj,
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded",
+                    success: function(response) {
+
+                        if (response.error == false) {
+                            $(".post-view").html(`<i class="far fa-regular fa-heart" style="padding-right:5px"></i>${response.value} Likes`)
+                        }
+
+                        toastr.success = (response.message, "Success!");
+
+
+                    },
+                    error: function(response) {
+
+                        if (response.error == true) {
+                            toastr.error(response.message, "Error!");
+                        }
+
+                    }
+                })
+
+            })
+        })
     </script>
 }
 

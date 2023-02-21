@@ -11,5 +11,6 @@ namespace BookStore.Domain.Models.Entities
     {
         public int BlogPostId { get; set; }
         public virtual BlogPost BlogPost { get; set; }
+
     }
 }

@@ -1,0 +1,25 @@
+﻿using BookStore.Domain.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BookStore.Domain.Models.DataContexts.Configurations
+{
+    public class OrderBookEntityTypeConfiguration : IEntityTypeConfiguration<OrderBook>
+    {
+        public void Configure(EntityTypeBuilder<OrderBook> builder)
+        {
+            builder.HasKey(entity => entity.Id);
+
+            builder.Property(entity => entity.Id)
+                .UseIdentityColumn();
+
+            builder.Property(entity => entity.Quantity)
+               .IsRequired();
+        }
+    }
+}

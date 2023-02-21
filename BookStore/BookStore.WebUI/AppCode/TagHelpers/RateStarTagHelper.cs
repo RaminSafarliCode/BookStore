@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace BookStore.WebUI.AppCode.TagHelpers
 {
-    // You may need to install the Microsoft.AspNetCore.Razor.Runtime package into your project
     [HtmlTargetElement("rate")]
     public class RateStarTagHelper : TagHelper
     {

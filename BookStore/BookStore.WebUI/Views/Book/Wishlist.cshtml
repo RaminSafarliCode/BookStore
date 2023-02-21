@@ -30,25 +30,28 @@
             <div class="col-md-12 col-12 col-12">
                 @if (Model != null && Model.Any())
                 {
-                    
-                <form method="post">
-                    <div class="table-content table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="product-remove">Remove</th>
-                                    <th class="product-thumbnail">Image</th>
-                                    <th class="product-name">Product</th>
-                                    <th class="product-price">Unit Price</th>
-                                    <th class="product-quantity">Stock Status</th>
-                                    <th class="product-subtotal">add to cart</th>
-                                </tr>
-                            </thead>
-                            <tbody id="dynamic-content">
-                                <partial name="_WishlistBody" model="Model" />
-                            </tbody>
-                        </table>
-                    </div>
+
+                    <form method="post">
+                        <div class="table-content table-responsive">
+                            @*<table>
+                        <thead>
+                        <tr>
+                        <th class="product-remove">Remove</th>
+                        <th class="product-thumbnail">Image</th>
+                        <th class="product-name">Product</th>
+                        <th class="product-price">Unit Price</th>
+                        <th class="product-quantity">Stock Status</th>
+                        <th class="product-subtotal">add to cart</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dynamic-content">
+                        <partial name="_WishlistBody" model="Model" />
+                        </tbody>
+                        </table>*@
+                            <div id="dynamic-content">
+                                <partial name="_WishlistBody" model="Model"></partial>
+                            </div>
+                        </div>
                     </form>
                 }
                 else
@@ -62,6 +65,11 @@
 
 @section addcss{
     <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+
+    <style>
+        
+
+    </style>
 
 }
     @section addjs{

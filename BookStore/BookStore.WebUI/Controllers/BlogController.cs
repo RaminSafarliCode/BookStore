@@ -1,10 +1,12 @@
 ﻿using BookStore.Application.AppCode.Extenstions;
 using BookStore.Domain.Business.BlogPostModule;
 using BookStore.Domain.Models.DataContexts;
+using BookStore.Domain.Models.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookStore.WebUI.Controllers
@@ -37,15 +39,25 @@ namespace BookStore.WebUI.Controllers
         [Route("/blog/{slug}")]
         public async Task<IActionResult> Details(BlogPostSingleQuery query, int id)
         {
-
             var blogPost = await mediator.Send(query);
+
+            var blogPostReacts = await db.BlogPostReacts.Where(bpl => bpl.BlogPostId == blogPost.Id).ToListAsync();
+
+            var vm = new BlogPostItemsViewModel()
+            {
+                BlogPost = blogPost,
+                BlogPostReacts = blogPostReacts
+            };
+
             if (blogPost == null)
             {
                 return NotFound();
             }
 
-            return View(blogPost);
+            return View(vm);
         }
+
+        
 
         [HttpPost]
         [Route("/blog/postcomment")]

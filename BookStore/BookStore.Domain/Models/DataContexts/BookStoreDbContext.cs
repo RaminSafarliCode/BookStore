@@ -34,6 +34,8 @@ namespace BookStore.Domain.Models.DataContexts
         public DbSet<Book> Books{ get; set; }
         public DbSet<Basket> Basket { get; set; }
         public DbSet<BookRate> BookRates { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderBook> OrderBooks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

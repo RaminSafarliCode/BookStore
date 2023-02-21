@@ -38,7 +38,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                     return new JsonResponse
                     {
                         Error = true,
-                        Message = "Invalid request!"
+                        Message = "Xətalı sorğu"
                     };
                 }
 
@@ -50,7 +50,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                     return new JsonResponse
                     {
                         Error = true,
-                        Message = "Invalid request!"
+                        Message = "Xətalı sorğu"
                     };
                 }
 
@@ -64,7 +64,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                         return new JsonResponse
                         {
                             Error = false,
-                            Message = "You have liked the post!"
+                            Message = "Postu bəyənmisiniz"
                         };
                     }
                     else
@@ -79,12 +79,12 @@ namespace BookStore.Domain.Business.BlogPostModule
 
                     await db.SaveChangesAsync();
 
-                    var likeCount = await db.BlogPostReacts.Where(bpl => bpl.CreatedByUserId == request.UserId && bpl.BlogPostId == request.BlogPostId).CountAsync();
+                    var likeCount = await db.BlogPostReacts.Where(bpl => bpl.BlogPostId == request.BlogPostId).CountAsync();
 
                     return new JsonResponse
                     {
                         Error = false,
-                        Message = "You liked the post!",
+                        Message = "Postu bəyəndiniz",
                         Value = likeCount
                     };
                 }
@@ -97,7 +97,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                         return new JsonResponse
                         {
                             Error = true,
-                            Message = "You have not like the post!"
+                            Message = "Postu bəyənməmisiniz"
                         };
                     }
                     else
@@ -106,12 +106,12 @@ namespace BookStore.Domain.Business.BlogPostModule
 
                         await db.SaveChangesAsync();
 
-                        var likeCount = await db.BlogPostReacts.Where(bpl => bpl.CreatedByUserId == request.UserId && bpl.BlogPostId == request.BlogPostId).CountAsync();
+                        var likeCount = await db.BlogPostReacts.Where(bpl => bpl.BlogPostId == request.BlogPostId).CountAsync();
 
                         return new JsonResponse
                         {
                             Error = false,
-                            Message = "You unliked the post!",
+                            Message = "Postu bəyənməkdən vazkeçdiniz",
                             Value = likeCount
                         };
                     }
