@@ -14,7 +14,7 @@
                 <div class="tg-postcontent">
                     <ul class="tg-bookscategories">
                         <li>
-                            <a href="javascript:void(0);">@item.BlogPostCategory</a>
+                            <a href="javascript:void(0);">@item.BlogPostCategory.Name</a>
                         </li>
                         @*<li><a href="javascript:void(0);">Fun</a></li>*@
                     </ul>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="tg-posttitle">
                         <h3>
-                            <a asp-action="details" asp-route-slug="@item.Slug">Where The Wild Things Are</a>
+                            <a asp-action="details" asp-route-slug="@item.Slug">@item.Title</a>
                         </h3>
                     </div>
                     <span class="tg-bookwriter">

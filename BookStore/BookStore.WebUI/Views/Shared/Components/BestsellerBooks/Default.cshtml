@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Book>
+
+<section class="tg-sectionspace tg-haslayout">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-sectionhead">
+                    <h2><span>People’s Choice</span>Bestselling Books</h2>
+                    <a class="tg-btn" href="javascript:void(0);">View All</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="tg-bestsellingbooksslider"
+                     class="tg-bestsellingbooksslider tg-bestsellingbooks owl-carousel">
+                    @foreach (var item in Model)
+                    {
+                        <div class="item">
+                            <div class="tg-postbook">
+                                <figure class="tg-featureimg">
+                                    <div class="tg-bookimg">
+                                        <div class="tg-frontcover">
+                                            <img src="~/uploads/images/@item.ImagePath"
+                                             alt="@item.Name" />
+                                        </div>
+                                        <div class="tg-backcover">
+                                            <img src="~/uploads/images/@item.ImagePath"
+                                             alt="@item.Name" />
+                                        </div>
+                                    </div>
+                                    <a class="tg-btnaddtowishlist"
+                                   href="javascript:addToFavorites(@item.Id);">
+                                        <i class="icon-heart"></i>
+                                        <span>add to wishlist</span>
+                                    </a>
+                                </figure>
+                                <div class="tg-postbookcontent">
+                                    <ul class="tg-bookscategories">
+                                        <li><a asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Category.Name</a></li>
+                                    </ul>
+                                    <div class="tg-themetagbox">
+                                        <span class="tg-themetag">sale</span>
+                                    </div>
+                                    <div class="tg-booktitle">
+                                        <h3>
+                                            <a asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                                        </h3>
+                                    </div>
+                                    <span class="tg-bookwriter">
+                                        By:
+                                        <a asp-controller="author" asp-action="details" asp-route-id="@item.Author.Id">@item.Author.Name</a>
+                                    </span>
+                                    <span class="tg-stars"><span></span></span>
+                                    <span class="tg-bookprice">
+                                        <ins>@(item.Price) ₼</ins>
+                                        <del>@item.Price ₼</del>
+                                    </span>
+                                    <a class="tg-btn tg-btnstyletwo"
+                                   onclick="addToBasket(event)" data-book-id="@item.Id">
+                                        <i class="fa fa-shopping-basket"></i>
+                                        <em>Add To Basket</em>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

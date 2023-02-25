@@ -2,6 +2,7 @@
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                 }
 
                 var query = db.BlogPosts
+                        .Include(bp => bp.BlogPostCategory)
                        .Where(bp => bp.DeletedDate == null /*&& bp.PublishedDate != null*/)
                        .OrderByDescending(bp => bp.PublishedDate)
                        .AsQueryable();

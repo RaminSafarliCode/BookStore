@@ -2056,7 +2056,7 @@ li.menu-item-has-mega-menu {
   height: 92%;
   content: "";
   position: absolute;
-  background: url("../images/books/bookpattren.png") no-repeat;
+  background: url("../images/books/book-element/bookpattren.png") no-repeat;
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -ms-background-size: 100% 100%;
@@ -2785,6 +2785,7 @@ li.menu-item-has-mega-menu {
   float: left;
 }
 .tg-post {
+  min-height: 390px;
   width: 100%;
   float: left;
   margin: 15px 0;
@@ -5063,11 +5064,11 @@ body.tg-comingsoonpage .tg-footerbar {
 }
 
 .mb-40 {
-  margin-bottom: 40px;
+  margin-bottom: 40px !important;
 }
 
 .mb-25 {
-  margin-bottom: 25px;
+  margin-bottom: 25px !important;
 }
 
 .like-button {
@@ -5221,6 +5222,7 @@ body.tg-comingsoonpage .tg-footerbar {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 0 25px 0;
 }
 
 .wishlist-gen {

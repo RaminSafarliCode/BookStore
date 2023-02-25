@@ -259,44 +259,5 @@
                 });
             }, 1500);
         }
-
-        function addToFavorites(bookId) {
-            const favorites = ($.cookie('favorites') || '').split(',').filter(item => item.length > 0);
-
-
-            if (favorites.filter(item => item == bookId).length == 0) {
-                favorites.push(bookId);
-
-                $.cookie('favorites', favorites.toString(), { path: '/', expires: 7 })
-            }
-
-            console.log($.cookie('favorites'));
-        }
-
-        function addToBasket(e) {
-            e.preventDefault();
-
-            const elementData = $(e.currentTarget).data();
-
-            $.ajax({
-                url: `@Url.Action("Basket","Book")`,
-                type: 'POST',
-                data: elementData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function(response) {
-                    if (response.error == false) {
-                        $(e.target).closest('tr').remove();
-                        toastr.success(response.message, 'Success');
-                        return;
-                    }
-
-
-                    toastr.error(response.message, 'Error');
-                },
-                error: function(response, status, xhr) {
-                    console.log(response, status, xhr);
-                }
-            });
-        }
     </script>
 }

@@ -34,7 +34,7 @@ namespace BookStore.Domain.Business.BlogPostModule
                        .Where(bp => bp.DeletedDate == null && bp.PublishedDate != null)
 
                        .Include(bp => bp.CreatedByUser)
-
+                       .Include(bp => bp.BlogPostCategory)
                        .Include(bp=>bp.Comments)
 
                        .OrderByDescending(bp => bp.PublishedDate)

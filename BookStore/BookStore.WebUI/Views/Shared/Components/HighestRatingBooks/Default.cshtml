@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Book>
+
+<section class="tg-sectionspace tg-haslayout">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="tg-sectionhead">
+                    <h2><span>Some Great Books</span>Picked By Readers</h2>
+                    <a class="tg-btn" href="javascript:void(0);">View All</a>
+                </div>
+            </div>
+            <div id="tg-pickedbyauthorslider"
+                 class="tg-pickedbyauthor tg-pickedbyauthorslider owl-carousel">
+
+                @foreach (var item in Model)
+                {
+                    <div class="item">
+                        <div class="tg-postbook">
+                            <figure class="tg-featureimg">
+                                <div class="tg-bookimg">
+                                    <div class="tg-frontcover">
+                                        <img src="~/uploads/images/@item.ImagePath"
+                                             alt="@item.Name" />
+                                    </div>
+                                </div>
+                                <div class="tg-hovercontent">
+                                    <div class="tg-description">
+                                        @Html.Raw(item.Summary)
+                                    </div>
+                                    <strong class="tg-bookpage">Book Pages: @item.Page</strong>
+                                    <strong class="tg-bookcategory">Category: @item.Category.Name</strong>
+                                    <strong class="tg-bookprice">Price: $@item.Price</strong>
+                                    <div class="tg-ratingbox">
+                                        <rate rate-value="@item.Rate" rate-book-id="@item.Id"></rate>
+                                    </div>
+                                </div>
+                            </figure>
+                            <div class="tg-postbookcontent">
+                                <div class="tg-booktitle">
+                                    <h3>
+                                        <a asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                                    </h3>
+                                </div>
+                                <span class="tg-bookwriter">
+                                    By:
+                                    <a asp-controller="author" asp-action="details" asp-route-id="@item.Author.Id">@item.Author.Name</a>
+                                </span>
+                                <a class="tg-btn tg-btnstyletwo"
+                               onclick="addToBasket(event)" data-book-id="@item.Id">
+                                    <i class="fa fa-shopping-basket"></i>
+                                    <em>Add To Basket</em>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>

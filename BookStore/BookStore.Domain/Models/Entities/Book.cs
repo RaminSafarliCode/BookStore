@@ -29,5 +29,9 @@ namespace BookStore.Domain.Models.Entities
 
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<OrderBook> OrderBooks { get; set; }
     }
 }

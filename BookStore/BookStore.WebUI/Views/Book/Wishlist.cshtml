@@ -8,7 +8,7 @@
      data-z-index="-100"
      data-appear-top-offset="600"
      data-parallax="scroll"
-     data-image-src="~/assets/images/parallax/bgparallax-07.jpg">
+     data-image-src=@Url.Content("~/assets/images/parallax/bgparallax-07.jpg")>
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -33,22 +33,7 @@
 
                     <form method="post">
                         <div class="table-content table-responsive">
-                            @*<table>
-                        <thead>
-                        <tr>
-                        <th class="product-remove">Remove</th>
-                        <th class="product-thumbnail">Image</th>
-                        <th class="product-name">Product</th>
-                        <th class="product-price">Unit Price</th>
-                        <th class="product-quantity">Stock Status</th>
-                        <th class="product-subtotal">add to cart</th>
-                        </tr>
-                        </thead>
-                        <tbody id="dynamic-content">
-                        <partial name="_WishlistBody" model="Model" />
-                        </tbody>
-                        </table>*@
-                            <div id="dynamic-content">
+                            <div id="dynamic-content" style="margin: 10rem 0">
                                 <partial name="_WishlistBody" model="Model"></partial>
                             </div>
                         </div>
