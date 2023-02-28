@@ -1,6 +1,7 @@
 using BookStore.Application.AppCode.Extenstions;
 using BookStore.Application.AppCode.Services;
 using BookStore.Domain.AppCode.Providers;
+using BookStore.Domain.Hubs;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities.Membership;
 using FluentValidation;
@@ -122,6 +123,8 @@ namespace BookStore.WebUI
                 .ToArray();
             services.AddMediatR(assemblies);
             services.AddValidatorsFromAssemblies(assemblies);
+
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -215,6 +218,8 @@ namespace BookStore.WebUI
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<ChatHub>("/chathub");
             });
         }
     }

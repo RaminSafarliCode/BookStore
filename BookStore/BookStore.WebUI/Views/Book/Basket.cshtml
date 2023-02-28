@@ -33,54 +33,12 @@
                 {
 
                     <form method="post">
-                        <div class="table-content table-responsive mb-50">
-                            @*<table>
-                        <thead>
-                        <tr>
-                        <th class="product-thumbnail">Image</th>
-                        <th class="product-name">Book</th>
-                        <th class="product-price">Price</th>
-                        <th class="product-quantity">Quantity</th>
-                        <th class="product-subtotal">Total</th>
-                        <th class="product-remove">Remove</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (var item in Model)
-                        {
-                        <tr class="basket-item-@item.BookId">
-                        <td class="product-thumbnail">
-                        <a target="_blank" asp-action="details" asp-route-id="@item.BookId">
-                        <img src="~/uploads/images/@item.Book.ImagePath" alt="cart-image" />
-                        </a>
-                        </td>
-                        <td class="product-name">
-                        <a target="_blank" asp-action="details" asp-route-id="@item.BookId">@item.Book.Name</a>
-                        </td>
-                        <td class="product-price">
-                        <span class="amount">@item.Book.Price.ToString("0.00₼")</span>
-                        </td>
-                        <td class="product-quantity">
-                        <input type="number" data-book-id="@item.BookId" min="1" onchange="changeQuantity(event,this)" value="@item.Quantity" />
-                        </td>
-                        <td class="product-subtotal">@((item.Book.Price * item.Quantity).ToString("0.00₼"))</td>
-                        <td class="product-remove">
-                        <a onclick="removeFromBasket(this, '@item.Book.Name');return"
-                        data-book-id="@item.BookId"
-                        aria-remove-target=".basket-item-@item.BookId">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                        </a>
-                        </td>
-                        </tr>
-                        }
-                        </tbody>
-                        </table>*@
-
+                        <div class="row table-content table-responsive mb-50">
                             <div>
                                 @foreach (var item in Model)
                                 {
                                     <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 10rem; margin: 10rem 0;">
-                                        <div class="wishlist-book-wrp">
+                                        <section class="wishlist-book-wrp wishlist-book-wrp--basket">
                                             <div class="product-thumbnail">
                                                 <div class="wishlist-gen wishlist-img-wrp">
                                                     <a asp-action="details" asp-controller="book" asp-route-id="@item.BookId">
@@ -98,35 +56,31 @@
                                                 <input type="number" data-book-id="@item.BookId" min="1" onchange="changeQuantity(event,this)" value="@item.Quantity" />
                                             </div>
                                             <div class="product-subtotal">@((item.Book.Price * item.Quantity).ToString("0.00₼"))</div>
-                                            <div class="product-remove">
+                                            <div class="product-remove wishlist-gen wishlist-remove-btn">
                                                 <a onclick="removeFromBasket(this, '@item.Book.Name');return"
                                            data-book-id="@item.BookId"
                                            aria-remove-target=".basket-item-@item.BookId">
-                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                    <i class="fa fa-regular fa-trash"></i>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </section>
                                     </div>
                                 }
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 col-sm-7 col-12">
-                                <div class="buttons-cart">
-                                    @*<input type="submit" value="Update Cart" />*@
-                                    <a asp-controller="Book" asp-action="index">Continue to shopping :)</a>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-5 col-12">
+                        <div class="row" style="margin-bottom: 30px">
+                            @*<div class="col-md-8 col-sm-7 col-12">
+                        <div class="buttons-cart">
+                        @*<input type="submit" value="Update Cart" />
+                        <a class="tg-btn tg-active" asp-controller="Book" asp-action="index">Continue to shopping :)</a>
+                        </div>
+                        </div>*@
+                            <div class="col-md-5 col-sm-5 col-xs-12">
                                 <div class="cart_totals">
                                     <h2>Cart Totals</h2>
                                     <br />
                                     <table>
                                         <tbody>
-                                            @*   <tr class="cart-subtotal">
-                                        <th>Subtotal</th>
-                                        <td><span class="amount">$215.00</span></td>
-                                        </tr>*@
                                             <tr class="order-total">
                                                 <th>Total</th>
                                                 <td>
@@ -135,8 +89,14 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <div class="wc-proceed-to-checkout">
-                                        <a asp-controller="Book" asp-action="Checkout" asp-route-id="@Model.">Payment</a>
+                                    <div class="wc-proceed-to-checkout row">
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <a class="tg-btn tg-active" style="margin-bottom: 15px" asp-controller="Book" asp-action="Checkout" asp-route-id="@Model.">Payment</a>
+                                        </div>
+
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <a class="tg-btn tg-active" style="padding: 0 9px" asp-controller="Book" asp-action="index">Continue to shopping :)</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +106,6 @@
                 else
                 {
                     <p>Empty card :(</p>
-
                 }
             </div>
         </div>

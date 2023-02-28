@@ -4,13 +4,13 @@
 <script>
     function removeFromBasket(element, name) {
 
-        swal(`Əminsiniz ki '${name}' silinsin?`, {
-            title: "Diqqət!",
-            text: `Əminsiniz ki '${name}' silinsin?`,
+        swal(`Are you sure to delete '${name}'?`, {
+            title: "Warning!",
+            text: `Are you sure to delete '${name}'?`,
             icon: "warning",
             buttons: true,
             dangerMode: true,
-            buttons: ["Xeyr", "Bəli"],
+            buttons: ["No", "Yes"],
         })
             .then((value) => {
 
@@ -38,6 +38,7 @@
                                 }
 
                                 toastr.success(response.message, 'Success');
+                                location.reload();
                                 return;
                             }
 
@@ -55,6 +56,8 @@
     }
 
     function changeQuantity(event, element) {
+
+        console.log(element);
 
         if ($.processId != undefined) {
             clearTimeout($.processId);
@@ -77,10 +80,13 @@
                 data: elementData,
                 contentType: 'application/x-www-form-urlencoded',
                 success: function(response) {
+                    console.log(response.value.price);
+                    console.log(response.value.total);
+                    console.log(response.value.summary);
                     if (response.error == false) {
 
-                        $(element).closest('tr').find('.amount').text(`${response.value.price}₼`);
-                        $(element).closest('tr').find('.product-subtotal').text(`${response.value.total}₼`);
+                        $(element).closest('section').find('.amount').text(`${response.value.price}₼`);
+                        $(element).closest('section').find('.product-subtotal').text(`${response.value.total}₼`);
                         $('#summary').text(`${response.value.summary}₼`);
                         toastr.success(response.message, 'Success');
                         return;

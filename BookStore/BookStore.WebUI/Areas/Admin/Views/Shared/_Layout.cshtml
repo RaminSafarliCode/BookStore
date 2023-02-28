@@ -1,7 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-
 <head>
     <title>BookStore - Admin</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
@@ -35,6 +33,7 @@
 
     <!--Font Awesome-->
     <script src="https://kit.fontawesome.com/12b93b4558.js" crossorigin="anonymous"></script>
+
 
     @RenderSection("addcss", required:false)
 </head>
@@ -179,7 +178,7 @@
                                 <div class="dropdown-primary dropdown">
                                     <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                                         <i class="feather icon-message-square"></i>
-                                        <span class="badge bg-c-green">3</span>
+                                        <span class="badge bg-c-green"></span>
                                     </div>
                                 </div>
                             </li>
@@ -243,65 +242,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-friend-list">
-                                <div class="media userlist-box" data-id="1" data-status="online"
-                                     data-username="Josephin Doe" data-toggle="tooltip" data-placement="left"
-                                     title="Josephin Doe">
-                                    <a class="media-left" href="#!">
-                                        <img class="media-object img-radius img-radius"
-                                             src="~/assets/admin/images/avatar-3.jpg" alt="Generic placeholder image ">
-                                        <div class="live-status bg-success"></div>
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="f-13 chat-header">Josephin Doe</div>
-                                    </div>
-                                </div>
-                                <div class="media userlist-box" data-id="2" data-status="online"
-                                     data-username="Lary Doe" data-toggle="tooltip" data-placement="left"
-                                     title="Lary Doe">
-                                    <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="~/assets/admin/images/avatar-2.jpg"
-                                             alt="Generic placeholder image">
-                                        <div class="live-status bg-success"></div>
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="f-13 chat-header">Lary Doe</div>
-                                    </div>
-                                </div>
-                                <div class="media userlist-box" data-id="3" data-status="online" data-username="Alice"
-                                     data-toggle="tooltip" data-placement="left" title="Alice">
-                                    <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="~/assets/admin/images/avatar-4.jpg"
-                                             alt="Generic placeholder image">
-                                        <div class="live-status bg-success"></div>
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="f-13 chat-header">Alice</div>
-                                    </div>
-                                </div>
-                                <div class="media userlist-box" data-id="4" data-status="online" data-username="Alia"
-                                     data-toggle="tooltip" data-placement="left" title="Alia">
-                                    <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="~/assets/admin/images/avatar-3.jpg"
-                                             alt="Generic placeholder image">
-                                        <div class="live-status bg-success"></div>
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="f-13 chat-header">Alia</div>
-                                    </div>
-                                </div>
-                                <div class="media userlist-box" data-id="5" data-status="online" data-username="Suzen"
-                                     data-toggle="tooltip" data-placement="left" title="Suzen">
-                                    <a class="media-left" href="#!">
-                                        <img class="media-object img-radius" src="~/assets/admin/images/avatar-2.jpg"
-                                             alt="Generic placeholder image">
-                                        <div class="live-status bg-success"></div>
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="f-13 chat-header">Suzen</div>
-                                    </div>
-                                </div>
-                            </div>
+                            @await Component.InvokeAsync("ChatList")
                         </div>
                     </div>
                 </div>
@@ -446,6 +387,7 @@
 
     <script class="removable" src="~/libs/ckeditor5/ckeditor.min.js"></script>
     <script class="removable" src="~/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/libs/live-chat/chat.js"></script>
 
     <script>
         $.ajaxSetup({
@@ -492,12 +434,45 @@
         })
     </script>
 
-
+    <script src="~/libs/microsoft/signalr/dist/browser/signalr.min.js"></script>
 
     @RenderSection("addjs", required:false)
     <script class="removeable">
         $(document).ready(function() {
             $('.removeable').remove();
+        });
+    </script>
+
+    <script>
+        const chat = new chatBox();
+
+        window['sms'] = function() {
+            if (window['sms-file'] == undefined)
+                window['sms-file'] = new Audio('/assets/sounds/iphoneMessage.mp3');
+
+            window['sms-file'].play();  
+        }
+
+        // SignalR js
+        var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
+
+        let count = 0;
+
+        connection.on("ReceiveFromOperator", function(message) {
+            console.log(message);
+            count++;
+            $('.displayChatbox span').html(count)
+            chat.receiveMessage(JSON.parse(message));
+            sms();
+        });
+
+        connection.start().then(function() {
+
+            console.log('loaded!');
+
+            $('#chatbox').css("display", "inline-block");
+        }).catch(function(err) {
+            return console.error(err.toString());
         });
     </script>
 

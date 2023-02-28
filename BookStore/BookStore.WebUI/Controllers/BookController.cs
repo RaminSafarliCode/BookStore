@@ -2,12 +2,11 @@
 using BookStore.Domain.Business.BookModule;
 using BookStore.Domain.Models.DataContexts;
 using BookStore.Domain.Models.Entities;
-using Cozy.Domain.Models.ViewModels.OrderViewModel;
+using BookStore.Domain.Models.ViewModels.OrderViewModel;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookStore.WebUI.Controllers

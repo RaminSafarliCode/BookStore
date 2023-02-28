@@ -4,14 +4,16 @@ using BookStore.Domain.Models.DataContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookStore.Domain.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    partial class BookStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227212853_ChatFeature")]
+    partial class ChatFeature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -527,21 +529,6 @@ namespace BookStore.Domain.Migrations
                     b.HasIndex("ToId");
 
                     b.ToTable("Messages", "Chat");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Chat.UserGroup", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "GroupId");
-
-                    b.HasIndex("GroupId");
-
-                    b.ToTable("UserGroups", "Chat");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.ContactPost", b =>
@@ -1405,25 +1392,6 @@ namespace BookStore.Domain.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("To");
-                });
-
-            modelBuilder.Entity("BookStore.Domain.Models.Entities.Chat.UserGroup", b =>
-                {
-                    b.HasOne("BookStore.Domain.Models.Entities.Chat.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BookStore.Domain.Models.Entities.Membership.BookStoreUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.Entities.ContactPost", b =>

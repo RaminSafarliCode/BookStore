@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Models.Entities;
+using BookStore.Domain.Models.Entities.Chat;
 using BookStore.Domain.Models.Entities.Membership;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,9 @@ namespace BookStore.Domain.Models.DataContexts
         public DbSet<BookRate> BookRates { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderBook> OrderBooks { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Group> ChatGroups { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

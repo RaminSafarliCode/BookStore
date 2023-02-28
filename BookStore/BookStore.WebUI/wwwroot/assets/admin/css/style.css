@@ -26416,3 +26416,8 @@ td.table-row-select {
   margin-top: 5px;
   padding: 0 5px;
 }
+
+.displayChatbox span:empty {
+  display: none !important;
+}
+

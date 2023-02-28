@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Message>
+@*@{
+    var groupedMessages = new Dictionary<List<Message>, List<Message>>();
+
+    foreach (var message in messages)
+    {
+        if (!groupedMessages.ContainsKey(message.Sender))
+        {
+            groupedMessages[message.Sender] = new List<Message>();
+        }
+        groupedMessages[message.Sender].Add(message);
+    }
+}*@
+<div class="main-friend-list" id="messageList">
+    @*@foreach (var item in Model)
+    {
+        <div class="media userlist-box" data-id="1" data-status="online"
+         data-username="Josephin Doe" data-toggle="tooltip" data-placement="left"
+         title="Josephin Doe">
+            <a class="media-left" href="#!">
+                <img class="media-object img-radius img-radius"
+                 src="files/assets/images/avatar-3.jpg" alt="Generic placeholder image ">
+                <div class="live-status bg-success"></div>
+            </a>
+            <div class="media-body">
+                <div class="f-13 chat-header">Josephin Doe</div>
+            </div>
+        </div>
+    }*@
+</div>

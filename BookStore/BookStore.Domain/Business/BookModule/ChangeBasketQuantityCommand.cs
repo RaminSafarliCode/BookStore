@@ -89,7 +89,10 @@ namespace BookStore.Domain.Business.BookModule
                     Name = product2.Name,
                     Price = product2.Price,
                     Total = basketItem.Quantity * product2.Price,
-                    Summary = await db.Basket.Include(b => b.Book).SumAsync(b => b.Quantity * b.Book.Price, cancellationToken)
+                    Summary = await db.Basket
+                    .Include(b => b.Book)
+                    .Where(b=>b.UserId == userId)
+                    .SumAsync(b => b.Quantity * b.Book.Price, cancellationToken)
                 };
 
                 return response2;

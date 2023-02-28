@@ -1,7 +1,7 @@
 ﻿using BookStore.Domain.Models.Entities;
 using System.Collections.Generic;
 
-namespace Cozy.Domain.Models.ViewModels.OrderViewModel
+namespace BookStore.Domain.Models.ViewModels.OrderViewModel
 {
     public class OrderViewModel
     {
