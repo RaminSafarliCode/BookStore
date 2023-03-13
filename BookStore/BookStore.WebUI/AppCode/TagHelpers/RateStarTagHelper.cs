@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace BookStore.WebUI.AppCode.TagHelpers
 {

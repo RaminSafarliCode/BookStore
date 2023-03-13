@@ -1,6 +1,7 @@
 ﻿using BookStore.Application.AppCode.Extenstions;
 using BookStore.Application.AppCode.Services;
 using BookStore.Domain.Models.Entities.Membership;
+using BookStore.Domain.Models.FormData;
 using BookStore.Domain.Models.FormModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -161,6 +162,92 @@ namespace BookStore.WebUI.Controllers
             ViewBag.Message = "Your account is approved!";
         end:
             return RedirectToAction(nameof(Signin));
+        }
+
+        [AllowAnonymous]
+        [Route("/forgot-password.html")]
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [Route("/forgot-password.html")]
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(BookStoreForgotPassword model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var foundedUser = await userManager.FindByEmailAsync(model.Email);
+
+            if (foundedUser == null)
+            {
+                ViewBag.Message = "The user was not found!";
+                goto end;
+            }
+
+            if (foundedUser != null && await userManager.IsEmailConfirmedAsync(foundedUser))
+            {
+                var token = await userManager.GeneratePasswordResetTokenAsync(foundedUser);
+                token = token.Replace(" ", "+");
+                string path = $"{Request.Scheme}://{Request.Host}/reset-password.html?email={foundedUser.Email}&token={token}";
+
+                await emailService.SendMailAsync(foundedUser.Email, "Reset Password", $"To reset your password click this <a href='{path}'>link</a>!");
+                return View("ForgotPasswordConfirmation");
+            }
+
+            end:
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [Route("reset-password.html")]
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            if (token == null || email == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var model = new ResetPasswordModel();
+            model.Token = token.Replace(" ", "+");
+            model.Email = email;
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [Route("reset-password.html")]
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var foundedUser = await userManager.FindByEmailAsync(model.Email);
+
+            if (foundedUser == null)
+            {
+                return View(model);
+            }
+            var result = await userManager.ResetPasswordAsync(foundedUser, model.Token.Replace(" ", "+"), model.Password);
+
+            if (result.Succeeded)
+            {
+                return View("ResetPasswordConfirmation");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(model);
         }
 
         [Route("/profile.html")]
