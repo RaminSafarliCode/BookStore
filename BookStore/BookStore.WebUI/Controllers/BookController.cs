@@ -49,6 +49,19 @@ namespace BookStore.WebUI.Controllers
             return View(book);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Search(string searchText)
+        {
+            var query = new SearchBookQuery
+            {
+                SearchText = searchText
+            };
+
+            var result = await mediator.Send(query);
+
+            return View(result);
+        }
 
         public async Task<IActionResult> Wishlist(WishlistQuery query)
         {
@@ -61,8 +74,6 @@ namespace BookStore.WebUI.Controllers
 
             return View(favs);
         }
-
-
 
         //[Route("/basket")]
         public async Task<IActionResult> Basket(BookBasketQuery query)

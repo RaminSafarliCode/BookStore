@@ -10,15 +10,15 @@ namespace BookStore.Domain.Models.Entities
 {
     public class Order : BaseEntity
     {
-        [Required(ErrorMessage = "{0} cannot be left empty")]
+        [Required(ErrorMessage = "This field is required to be filled in!")]
         public string Firstname { get; set; }
 
-        [Required(ErrorMessage = "{0} cannot be left empty")]
+        [Required(ErrorMessage = "This field is required to be filled in!")]
         public string Lastname { get; set; }
 
-        [Required(ErrorMessage = "{0} should not be empty!")]
+        [Required(ErrorMessage = "This field is required to be filled in!")]
         public string Address { get; set; }
-        [Required(ErrorMessage = "{0} should not be empty!")]
+        [Required(ErrorMessage = "This field is required to be filled in!")]
         public string PhoneNumber { get; set; }
         public string Notes { get; set; }
         public decimal TotalPrice { get; set; }

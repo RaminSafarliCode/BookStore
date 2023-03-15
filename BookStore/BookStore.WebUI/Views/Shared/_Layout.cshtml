@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="~/assets/images/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="apple-touch-icon" href="~/assets/images/apple-touch-icon.png" />
-    <link rel="stylesheet" href="~/assets/css/owl.carousel.css" />
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/assets/css/normalize.css" />
     <link rel="stylesheet" href="~/assets/css/icomoon.css" />
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.css" />
     <link rel="stylesheet" href="~/assets/css/color.css" />
     <link rel="stylesheet" href="~/assets/css/transitions.css" />
     <link rel="stylesheet" href="~/assets/css/main.css" />
@@ -29,7 +29,7 @@
     <script src="https://kit.fontawesome.com/d2b183de45.js"
             crossorigin="anonymous"></script>
     <script src="~/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-    
+
 </head>
 <body class="tg-home tg-homeone">
     <!-- Loading animation -->
@@ -210,10 +210,10 @@
                                 </div>
                             </div>
                             <div class="tg-searchbox">
-                                <form class="tg-formtheme tg-formsearch">
+                                <form method="post" action="@Url.Action("Search", "Book")" id="searchForm" class="tg-formtheme tg-formsearch">
                                     <fieldset>
                                         <input type="text"
-                                               name="search"
+                                               name="searchText"
                                                class="typeahead form-control"
                                                placeholder="Search by title, author, keyword, ISBN..." />
                                         <button type="submit">
@@ -1560,13 +1560,14 @@
     <script src="https://maps.google.com/maps/api/js?key=AIzaSyCR-KEWAVCn52mSdeVeTqZjtqbmVJyfSus&amp;language=en"></script>
     <script src="~/assets/js/parallax.js"></script>
     <script src="~/assets/js/jquery.vide.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
             integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
             crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.6.3.js"></script>*@
 
 
 
@@ -1581,7 +1582,6 @@
     <script src="~/libs/toastr.js/toastr.customize.js"></script>
 
     <script src="~/libs/microsoft/signalr/dist/browser/signalr.min.js"></script>
-    <script src="~/assets/js/owl.carousel.min.js"></script>
 
 
 
@@ -1637,8 +1637,32 @@
     </script>
 
 
+
     <script>
         $(document).ready(function() {
+
+            // Search
+            //$("#searchForm").submit(function(e)  {
+            //    e.preventDefault();
+
+            //    const formData = new FormData(e.currentTarget);
+
+            //    $.ajax({
+            //        url: '@Url.Action("Search","Book")',
+            //        type: 'POST',
+            //        data: formData,
+            //        processData: false,
+            //        contentType: false,
+            //        success: function(response) {
+            //            console.log(response);
+            //            if (response.error == false) {
+            //                    console.log(response);
+            //            }
+            //        }
+            //    });
+            //})
+            // Search end
+
             // SingalR
             $("#chatbox").submit(function(e) {
                 e.preventDefault();
@@ -1673,12 +1697,7 @@
             }).catch(function(err) {
                 return console.error(err.toString());
             });
-        })
-    </script>
-
-
-    <script>
-        $(document).ready(function() {
+            // SignalR end
 
             $.ajaxSetup({
                 statusCode: {
@@ -1842,10 +1861,5 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function(){
-            alert("DONE");
-        })
-    </script>
 </body>
 </html>

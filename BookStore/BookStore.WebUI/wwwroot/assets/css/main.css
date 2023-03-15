@@ -5178,6 +5178,13 @@ body.tg-comingsoonpage .tg-footerbar {
 .form-inputs input,
 .form-inputs textarea {
   width: 100%;
+  border: 1px solid #dbdbdb;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.form-inputs textarea::placeholder {
+  font-size: 14px;
 }
 
 .form-inputs textarea {
@@ -5659,4 +5666,50 @@ textarea::placeholder {
   align-items: center;
   justify-content: space-around;
   flex: 0 0 auto;
+}
+
+.product-item-order td {
+  padding: 5rem;
+  width: 20%;
+}
+
+.your-order {
+  margin-bottom: 5rem;
+}
+
+.your-order__wrp {
+  display: flex;
+  align-items: center;
+}
+
+.your-order__wrp:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.your-order__image-container {
+  flex: 0 1 100px;
+}
+
+.your-order__image-container a img {
+  width: auto !important;
+  max-width: 56%;
+  max-height: 56%;
+}
+
+.your-order__title {
+  flex: 1 1 180px;
+}
+
+.your-order__total {
+  flex: 0 1 100px;
+  font-weight: bold;
+}
+
+.ellipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  max-width: 120px;
+  min-width: 120px;
 }
