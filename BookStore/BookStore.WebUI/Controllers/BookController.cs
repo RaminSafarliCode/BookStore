@@ -59,6 +59,8 @@ namespace BookStore.WebUI.Controllers
             };
 
             var result = await mediator.Send(query);
+            ViewBag.SearchText = searchText;
+
 
             return View(result);
         }

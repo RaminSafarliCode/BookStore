@@ -26,4 +26,8 @@
 		<ProjectReference Include="..\BookStore.Application\BookStore.Application.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Business\AboutModule\" />
+	</ItemGroup>
+
 </Project>

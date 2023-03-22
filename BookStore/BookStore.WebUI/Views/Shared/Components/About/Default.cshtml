@@ -1,0 +1,60 @@
+﻿@model About
+<div class="tg-footercol">
+    <strong class="tg-logo">
+        <a asp-controller="home" asp-action="index" style="font-size: 40px">
+            <span>book<span style="color: #f16945">VERSE</span> </span>
+        </a>
+    </strong>
+    <ul class="tg-contactinfo">
+        <li>
+            <i class="icon-apartment"></i>
+            <address>
+                @Model.Address
+            </address>
+        </li>
+        <li>
+            <i class="icon-phone-handset"></i>
+            <span>
+                <em>@Model.Phone</em>
+            </span>
+        </li>
+        <li>
+            <i class="icon-clock"></i>
+            <span>@Model.WorkHours</span>
+        </li>
+        <li>
+            <i class="icon-envelope"></i>
+            <span>
+                <em>
+                    <a href="mailto:@Model.Mail">@Model.Mail</a>
+                </em>
+            </span>
+        </li>
+    </ul>
+    <ul class="tg-socialicons">
+        @if (@Model.FacebookAddress != null)
+        {
+            <li class="tg-facebook">
+                <a href="@Model.FacebookAddress">
+                    <i class="fa fa-facebook"></i>
+                </a>
+            </li>
+        }
+        @if (@Model.TwitterAddress != null)
+        {
+            <li class="tg-twitter">
+                <a href="@Model.TwitterAddress">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        }
+        @if (@Model.LinkedinAddress != null)
+        {
+            <li class="tg-linkedin">
+                <a href="@Model.LinkedinAddress">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

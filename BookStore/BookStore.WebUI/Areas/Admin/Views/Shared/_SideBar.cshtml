@@ -10,6 +10,18 @@
                     <span class="pcoded-mtext">Homepage</span>
                 </a>
             </li>
+
+            @if (User.HasAccess("admin.aboutcompany.index"))
+            {
+                <li>
+                    <a asp-controller="AboutCompany" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="fa-solid fa-address-card"></i>
+                        </span>
+                        <span class="pcoded-mtext">About Company</span>
+                    </a>
+                </li>
+            }
             @*<li>
             <a asp-controller="Abouts" asp-action="index">
             <span class="pcoded-micon">
@@ -135,14 +147,14 @@
                         </a>
                     </li>
                     @*<li>
-                        <a asp-controller="brands" asp-action="index">
-                            <span class="pcoded-mtext">Qadağa edilmiş sözlər</span>
-                        </a>
+                    <a asp-controller="brands" asp-action="index">
+                    <span class="pcoded-mtext">Qadağa edilmiş sözlər</span>
+                    </a>
                     </li>
                     <li>
-                        <a asp-controller="brands" asp-action="index">
-                            <span class="pcoded-mtext">Rəy funksionallıqları</span>
-                        </a>
+                    <a asp-controller="brands" asp-action="index">
+                    <span class="pcoded-mtext">Rəy funksionallıqları</span>
+                    </a>
                     </li>*@
                 </ul>
             </li>

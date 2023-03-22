@@ -41,6 +41,7 @@ namespace BookStore.Domain.Models.DataContexts
         public DbSet<Group> ChatGroups { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<BookStoreForgotPassword> BookStoreForgotPasswords { get; set; }
+        public DbSet<About> AboutCompany { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

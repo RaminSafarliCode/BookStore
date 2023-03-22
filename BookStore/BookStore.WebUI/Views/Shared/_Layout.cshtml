@@ -215,6 +215,7 @@
                                         <input type="text"
                                                name="searchText"
                                                class="typeahead form-control"
+                                               required
                                                placeholder="Search by title, author, keyword, ISBN..." />
                                         <button type="submit">
                                             <i class="icon-magnifier"></i>
@@ -1374,72 +1375,7 @@
                         </div>
                         <div class="tg-threecolumns">
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-                                <div class="tg-footercol">
-                                    <strong class="tg-logo">
-                                        <a href="javascript:void(0);">
-                                            <img src="~/assets/images/flogo.png"
-                                                 alt="image description" />
-                                        </a>
-                                    </strong>
-                                    <ul class="tg-contactinfo">
-                                        <li>
-                                            <i class="icon-apartment"></i>
-                                            <address>
-                                                Suit # 07, Rose world Building, Street # 02, AT246T
-                                                Manchester
-                                            </address>
-                                        </li>
-                                        <li>
-                                            <i class="icon-phone-handset"></i>
-                                            <span>
-                                                <em>0800 12345 - 678 - 89</em>
-                                                <em>+4 1234 - 4567 - 67</em>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <i class="icon-clock"></i>
-                                            <span>Serving 7 Days A Week From 9am - 5pm</span>
-                                        </li>
-                                        <li>
-                                            <i class="icon-envelope"></i>
-                                            <span>
-                                                <em>
-                                                    <a href="mailto:support@domain.com">support@domain.com</a>
-                                                </em>
-                                                <em>
-                                                    <a href="mailto:info@domain.com">info@domain.com</a>
-                                                </em>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                    <ul class="tg-socialicons">
-                                        <li class="tg-facebook">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-twitter">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-linkedin">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-linkedin"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-googleplus">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </li>
-                                        <li class="tg-rss">
-                                            <a href="javascript:void(0);">
-                                                <i class="fa fa-rss"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                @await Component.InvokeAsync("About")
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                                 <div class="tg-footercol tg-widget tg-widgetnavigation">
@@ -1739,6 +1675,9 @@
                         console.log(response);
                         if (response.error == false) {
                             $('#flipFlop').modal('hide');
+                            location.reload();
+                        } else {
+                            toastr.error("Username or password is incorrect!");
                         }
                     }
                 });

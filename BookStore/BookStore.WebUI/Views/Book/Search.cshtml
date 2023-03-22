@@ -1,6 +1,8 @@
 ﻿@model List<Book>
 @{
     ViewData["Title"] = "Search";
+
+    string searchText = ViewBag.SearchText;
 }
 
 @*<h2>Search Results</h2>*@
@@ -32,65 +34,72 @@
         <div id="tg-content" class="tg-content">
             <div class="tg-products">
                 <div class="tg-sectionhead">
-                    <h2><span>People’s Choice</span>Bestselling Books</h2>
+                    <h2><span>You searched for</span>"@searchText"</h2>
                 </div>
                 <div id="products">
                     <div class="tg-productgrid">
-                        @foreach (var item in Model)
+                        @if (!Model.Any())
                         {
-                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-                                <div class="tg-postbook">
-                                    <figure class="tg-featureimg">
-                                        <div class="tg-bookimg">
-                                            <div class="tg-frontcover">
-                                                <img src="~/uploads/images/@item.ImagePath"
+                            <p>No book was found!</p>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+                                    <div class="tg-postbook">
+                                        <figure class="tg-featureimg cus-featureimg">
+                                            <div class="tg-bookimg">
+                                                <div class="tg-frontcover">
+                                                    <img src="~/uploads/images/@item.ImagePath"
                                                  alt="@item.Name" />
-                                            </div>
-                                            <div class="tg-backcover">
-                                                <img src="~/uploads/images/@item.ImagePath"
+                                                </div>
+                                                <div class="tg-backcover">
+                                                    <img src="~/uploads/images/@item.ImagePath"
                                                  alt="@item.Name" />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <a class="tg-btnaddtowishlist"
+                                            <a class="tg-btnaddtowishlist"
                                        href="javascript:addToFavorites(@item.Id);">
-                                            <i class="icon-heart"></i>
-                                            <span>add to wishlist</span>
-                                        </a>
-                                    </figure>
-                                    <div class="tg-postbookcontent">
-                                        <ul class="tg-bookscategories">
-                                            <li>
-                                                <a href="javascript:void(0);">@item.Category.Name</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tg-themetagbox">
-                                            <span class="tg-themetag">sale</span>
-                                        </div>
-                                        <div class="tg-booktitle">
-                                            <h3>
-                                                <a asp-action="details" asp-route-id="@item.Id">@item.Name</a>
-                                            </h3>
-                                        </div>
-                                        <span class="tg-bookwriter">
-                                            By:
-                                            <a href="javascript:void(0);">@item.Author.Name</a>
-                                        </span>
-                                        <div class="tg-stars">
-                                            <rate rate-value="@item.Rate" rate-book-id="@item.Id"></rate>
-                                        </div>
-                                        <span class="tg-bookprice">
-                                            @*<ins>@(item.Price * Convert.ToDecimal(0.75);)₼</ins>*@
-                                            <ins>@(item.Price) ₼</ins>
-                                            <del>@item.Price ₼</del>
-                                        </span>
-                                        <a class="tg-btn tg-btnstyletwo"
+                                                <i class="icon-heart"></i>
+                                                <span>add to wishlist</span>
+                                            </a>
+                                        </figure>
+                                        <div class="tg-postbookcontent">
+                                            <ul class="tg-bookscategories">
+                                                <li>
+                                                    <a href="javascript:void(0);">@item.Category.Name</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tg-themetagbox">
+                                                <span class="tg-themetag">sale</span>
+                                            </div>
+                                            <div class="tg-booktitle">
+                                                <h3>
+                                                    <a asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                                                </h3>
+                                            </div>
+                                            <span class="tg-bookwriter">
+                                                By:
+                                                <a href="javascript:void(0);">@item.Author.Name</a>
+                                            </span>
+                                            <div class="tg-stars">
+                                                <rate rate-value="@item.Rate" rate-book-id="@item.Id"></rate>
+                                            </div>
+                                            <span class="tg-bookprice">
+                                                @*<ins>@(item.Price * Convert.ToDecimal(0.75);)₼</ins>*@
+                                                <ins>@(item.Price) ₼</ins>
+                                                <del>@item.Price ₼</del>
+                                            </span>
+                                            <a class="tg-btn tg-btnstyletwo"
                                        onclick="addToBasket(event)" data-book-id="@item.Id">
-                                            <i class="fa fa-shopping-basket"></i>
-                                            <em>Add To Basket</em>
-                                        </a>
+                                                <i class="fa fa-shopping-basket"></i>
+                                                <em>Add To Basket</em>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>
@@ -126,6 +135,10 @@
             font-size: 4rem;
             font-family: "FontAwesome";
             content: "";
+        }
+
+        .cus-featureimg{
+            height: 387px;
         }
     </style>
 }

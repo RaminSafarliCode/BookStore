@@ -1,0 +1,87 @@
+﻿@model IEnumerable<About>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (!Model.Any())
+{
+    <p>
+        <a asp-action="Create">Write about you</a>
+    </p>
+}
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkHours)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkHours)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mail)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FacebookAddress)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.FacebookAddress)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TwitterAddress)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.TwitterAddress)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LinkedinAddress)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.LinkedinAddress)
+            </td>
+        </tr>
+        <tr>
+            <td class="d-flex">
+                <a class="btn btn-info mr-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
+
+    }
+</table>
+
+
+
+<style>
+
+    .table tr td {
+        white-space: normal;
+    }
+</style>

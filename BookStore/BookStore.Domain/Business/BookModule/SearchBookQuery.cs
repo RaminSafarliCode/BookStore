@@ -33,7 +33,7 @@ namespace BookStore.Domain.Business.BookModule
 
                 if (!string.IsNullOrWhiteSpace(request.SearchText))
                 {
-                    query = query.Where(b => b.Name.Contains(request.SearchText));
+                    query = query.Where(b => b.Name.Contains(request.SearchText) || b.Author.Name.Contains(request.SearchText));
                 }
 
                 return await query.ToListAsync(cancellationToken);
