@@ -64,121 +64,7 @@
         *************************************-->
 </main>
 
-@section addcss{
-    <style>
-        [data-entity-type] {
-            position: relative;
-            padding-left: 30px;
-            display: block;
-            cursor: pointer;
-        }
-
-            [data-entity-type]:not(.filled)::before {
-                content: "";
-                font-size: 0.7em;
-                font-weight: 900;
-                font-family: "Font Awesome 5 Free";
-                position: absolute;
-                border: 1px solid #cccccc85;
-                width: 18px;
-                height: 18px;
-                border-radius: 2px;
-                top: 50%;
-                left: 0px;
-                transform: translateY(-50%);
-                text-align: center;
-                text-indent: 1px;
-                line-height: 1.7em;
-            }
-
-            [data-entity-type].active:not(.filled)::before {
-                content: "\f00c";
-                color: #ffffff;
-                background-color: #cccccc85;
-                border-color: #cccccc85;
-            }
-
-            [data-entity-type].filled {
-                width: 30px;
-                height: 25px;
-                border-radius: 2px;
-                border: 1px solid #cccccc85;
-            }
-
-                [data-entity-type].filled::before {
-                    content: "";
-                    display: inline-block;
-                    padding-left: 1px;
-                    line-height: 7pt;
-                    font-size: 5pt;
-                    font-weight: 900;
-                    font-family: "Font Awesome 5 Free";
-                    position: absolute;
-                    top: 1px;
-                    right: 1px;
-                }
-
-                [data-entity-type].filled.active::before {
-                    content: "\f00c";
-                    color: #000000c4;
-                    background-color: #ffffff;
-                    border: 1px solid #000000c4;
-                    width: 12px;
-                    height: 12px;
-                    border-radius: 100%;
-                }
-
-        #price-range[range]::before {
-            content: attr(range);
-            display: flex;
-            justify-content: center;
-            padding-top: 5px;
-        }
-
-        .def-cap {
-            font-size: 22px;
-            font-weight: 500;
-            color: #fff;
-            width: 100%;
-            padding: 0 20px;
-            border-radius: 5px;
-            background: #484848;
-            border-bottom: 1px solid #dbdbdb;
-        }
-
-        .def-item {
-            padding-bottom: 16px;
-            font-size: 15px;
-            line-height: 1.4;
-        }
-
-        .border-default .def-list {
-            overflow-y: scroll;
-            max-height: 206px;
-        }
-
-        .ui-slider-horizontal .ui-slider-handle {
-            top: -10px !important;
-            border-radius: 50px;
-            transition: all .3s ease-out;
-        }
-
-        .ui-widget.ui-widget-content {
-            height: 3px;
-        }
-
-        .ui-widget-content .ui-state-default {
-            border: 6px solid #000;
-            background: #fff;
-            font-weight: normal;
-            color: #454545;
-            margin-top: 1px;
-        }
-
-    </style>
-}
-
-    @section addjs{
+@section addjs{
     <script>
         const priceRangeData = $("#price-range").data();
 
@@ -249,12 +135,11 @@
                     data: searchModel,
                     contentType: 'application/x-www-form-urlencoded',
                     success: function(response) {
-
+                        toastr.success("The filter was applied!");
                         $('#products').html(response);
-                        console.log(response);
                     },
                     error: function(response) {
-                        console.log(response);
+                        toastr.error("Something went wrong!");
                     }
                 });
             }, 1500);

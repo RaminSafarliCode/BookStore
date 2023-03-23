@@ -1,57 +1,60 @@
-﻿@addTagHelper *, BookStore.WebUI
-@model PagedViewModel<Book>
-<div class="tg-productgrid">
-    @if (Model.Items.Any())
-    {
-        @foreach (var item in Model.Items)
+﻿@model IEnumerable<Book>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="tg-sectionhead">
+        <h2>
+            <span>Related Products</span>You May Also Like
+        </h2>
+        <a class="tg-btn" href="javascript:void(0);">View All</a>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="tg-relatedproductslider"
+         class="tg-relatedproductslider tg-relatedbooks owl-carousel">
+        @foreach (var item in Model)
         {
-            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+            <div class="item">
                 <div class="tg-postbook">
                     <figure class="tg-featureimg">
                         <div class="tg-bookimg">
                             <div class="tg-frontcover">
                                 <img src="~/uploads/images/@item.ImagePath"
-                             alt="@item.Name" />
+                                 alt="@item.Name" />
                             </div>
                             <div class="tg-backcover">
                                 <img src="~/uploads/images/@item.ImagePath"
-                             alt="@item.Name" />
+                                 alt="@item.Name" />
                             </div>
                         </div>
                         <a class="tg-btnaddtowishlist"
-                   href="javascript:addToFavorites(@item.Id);">
+                       href="javascript:addToFavorites(@item.Id);">
                             <i class="icon-heart"></i>
                             <span>add to wishlist</span>
                         </a>
                     </figure>
                     <div class="tg-postbookcontent">
                         <ul class="tg-bookscategories">
-                            <li>
-                                <a href="javascript:void(0);">@item.Category.Name</a>
-                            </li>
+                            <li><a asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Category.Name</a></li>
                         </ul>
                         <div class="tg-themetagbox">
                             <span class="tg-themetag">sale</span>
                         </div>
                         <div class="tg-booktitle">
                             <h3>
-                                <a asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                                <a asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
                             </h3>
                         </div>
                         <span class="tg-bookwriter">
                             By:
-                            <a href="javascript:void(0);">@item.Author.Name</a>
+                            <a asp-controller="author" asp-action="details" asp-route-id="@item.Author.Id">@item.Author.Name</a>
                         </span>
-                        <div class="tg-stars">
-                            <rate rate-value="@item.Rate" rate-book-id="@item.Id"></rate>
-                        </div>
+                        <span class="tg-stars"><span></span></span>
                         <span class="tg-bookprice">
-                            @*<ins>@(item.Price * Convert.ToDecimal(0.75);)₼</ins>*@
                             <ins>@(item.Price) ₼</ins>
                             <del>@item.Price ₼</del>
                         </span>
                         <a class="tg-btn tg-btnstyletwo"
-                   onclick="addToBasket(event)" data-book-id="@item.Id">
+                       onclick="addToBasket(event)" data-book-id="@item.Id">
                             <i class="fa fa-shopping-basket"></i>
                             <em>Add To Basket</em>
                         </a>
@@ -59,14 +62,6 @@
                 </div>
             </div>
         }
-    }
-    else
-    {
-        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-            <p>No book was found!</p>
-        </div>
-    }
+
+    </div>
 </div>
-
-
-

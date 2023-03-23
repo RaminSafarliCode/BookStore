@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Author>
+
+<div class="tg-footercol tg-widget tg-widgettopsellingauthors">
+    <div class="tg-widgettitle">
+        <h3>Top Selling Authors</h3>
+    </div>
+    <div class="tg-widgetcontent">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <figure>
+                        <a href="javascript:void(0);">
+                            <img src="~/uploads/images/@item.ImagePath" alt="@item.Name" />
+                        </a>
+                    </figure>
+                    <div class="tg-authornamebooks">
+                        <h4>
+                            <a asp-controller="author" asp-action="details" asp-route-id="@item.Id">@item.Name</a>
+                        </h4>
+                        <p>21,658 Published Books</p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
