@@ -190,7 +190,7 @@ option {
 }
 li {
   line-height: 28px;
-  list-style: disc inside none;
+  list-style: none;
 }
 ul ul {
   margin-left: 20px;
@@ -1048,7 +1048,7 @@ body.tg-comingsoonpage .tg-wrapper {
 .tg-wishlistandcart {
   z-index: 2;
   float: right;
-  padding: 23px 0;
+  padding: 11px 0;
   position: relative;
 }
 .tg-themedropdown {
@@ -1994,6 +1994,10 @@ li.menu-item-has-mega-menu {
   width: 100%;
   overflow: hidden;
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .tg-bookimg {
   width: 100%;
@@ -4495,7 +4499,7 @@ blockquote .tg-bookwriter {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 .tg-authorinfo {
   overflow: hidden;
@@ -4595,15 +4599,17 @@ blockquote .tg-bookwriter {
 .tg-authordetail {
   width: 100%;
   float: left;
+  /* display: flex; */
 }
 .tg-authordetail .tg-authorimg {
   border: 0;
   padding: 0;
-  width: auto;
+  width: 270px;
   height: 370px;
   float: left;
   border-radius: 0;
   margin: 0 30px 0 0;
+  /* width: 20%; */
 }
 .tg-authordetail .tg-authorimg img {
   width: 100%;
@@ -4613,6 +4619,7 @@ blockquote .tg-bookwriter {
 }
 .tg-authorcontentdetail {
   overflow: hidden;
+  /* width: 80%; */
 }
 .tg-authorcontentdetail .tg-sectionhead {
   margin: 0 0 30px;
@@ -5830,4 +5837,21 @@ textarea::placeholder {
   font-weight: normal;
   color: #454545;
   margin-top: 1px;
+}
+
+.category-name {
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+
+.remove-selected-comment {
+  font-size: 3rem;
+  background: #675c84;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 3rem;
 }

@@ -16211,9 +16211,10 @@ body.menu-bottom #collapse-menu {
 .select2-container--default
   .select2-selection--single
   .select2-selection__rendered {
+  height: 100%;
   background-color: #01a9ac;
   color: #fff;
-  padding: 8px 30px 8px 20px;
+  /* padding: 8px 30px 8px 20px; */
 }
 .select2-container--default
   .select2-selection--single
@@ -26381,13 +26382,13 @@ td.table-row-select {
   height: auto;
 }
 
-.select2-container--default
+/* .select2-container--default
   .select2-selection--single
   .select2-selection__rendered {
   background-color: #01a9ac;
   color: #fff;
   padding: 8px 30px 8px 20px;
-}
+} */
 
 .select2-container--default
   .select2-selection--single
@@ -26421,3 +26422,28 @@ td.table-row-select {
   display: none !important;
 }
 
+.order-table-head tr th:not(:first-child) {
+  text-align: center;
+}
+
+.order-table-body tr td {
+  text-align: center;
+}
+
+.order-image-container {
+  max-width: 100px;
+}
+
+.order-product-image {
+  width: 100%;
+}
+
+.operations a {
+  color: white;
+}
+
+.ellipse-two {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

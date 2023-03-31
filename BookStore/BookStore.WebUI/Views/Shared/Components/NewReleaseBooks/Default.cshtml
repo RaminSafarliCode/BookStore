@@ -19,7 +19,7 @@
                         </p>
                     </div>
                     <div class="tg-btns">
-                        <a class="tg-btn tg-active" href="javascript:void(0);">View All</a>
+                        <a class="tg-btn tg-active" asp-controller="book" asp-action="index">View All</a>
                         <a class="tg-btn" href="javascript:void(0);">Read More</a>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             {
                                 <div class="col-xs-4 col-sm-4 col-md-6 col-lg-4">
                                     <div class="tg-postbook">
-                                        <figure class="tg-featureimg">
+                                        <figure class="tg-featureimg" style="height: 272px;">
                                             <div class="tg-bookimg">
                                                 <div class="tg-frontcover">
                                                     <img src="~/uploads/images/@item.ImagePath"
@@ -50,7 +50,7 @@
                                         </figure>
                                         <div class="tg-postbookcontent">
                                             <ul class="tg-bookscategories">
-                                                <li><a asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Category.Name</a></li>
+                                                <li><a class="category-name" asp-controller="book" asp-action="details" asp-route-id="@item.Id">@item.Category.Name</a></li>
                                             </ul>
                                             <div class="tg-booktitle">
                                                 <h3>

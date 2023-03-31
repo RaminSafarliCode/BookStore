@@ -59,7 +59,7 @@ namespace BookStore.Application.AppCode.Infrastructure
             StringBuilder builder = new StringBuilder();
             bool hasPaginationFunction = !string.IsNullOrWhiteSpace(paginateFunction);
 
-            builder.Append("<ul class='blog-pagination ptb-20'>");
+            builder.Append("<ul class='blog-pagination ptb-20 d-flex '>");
 
             if (this.PageIndex > 1)
             {
@@ -72,7 +72,7 @@ namespace BookStore.Application.AppCode.Infrastructure
                         area
                     });
 
-                builder.Append($@"<li class='prev'>
+                builder.Append($@"<li class='prev '>
                                 <a href='{link}'><i class='fa fa-angle-left'></i></a>
                                 </li>");
             }

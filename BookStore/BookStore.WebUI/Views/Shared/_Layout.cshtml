@@ -137,12 +137,6 @@
                                         <i class="icon-heart"></i>
                                         <span>Wishlist</span>
                                     </a>
-                                    <div class="dropdown-menu tg-themedropdownmenu"
-                                         aria-labelledby="tg-wishlisst">
-                                        <div class="tg-description">
-                                            <p>No products were added to the wishlist!</p>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div id="basket" class="dropdown tg-themedropdown tg-minicartdropdown">
                                     <a href="javascript:void(0);"
@@ -155,58 +149,6 @@
                                         <i class="icon-cart"></i>
                                         <span>$123.00</span>
                                     </a>
-                                    <div class="dropdown-menu tg-themedropdownmenu"
-                                         aria-labelledby="tg-minicart">
-                                        <div class="tg-minicartbody">
-                                            <div class="tg-minicarproduct">
-                                                <figure>
-                                                    <img src="~/assets/images/books/img-01.jpg"
-                                                         alt="image description" />
-                                                </figure>
-                                                <div class="tg-minicarproductdata">
-                                                    <h5>
-                                                        <a href="javascript:void(0);">Our State Fair Is A Great Function</a>
-                                                    </h5>
-                                                    <h6><a href="javascript:void(0);">$ 12.15</a></h6>
-                                                </div>
-                                            </div>
-                                            <div class="tg-minicarproduct">
-                                                <figure>
-                                                    <img src="~/assets/images/books/img-02.jpg"
-                                                         alt="image description" />
-                                                </figure>
-                                                <div class="tg-minicarproductdata">
-                                                    <h5>
-                                                        <a href="javascript:void(0);">Bring Me To Light</a>
-                                                    </h5>
-                                                    <h6><a href="javascript:void(0);">$ 12.15</a></h6>
-                                                </div>
-                                            </div>
-                                            <div class="tg-minicarproduct">
-                                                <figure>
-                                                    <img src="~/assets/images/books/img-03.jpg"
-                                                         alt="image description" />
-                                                </figure>
-                                                <div class="tg-minicarproductdata">
-                                                    <h5>
-                                                        <a href="javascript:void(0);">Have Faith In Your Soul</a>
-                                                    </h5>
-                                                    <h6><a href="javascript:void(0);">$ 12.15</a></h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tg-minicartfoot">
-                                            <a class="tg-btnemptycart" href="javascript:void(0);">
-                                                <i class="fa fa-trash-o"></i>
-                                                <span>Clear Your Cart</span>
-                                            </a>
-                                            <span class="tg-subtotal">Subtotal: <strong>35.78</strong></span>
-                                            <div class="tg-btns">
-                                                <a class="tg-btn tg-active" href="javascript:void(0);">View Cart</a>
-                                                <a class="tg-btn" href="javascript:void(0);">Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="tg-searchbox">
@@ -246,7 +188,7 @@
                                 </div>
                                 <div id="tg-navigation"
                                      class="collapse navbar-collapse tg-navigation">
-                                    <ul>
+                                    <ul id="navigation-list">
                                         <li class="menu-item-has-children menu-item-has-mega-menu">
                                             <a href="javascript:void(0);">All Categories</a>
                                             <div class="mega-menu">
@@ -1284,7 +1226,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="current-menu-item">
+                                        <li>
                                             <a asp-controller="home" asp-action="index">Home</a>
                                         </li>
                                         <li>
@@ -1392,7 +1334,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                @await Component.InvokeAsync("PopularAuthors", "DefaultFooter   ")
+                                @*@await Component.InvokeAsync("PopularAuthors", "DefaultFooter   ")*@
                             </div>
                         </div>
                     </div>
@@ -1510,28 +1452,6 @@
 
     <script>
         $(document).ready(function() {
-
-            // Search
-            //$("#searchForm").submit(function(e)  {
-            //    e.preventDefault();
-
-            //    const formData = new FormData(e.currentTarget);
-
-            //    $.ajax({
-            //        url: '@Url.Action("Search","Book")',
-            //        type: 'POST',
-            //        data: formData,
-            //        processData: false,
-            //        contentType: false,
-            //        success: function(response) {
-            //            console.log(response);
-            //            if (response.error == false) {
-            //                    console.log(response);
-            //            }
-            //        }
-            //    });
-            //})
-            // Search end
 
             // SingalR
             $("#chatbox").submit(function(e) {

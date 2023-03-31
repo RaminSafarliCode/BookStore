@@ -64,6 +64,7 @@ namespace BookStore.WebUI
                 cfg.Password.RequiredLength = 3;
 
                 cfg.User.RequireUniqueEmail = true;
+                cfg.SignIn.RequireConfirmedEmail = true;
 
                 cfg.Lockout.MaxFailedAccessAttempts = 3;
                 cfg.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 1, 0);
@@ -260,7 +261,7 @@ namespace BookStore.WebUI
                         action = "accessdenied"
                     });
 
-                endpoints.MapAreaControllerRoute("defaultAdmin", "admin", "admin/{controller=dashboard}/{action=index}/{id?}");
+                endpoints.MapAreaControllerRoute("defaultAdmin", "admin", "admin/{controller=aboutcompany}/{action=index}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

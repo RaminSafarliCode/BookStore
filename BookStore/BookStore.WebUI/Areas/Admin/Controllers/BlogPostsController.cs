@@ -172,7 +172,7 @@ namespace BookStore.WebUI.Areas.Admin.Controllers
 
         [Authorize("admin.blogposts.deletedpostdetails")]
         public async Task<IActionResult> DeletedPostDetails(BlogPostSingleQuery query)
-        {
+            {
             var response = await mediator.Send(query);
 
             if (response == null)

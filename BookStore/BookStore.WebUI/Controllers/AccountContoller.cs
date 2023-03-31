@@ -53,6 +53,13 @@ namespace BookStore.WebUI.Controllers
                     goto end;
                 }
 
+                var userM = await userManager.IsEmailConfirmedAsync(foundedUser);
+                if (userM==false)
+                {
+                    ViewBag.Message = "Confirm your mail!";
+                    goto end;
+                }
+
                 var signInResult = await signInManager.PasswordSignInAsync(foundedUser, user.Password, true, true);
 
                 if (!signInResult.Succeeded)

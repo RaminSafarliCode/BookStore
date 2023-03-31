@@ -37,16 +37,16 @@
                 Order ID
             </th>
             <th>
-                Ordered Date
+                Date
             </th>
             <th>
-                Order Price
+                Price
             </th>
             <th>
-                Order Status
+                Status
             </th>
             <th class="operations">
-                
+
             </th>
         </tr>
     </thead>
@@ -83,16 +83,12 @@
                             </a>
                             }
                         }
-
                         @if (User.HasAccess("admin.orders.details"))
                         {
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
                             <i class="fa fa-eye"></i>
                         </a>
                         }
-
-
-
                         @if (User.HasAccess("admin.contactposts.delete"))
                         {
                         <a class="btn btn-sm btn-danger" onclick="removeEntity(@item.Id, '@item.Id')">
@@ -109,62 +105,59 @@
 @Html.AntiForgeryToken()
 
 @section addcss{
-<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
+    <link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />
 }
 
-@section addjs{
-<script src="~/libs/sweetalert/sweetalert.min.js"></script>
-<script src="~/libs/toastr.js/toastr.min.js"></script>
-<script src="~/libs/toastr.js/toastr.customize.js"></script>
-<script>
-    function removeEntity(id, name){
-        swal(`${name} nömrəli sifarişi silmək istədiyinizdən əminsiniz?`, {
-              title: "Diqqət!",
-              text: `${name} nömrəli sifarişi silmək istədiyinizdən əminsiniz?`,
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-              buttons: ["Xeyr", "Bəli"]
-        })
-        .then((value) => {
+    @section addjs{
+    <script src="~/libs/sweetalert/sweetalert.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.min.js"></script>
+    <script src="~/libs/toastr.js/toastr.customize.js"></script>
+    <script>
+        function removeEntity(id, name) {
+            swal(`Are you sure to delete the order ${name}?`, {
+                title: "Warning!",
+                text: `Are you sure to delete the order ${name}?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                buttons: ["No", "Yes"]
+            })
+                .then((value) => {
 
-            if(value == true){
+                    if (value == true) {
 
-                let vToken = $("[name=__RequestVerificationToken]").val();
+                        let vToken = $("[name=__RequestVerificationToken]").val();
 
-                let formData = new FormData();
+                        let formData = new FormData();
 
-                formData.set("__RequestVerificationToken", vToken);
-                formData.set("id", id);
+                        formData.set("__RequestVerificationToken", vToken);
+                        formData.set("id", id);
 
-                $.ajax({
-                    url: `@Url.Action("Delete")`,
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response){
-                        //console.log(response);
-
-                        if(response.error == true){
-                            toastr.error(response.message);
-                            return;
-                        }
-
-                        location.reload();
-                    },
-                    error: function(errorResponse){
-                        console.error(errorResponse);
+                        $.ajax({
+                            url: `@Url.Action("Delete")`,
+                            type: "POST",
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(response) {
+                                if (response.error == true) {
+                                    toastr.error(response.message);
+                                    return;
+                                }
+                                location.reload();
+                            },
+                            error: function(errorResponse) {
+                                console.error(errorResponse);
+                            }
+                        });
                     }
                 });
-            }
-        });
-    }
+        }
 
-    function completeOrder(id, name) {
-            swal(`${name} nömrəli sifariş tamamlansın?`, {
-                title: "Diqqət!",
-                text: `${name} nömrəli sifariş tamamlansın?`,
+        function completeOrder(id, name) {
+            swal(`Are you sure to complete the order ${name}`, {
+                title: "Warning!",
+                text: `Are you sure to complete the order ${name}`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -186,15 +179,15 @@
                             data: formData,
                             contentType: false,
                             processData: false,
-                            success: function (response) {
+                            success: function(response) {
                                 console.log(response)
                                 if (response.error == true) {
-                                    toaster.error(response.message, "Xeta");
+                                    toaster.error(response.message, "Something went wrong!");
                                     return;
                                 }
                                 location.reload();
                             },
-                            error: function (errorResponse) {
+                            error: function(errorResponse) {
                                 console.error(errorResponse);
                             }
                         });
@@ -202,7 +195,7 @@
 
 
                 });
-    }
-</script>
+        }
+    </script>
 }
 

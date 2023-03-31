@@ -12,7 +12,7 @@
     <div class="card-block table-border-style">
         <div class="table-responsive">
             <table class="table table-framed">
-                <thead>
+                <thead class="order-table-head">
                     <tr>
                         <th>Books summary</th>
                         <th>Quantity</th>
@@ -20,16 +20,16 @@
                         <th>Total price</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="order-table-body">
                     @foreach (var item in Model.OrderBooks)
                     {
                         <tr>
-                            <th scope="row" class="d-flex">
+                            <td scope="row" class="d-flex" style="">
                                 <div class="order-image-container">
                                     <img class="order-product-image" src="~/uploads/images/@item.Book.ImagePath">
                                 </div>
-                                <span class="product-name-center">@item.Book.Name</span>
-                            </th>
+                                <span class="product-name-center d-flex align-items-center " style="margin-left:auto; margin-right:auto;">@item.Book.Name</span>
+                            </td>
                             <td>x @item.Quantity</td>
                             <td>@item.Book.Price ₼</td>
                             <td>@(item.Quantity * item.Book.Price) ₼</td>
@@ -64,10 +64,10 @@
                         <th scope="row">Shipping Address</th>
                         <td>@Model.Address</td>
                     </tr>
-                    @*<tr>
+                    <tr>
                         <th scope="row">Account email</th>
-                        <td>@Model.User.Email</td>
-                    </tr>*@
+                        <td>@Model.CreatedByUser.Email</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

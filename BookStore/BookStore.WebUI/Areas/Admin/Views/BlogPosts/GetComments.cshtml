@@ -97,13 +97,13 @@
 <script src="~/libs/toastr.js/toastr.customize.js"></script>
 <script>
     function removeEntity(id, name){
-        swal(`'${name}' adlı istifadəçinin rəyini silmək istədiyinizə əminsiniz?`, {
-              title: "Diqqət!",
-              text: `'${name}' adlı istifadəçinin rəyini silmək istədiyinizə əminsiniz?`,
+        swal(`Are you sure to delete ${name}' comment?`, {
+              title: "Warning!",
+              text: `Are you sure to delete ${name}' comment?`,
               icon: "warning",
               buttons: true,
               dangerMode: true,
-              buttons: ["Xeyr", "Bəli"]
+              buttons: ["No", "Yes"]
         })
         .then((value) => {
 
@@ -126,7 +126,7 @@
                         console.log(response);
 
                         if(response.error == true){
-                            toastr.error(response.message, "Xeta!");
+                            toastr.error(response.message, "Something went wrong!");
                             return;
                         }
 

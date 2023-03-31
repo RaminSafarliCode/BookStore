@@ -9,10 +9,9 @@
         <div class="col-lg-8">
             <div class="page-header-title">
                 <div class="d-inline">
-                    <h4>Bootstrap Border Sizes</h4>
+                    <h4>FAQs</h4>
                     <span>
-                        lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit
+                        Frequently Asked Question
                     </span>
                 </div>
             </div>
@@ -25,11 +24,11 @@
                             <i class="feather icon-home"></i>
                         </a>
                     </li>
-                    <li class="breadcrumb-item">
+                    <li class="breadcrumb-item d-flex">
                         <a asp-action="index">FAQ</a>
                     </li>
-                    <li class="breadcrumb-item">
-                        <span>@Model.Question</span>
+                    <li class="breadcrumb-item d-flex">
+                        <span class="ellipse-two">@Model.Question</span>
                     </li>
                 </ul>
             </div>
@@ -39,20 +38,7 @@
 
 <div class="page-body">
     <div class="card">
-        <div class="card-header">
-            <h5>Basic Form Inputs</h5>
-            <span>
-                Add class of <code>.form-control</code> with
-                <code>&lt;input&gt;</code> tag
-            </span>
-
-
-            <div class="card-header-right">
-                <i class="icofont icofont-spinner-alt-5"></i>
-            </div>
-        </div>
         <div class="card-block">
-            <h4 class="sub-title">Basic Inputs</h4>
             <div>
                 <div class="form-group row">
                     <label asp-for="Question" class="col-sm-2 col-form-label"></label>

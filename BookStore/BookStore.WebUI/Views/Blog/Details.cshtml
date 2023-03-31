@@ -185,34 +185,10 @@
                                     <fieldset>
                                         <div id="replyToComment"></div>
                                         <input type="hidden" name="postId" value="@Model.BlogPost.Id" />
-                                        @*<div class="form-group">
-                                        <input type="text"
-                                        name="full name"
-                                        class="form-control"
-                                        placeholder="First Name*" />
-                                        </div>
-                                        <div class="form-group">
-                                        <input type="text"
-                                        name="last name"
-                                        class="form-control"
-                                        placeholder="Last Name*" />
-                                        </div>
-                                        <div class="form-group">
-                                        <input type="email"
-                                        name="email address"
-                                        class="form-control"
-                                        placeholder="Email*" />
-                                        </div>
-                                        <div class="form-group">
-                                        <input type="text"
-                                        name="subject"
-                                        class="form-control"
-                                        placeholder="Subject (optional)" />
-                                        </div>*@
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-top: 2rem;">
                                             <textarea id="comment-text" name="comment" placeholder="Comment"></textarea>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-top: 2rem;">
                                             @if (true)
                                             {
                                                 <button type="submit" class="tg-btn tg-active">Submit</button>
@@ -294,79 +270,6 @@
                             </div>
                         </div>
                         @await Component.InvokeAsync("TrendingBlogPosts")
-                        <div class="tg-widget tg-widgetblogers">
-                            <div class="tg-widgettitle">
-                                <h3>Top Bloogers</h3>
-                            </div>
-                            <div class="tg-widgetcontent">
-                                <ul>
-                                    <li>
-                                        <div class="tg-author">
-                                            <figure>
-                                                <a href="javascript:void(0);">
-                                                    <img src="~/assets/images/author/imag-03.jpg"
-                                                         alt="image description" />
-                                                </a>
-                                            </figure>
-                                            <div class="tg-authorcontent">
-                                                <h2>
-                                                    <a href="javascript:void(0);">Jude Morphew</a>
-                                                </h2>
-                                                <span>21,658 Published Books</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="tg-author">
-                                            <figure>
-                                                <a href="javascript:void(0);">
-                                                    <img src="~/assets/images/author/imag-03.jpg"
-                                                         alt="image description" />
-                                                </a>
-                                            </figure>
-                                            <div class="tg-authorcontent">
-                                                <h2>
-                                                    <a href="javascript:void(0);">Jude Morphew</a>
-                                                </h2>
-                                                <span>21,658 Published Books</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="tg-author">
-                                            <figure>
-                                                <a href="javascript:void(0);">
-                                                    <img src="~/assets/images/author/imag-03.jpg"
-                                                         alt="image description" />
-                                                </a>
-                                            </figure>
-                                            <div class="tg-authorcontent">
-                                                <h2>
-                                                    <a href="javascript:void(0);">Jude Morphew</a>
-                                                </h2>
-                                                <span>21,658 Published Books</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="tg-author">
-                                            <figure>
-                                                <a href="javascript:void(0);">
-                                                    <img src="~/assets/images/author/imag-03.jpg"
-                                                         alt="image description" />
-                                                </a>
-                                            </figure>
-                                            <div class="tg-authorcontent">
-                                                <h2>
-                                                    <a href="javascript:void(0);">Jude Morphew</a>
-                                                </h2>
-                                                <span>21,658 Published Books</span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                     </aside>
                 </div>
             </div>
@@ -508,7 +411,7 @@
                     processData: false,
                     dataType: "json",
                     success: function(res) {
-                        //console.log(res);
+                        location.reload();
                     },
                     error: function(response) {
 
@@ -526,6 +429,7 @@
                                 $("#comment-text").val("");
                             }
                         }
+                        location.reload();
 
                         console.warn(response);
                     }

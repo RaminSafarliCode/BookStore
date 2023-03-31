@@ -49,6 +49,7 @@
                             <th>
                                 RequestDate
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -95,13 +96,13 @@
     @section addjs{
     <script class="removeable">
         function removeEntity(id, name) {
-            swal(`Əminsiniz ki '${name}' silinsin?`, {
-                title: "Diqqət!",
-                text: `Əminsiniz ki '${name}' silinsin?`,
+            swal(`Are you sure to delete '${name}'?`, {
+                title: "Warning!",
+                text: `Are you sure to delete '${name}'?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
-                buttons: ["Xeyr", "Bəli"],
+                buttons: ["No", "Yes"],
             })
                 .then((value) => {
                     if (value == true) {
@@ -119,7 +120,7 @@
                             processData: false,
                             success: function(response) {
                                 if (response.error == true) {
-                                    toastr.error(response.message, 'Xeta');
+                                    toastr.error(response.message, 'Something went wrong!');
                                     return;
                                 }
                                 location.reload();
