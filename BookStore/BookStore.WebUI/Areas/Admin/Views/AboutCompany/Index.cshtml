@@ -70,7 +70,10 @@
         </tr>
         <tr>
             <td class="d-flex">
-                <a class="btn btn-info mr-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                @if (User.HasAccess("admin.aboutcompany.edit"))
+                {
+                    <a class="btn btn-info mr-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                }
             </td>
         </tr>
 

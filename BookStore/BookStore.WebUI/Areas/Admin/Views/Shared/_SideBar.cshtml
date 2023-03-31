@@ -2,14 +2,18 @@
     <div class="pcoded-inner-navbar main-menu">
         <div class="pcoded-navigatio-lavel">Management</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li>
-                <a asp-controller="dashboard" asp-action="index">
-                    <span class="pcoded-micon">
-                        <i class="feather icon-home"></i>
-                    </span>
-                    <span class="pcoded-mtext">Homepage</span>
-                </a>
-            </li>
+
+            @if (User.HasAccess("admin.dashboard.index"))
+            {
+                <li>
+                    <a asp-controller="dashboard" asp-action="index">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-home"></i>
+                        </span>
+                        <span class="pcoded-mtext">Homepage</span>
+                    </a>
+                </li>
+            }
 
             @if (User.HasAccess("admin.aboutcompany.index"))
             {

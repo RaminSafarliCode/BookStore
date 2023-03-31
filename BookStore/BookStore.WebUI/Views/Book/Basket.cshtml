@@ -28,7 +28,7 @@
 <div class="cart-main-area pb-50">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-12 col-12">
+            <div class="col-md-12 col-12 col-12" style="min-height: 150px;">
                 @if (Model != null && Model.Any())
                 {
 
@@ -39,7 +39,7 @@
                                 {
                                     <div class="row" style="display: flex; justify-content: center; align-items: center; gap: 10rem; margin: 10rem 0;">
                                         <section class="wishlist-book-wrp wishlist-book-wrp--basket">
-                                            <div class="product-thumbnail">
+                                            <div class="product-thumbnail" style="width: 20%">
                                                 <div class="wishlist-gen wishlist-img-wrp">
                                                     <a asp-action="details" asp-controller="book" asp-route-id="@item.BookId">
                                                         <img src="~/uploads/images/@item.Book.ImagePath" alt="cart-image" />
@@ -99,7 +99,9 @@
                 }
                 else
                 {
-                    <p>Empty card :(</p>
+                    <div class="empty-wrp">
+                        <p>Empty card :(</p>
+                    </div>
                 }
             </div>
         </div>

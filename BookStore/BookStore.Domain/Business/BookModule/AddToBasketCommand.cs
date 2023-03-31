@@ -61,11 +61,30 @@ namespace BookStore.Domain.Business.BookModule
                     ctx.SetValueToCookie("favorites", value.Where(e => e != request.BookId).ToArray());
                 }
 
+                var info = await (from bas in db.Basket
+                                  join b in db.Books on bas.BookId equals b.Id
+                                  where bas.UserId == userId
+                                  select new
+                                  {
+                                      bas.UserId, 
+                                      SubTotal = b.Price * bas.Quantity
+                                  }).GroupBy(g => g.UserId)
+                                  .Select(g => new
+                                  {
+                                      Total = g.Sum(m => m.SubTotal),
+                                     Count = g.Count()
+                                  }).FirstOrDefaultAsync(cancellationToken);
+
 
                 return new JsonResponse
                 {
                     Error = false,
-                    Message = "Added to cart"
+                    Message = "Added to cart",
+                    Value = new
+                    {
+                        Book = basketItem,
+                        BasketInfo = info
+                    }
                 };
             }
         }

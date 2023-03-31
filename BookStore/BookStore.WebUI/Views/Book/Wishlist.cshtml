@@ -27,12 +27,12 @@
 <div class="cart-main-area wish-list pb-50">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-12 col-12">
+            <div class="col-md-12 col-12 col-12" style="min-height: 150px;">
                 @if (Model != null && Model.Any())
                 {
 
                     <form method="post">
-                        <div class="table-content table-responsive">
+                        <div class="table-content table-responsive" style="overflow-x: hidden;">
                             <div id="dynamic-content" style="margin: 10rem 0">
                                 <partial name="_WishlistBody" model="Model"></partial>
                             </div>
@@ -41,7 +41,9 @@
                 }
                 else
                 {
-                    <p>Empty wishlist :(</p>
+                    <div class="empty-wrp">
+                        <p>Empty wishlist :(</p>
+                    </div>
                 }
             </div>
         </div>

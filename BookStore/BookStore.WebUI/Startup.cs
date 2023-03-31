@@ -153,28 +153,6 @@ namespace BookStore.WebUI
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllerRoute(
-                //    name: "default-forgotPassword",
-                //    pattern: "forgotpassword.html",
-                //    defaults: new
-                //    {
-                //        area = "",
-                //        controller = "account",
-                //        action = "forgotpassword"
-
-                //    });
-
-                //endpoints.MapControllerRoute(
-                //    name: "default-forgotPasswordConfirmation",
-                //    pattern: "forgotpasswordconfirmation.html",
-                //    defaults: new
-                //    {
-                //        area = "",
-                //        controller = "account",
-                //        action = "forgotpasswordconfirmation"
-
-                //    });
-
                 endpoints.MapControllerRoute(
                     name: "default-forgot-password",
                     pattern: "forgot-password.html",

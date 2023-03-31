@@ -5244,7 +5244,7 @@ body.tg-comingsoonpage .tg-footerbar {
   justify-content: space-between;
   align-items: center;
   margin: 0 0 25px 0;
-  gap: 5rem;
+  /* gap: 5rem; */
 }
 
 .wishlist-book-wrp--basket {
@@ -5269,7 +5269,7 @@ body.tg-comingsoonpage .tg-footerbar {
 }
 
 .wishlist-name-wrp {
-  padding: 5px 0px;
+  padding: 5px 10px;
   background-color: #f16945;
   border-radius: 35px;
   text-align: center;
@@ -5278,6 +5278,10 @@ body.tg-comingsoonpage .tg-footerbar {
 .wishlist-name {
   font-weight: bold;
   color: white;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .text-center {
@@ -5854,4 +5858,13 @@ textarea::placeholder {
   border-radius: 50%;
   display: inline-block;
   margin-left: 3rem;
+}
+
+.empty-wrp {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
 }

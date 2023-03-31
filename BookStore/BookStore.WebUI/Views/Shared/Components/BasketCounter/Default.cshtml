@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Basket>
+
+@{
+    var info = Model.GroupBy(g => g.UserId)
+                                    .Select(g => new
+                                    {
+                                        TotalSum = g.Sum(m => m.Quantity * m.Book.Price),
+                                        TotalCount = g.Count()
+                                    })
+                                    .FirstOrDefault();
+}
+
+<div id="basket" class="dropdown tg-themedropdown tg-minicartdropdown">
+    <a href="javascript:void(0);"
+       id="tg-minicart"
+       class="tg-btnthemedropdown"
+       data-toggle="dropdown"
+       aria-haspopup="true"
+       aria-expanded="false">
+
+        @if (info != null && info.TotalCount > 0)
+        {
+            <span class="tg-themebadge">@info.TotalCount</span>
+            <i class="icon-cart"></i>
+            <span>$<span id="basket-price">@info.TotalSum</span></span>
+
+        }
+        else
+        {
+            <span class="tg-themebadge"></span>
+            <i class="icon-cart"></i>
+            <span>$<span id="basket-price">0</span></span>
+        }
+    </a>
+</div>

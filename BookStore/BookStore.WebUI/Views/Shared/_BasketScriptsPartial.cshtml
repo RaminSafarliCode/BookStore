@@ -2,6 +2,35 @@
 <script class="removeable" src="~/libs/toastr.js/toastr.min.js"></script>
 <script class="removeable" src="~/libs/toastr.js/toastr.customize.js"></script>
 <script>
+    function addToBasket(e) {
+            e.preventDefault();
+
+            const elementData = $(e.currentTarget).data();
+
+            $.ajax({
+                url: `@Url.Action("Basket","Book")`,
+                type: 'POST',
+                data: elementData,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(response) {
+                    if (response.error == false) {
+                        $(e.target).closest('tr').remove();
+                        $("#basket a .tg-themebadge").text(response.value.basketInfo.count);
+                        $("#basket-price").text(response.value.basketInfo.total)
+                        console.log(response);
+                        toastr.success(response.message, 'Success');
+                        return;
+                    }
+
+
+                    toastr.error(response.message, 'Error');
+                },
+                error: function(response, status, xhr) {
+                    console.log(response, status, xhr);
+                }
+            });
+        }
+
     function removeFromBasket(element, name) {
 
         swal(`Are you sure to delete '${name}'?`, {

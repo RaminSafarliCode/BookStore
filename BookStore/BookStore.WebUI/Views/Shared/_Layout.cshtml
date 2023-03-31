@@ -133,23 +133,12 @@
                                        data-toggle="dropdown"
                                        aria-haspopup="true"
                                        aria-expanded="false">
-                                        <span class="tg-themebadge">3</span>
+                                        <span class="tg-themebadge" id="wislist-count"></span>
                                         <i class="icon-heart"></i>
                                         <span>Wishlist</span>
                                     </a>
                                 </div>
-                                <div id="basket" class="dropdown tg-themedropdown tg-minicartdropdown">
-                                    <a href="javascript:void(0);"
-                                       id="tg-minicart"
-                                       class="tg-btnthemedropdown"
-                                       data-toggle="dropdown"
-                                       aria-haspopup="true"
-                                       aria-expanded="false">
-                                        <span class="tg-themebadge">3</span>
-                                        <i class="icon-cart"></i>
-                                        <span>$123.00</span>
-                                    </a>
-                                </div>
+                                @await Component.InvokeAsync("BasketCounter")
                             </div>
                             <div class="tg-searchbox">
                                 <form method="post" action="@Url.Action("Search", "Book")" id="searchForm" class="tg-formtheme tg-formsearch">
@@ -1421,31 +1410,32 @@
             console.log($.cookie('favorites'));
         }
 
-        function addToBasket(e) {
-            e.preventDefault();
+        //function addToBasket(e) {
+        //    e.preventDefault();
 
-            const elementData = $(e.currentTarget).data();
+        //    const elementData = $(e.currentTarget).data();
 
-            $.ajax({
-                url: `@Url.Action("Basket","Book")`,
-                type: 'POST',
-                data: elementData,
-                contentType: 'application/x-www-form-urlencoded',
-                success: function(response) {
-                    if (response.error == false) {
-                        $(e.target).closest('tr').remove();
-                        toastr.success(response.message, 'Success');
-                        return;
-                    }
+        //    $.ajax({
+        //        url: `@Url.Action("Basket","Book")`,
+        //        type: 'POST',
+        //        data: elementData,
+        //        contentType: 'application/x-www-form-urlencoded',
+        //        success: function(response) {
+        //            if (response.error == false) {
+        //                $(e.target).closest('tr').remove();
+        //                $("#basket a .tg-themebadge").html(response.value.basketInfo.count);
+        //                toastr.success(response.message, 'Success');
+        //                return;
+        //            }
 
 
-                    toastr.error(response.message, 'Error');
-                },
-                error: function(response, status, xhr) {
-                    console.log(response, status, xhr);
-                }
-            });
-        }
+        //            toastr.error(response.message, 'Error');
+        //        },
+        //        error: function(response, status, xhr) {
+        //            console.log(response, status, xhr);
+        //        }
+        //    });
+        //}
     </script>
 
 
